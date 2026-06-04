@@ -9,7 +9,7 @@
 
 <div align="center">
 
-![](https://raw.githubusercontent.com/cstarkjp/ErosionFront/main/images/nu_s.png?raw=true
+![](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/nu_s.png?raw=true
 )
 
 </div>
