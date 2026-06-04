@@ -14,7 +14,7 @@ Requires Python packages/modules:
 
 import os 
 
-def create_plots_dir(results_dir_name='Results1d'):
+def create_plots_dir(results_dir_name='plots'):
     """
     Create an output directory for plots.
     

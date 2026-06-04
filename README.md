@@ -9,7 +9,7 @@
 
 <div align="center">
 
-![](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/nu_s.png?raw=true
+![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/nu_s.png?raw=true
 )
 
 </div>

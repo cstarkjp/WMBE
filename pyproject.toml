@@ -17,7 +17,7 @@ classifiers = [
 ]
 requires-python = ">=3.14"
 dependencies = [
-    "numpy", "matplotlib", "scipy", "pandas", "jupyter", "ipython",
+    "numpy", "matplotlib", "sympy", "scipy", "pandas", "jupyter", "ipython", "openpyxl"
 ]
 authors = [{ name = 'Colin P. Stark', email = 'cstarkjp@gmail.com' }]
 keywords = [

@@ -147,7 +147,7 @@ class ChannelWall:
         self.dzdy_array \
             = 1/np.sqrt(((np.max(self.vs_array)+0.01)/self.vs_array)**2-1)
         self.y_array \
-            = integrate.cumtrapz(self.dzdy_array,x=self.z_array, initial=0)
+            = integrate.cumulative_trapezoid(self.dzdy_array,x=self.z_array, initial=0)
         self.ch_y_array = np.concatenate(
             (np.linspace(-np.max(self.z_array)*0.3,0,self.z_array.shape[0]),self.y_array))
         self.ch_z_array \
