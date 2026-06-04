@@ -1,10 +1,10 @@
-# [**Weathering-mediate bedrock erosion**](https://pypi.org/project/wmbe/)
+# [**Weathering-mediated bedrock erosion**](https://pypi.org/project/wmbe/)
 
 
 [![](https://github.com/cstarkjp/WMBE/actions/workflows/pypi-publish.yml/badge.svg?style=cache-control=no-cache)](https://github.com/cstarkjp/WMBE/actions/workflows/pypi-publish.yml)
 
 
-<!-- **Summary:** XXX -->
+**Summary:**    Tools for simulating the weathering-mediated erosion of bedrock.
 
 
 <div align="center">
