@@ -2,25 +2,11 @@
 ---------------------------------------------------------------------
 
 Module applying the weathering-mediated erosion model to bedrock channel geometry
-
----------------------------------------------------------------------
-
-Requires Python packages/modules:
-  -  :mod:`numpy`
-  -  :mod:`scipy.integrate` (integrate)
-  
-Imports symbols from :mod:`.symbols` module
-
----------------------------------------------------------------------
-
 """
-
 
 import numpy as np
 from scipy import integrate
 from .symbols import *
-
-
 
 class ChannelWall:
     """
@@ -33,8 +19,6 @@ class ChannelWall:
         em (:class:`~.theory.WeatheringMediatedErosion`): 
                 instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
         pdict (dict): model parameters dictionary
-        
-        
     """
     def __init__(self, em, pdict):
         """
@@ -43,30 +27,30 @@ class ChannelWall:
         Attributes:
             pdict (:obj:`dict`) : 
                 model parameters dictionary
-            w0_eqn_z_calibrated (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                surface weakness calibrated using model parameters: 
-                :math:`w_0 =  w_r H_s[z,z_\\mathrm{wc},k_\\mathrm{w}]`         
-                where 
-                :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_w(z-z_\\mathrm{wc}]}\\right)`
-            v0_eqn_z_calibrated (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                erosion rate calibrated using model parameters: 
-                :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`
-                where 
-                :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`
-            vs_eqn (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                surface-normal erosion rate (uncalibrated)
-                :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`
-                where 
-                :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`
-            W_eqn_z_calibrated  (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                weathering number calibrated using model parameters: 
-                :math:`W = \\dfrac{w_0}{k v_0}`
-            vs_eqn_z_calibrated (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                surface-normal erosion rate calibrated using model parameters: 
-                :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`
-                where 
-                :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`
         """
+            # w0_eqn_z_calibrated (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
+            #     surface weakness calibrated using model parameters: 
+            #     :math:`w_0 =  w_r H_s[z,z_\\mathrm{wc},k_\\mathrm{w}]`         
+            #     where 
+            #     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_w(z-z_\\mathrm{wc}]}\\right)`
+            # v0_eqn_z_calibrated (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
+            #     erosion rate calibrated using model parameters: 
+            #     :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`
+            #     where 
+            #     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`
+            # vs_eqn (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
+            #     surface-normal erosion rate (uncalibrated)
+            #     :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`
+            #     where 
+            #     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`
+            # W_eqn_z_calibrated  (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
+            #     weathering number calibrated using model parameters: 
+            #     :math:`W = \\dfrac{w_0}{k v_0}`
+            # vs_eqn_z_calibrated (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
+            #     surface-normal erosion rate calibrated using model parameters: 
+            #     :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`
+            #     where 
+            #     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`
         self.pdict = pdict
         self.w0_eqn_z_calibrated = em.w0_eqn_wr_z.subs(self.pdict)
         self.v0_eqn_z_calibrated = em.v0_eqn_vr_h_z.subs(self.pdict)
@@ -103,7 +87,6 @@ class ChannelWall:
                 surface weakness along vertical profile (at steady state)
             W_array (:class:`numpy.ndarray`) :
                 weathering number along vertical profile
-
         """
         self.n_pts = n_pts
         self.z_array  = np.linspace(0,1,self.n_pts)
@@ -140,7 +123,6 @@ class ChannelWall:
                 horizontal positions of sample points along channel boundary
             ch_z_array (:class:`numpy.ndarray`) :
                 vertical positions of sample points along channel boundary
-
         """
         self.vs_array = np.array([
             np.float64(self.vs_eqn_z_calibrated.rhs.subs(z,z__)) for z__ in self.z_array])
@@ -152,8 +134,3 @@ class ChannelWall:
             (np.linspace(-np.max(self.z_array)*0.3,0,self.z_array.shape[0]),self.y_array))
         self.ch_z_array \
             = np.concatenate(( np.zeros(self.y_array.shape[0]),self.z_array ))
-    
-        
-        
-        
-        
