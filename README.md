@@ -34,7 +34,7 @@ Under no circumstances does the weathering rate alone limit the rate of erosion.
 
 ### Code
 
-The code is provided as a [Python package](src/wmbe) and [Jupyter notebooks](notebooks).
+The code is provided as a [Python package](https://pypi.org/project/wmbe/) and [Jupyter notebooks](notebooks).
 
 
 ### References

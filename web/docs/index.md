@@ -17,7 +17,7 @@ The motivation in this project is to understand how weathering-driven weakening 
 
 Rock weakness is defined here as its propensity to erosion by flow-driven particle impacts: experimental data indicate such weakness is inversely proportional to the square of tensile strength, and that weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth below the surface.
 
-Solving a 1d model of this form of weathering, weakening and coeval erosion of bedrock, a surprising result emerges. Two speeds control model behavior: (i)~the speed of ingress of the weathering front $w_0/k$, which arises from a baseline weathering rate $w_0$ and an e-folding depth $1/k$, and (ii)~the baseline speed of erosion of fresh rock $v_0$. 
+Solving a 1d model of this form of weathering, weakening and coeval erosion of bedrock, a surprising result emerges. Two speeds control model behavior: (i) the speed of ingress of the weathering front $w_0/k$, which arises from a baseline weathering rate $w_0$ and an e-folding depth $1/k$, and (ii) the baseline speed of erosion of fresh rock $v_0$. 
 Behavior is parameterized by the ratio of the two speeds, defined here as the dimensionless weathering number ${{W}}$.
 
 For slow weathering relative to the baseline erosion rate, ${{W}}<0.25$, the two speeds simply add and the rate of erosion is ${v_0 + w_0/k}$.
@@ -28,7 +28,7 @@ Under no circumstances does the weathering rate alone limit the rate of erosion.
 
 ### Code
 
-The code is provided as a [Python package](https://github.com/cstarkjp/WMBE/src/wmbe) and [Jupyter notebooks](https://github.com/cstarkjp/WMBE/notebooks).
+The code is provided as a [Python package](https://pypi.org/project/wmbe/) and [Jupyter notebooks](https://github.com/cstarkjp/WMBE/tree/main/notebooks).
 
 
 ### References
