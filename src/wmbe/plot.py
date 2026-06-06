@@ -165,7 +165,7 @@ def plot_inoue_w_wetdryN(fig, ed, text_label=None):
                  color="k", size=text_label[2],
                  verticalalignment="center", horizontalalignment="center",
                  transform=axes.transAxes)
-        
+    plt.grid(ls=":")
         
 def plot_li_w_wetdryN(fig, ed, text_label=None):
     r"""
@@ -227,7 +227,7 @@ def plot_li_w_wetdryN(fig, ed, text_label=None):
                  color="k", size=text_label[2],
                  verticalalignment="center", horizontalalignment="center",
                  transform=axes.transAxes)
-        
+    plt.grid(ls=":")
         
 def plot_li_w_P(fig, ed, text_label=None):
     r"""
@@ -288,7 +288,7 @@ def plot_li_w_P(fig, ed, text_label=None):
                  color="k", size=text_label[2],
                  verticalalignment="center", horizontalalignment="center",
                  transform=axes.transAxes)
-            
+    plt.grid(ls=":")
             
 def plot_li_w_surface_normed_P(fig, ed, text_label=None):
     r"""
@@ -370,7 +370,7 @@ def plot_li_w_surface_normed_P(fig, ed, text_label=None):
                  color="k", size=text_label[2],
                  verticalalignment="center", horizontalalignment="center",
                  transform=axes.transAxes)
-        
+    plt.grid(ls=":")
         
 def plot_li_w_wetdryN_P(fig, ed, model_surface, text_label=None):
     r"""
@@ -421,6 +421,7 @@ def plot_li_w_wetdryN_P(fig, ed, model_surface, text_label=None):
     axes.set_xlabel("Proxy time  $N$  [-]")
     axes.set_ylabel("Proxy depth  $P$ [MPa]")
     axes.set_zlabel("Weakness  $w=$  [-]")
+    plt.grid(ls=":")
 
 def plot_nu_evolution(fig, ew):
     """
@@ -444,7 +445,7 @@ def plot_nu_evolution(fig, ew):
     plt.legend(loc="center right")
     plt.xlabel("Time  $\tau$  [-]")
     plt.ylabel("Front speed  $\\partial\\varphi/\\partial\\tau$  [-]")
-
+    plt.grid(ls=":")
 
 def plot_eta_evolution(fig, ew, tc=40, nd=2, text_label=None):
     r"""
@@ -514,7 +515,7 @@ def plot_eta_evolution(fig, ew, tc=40, nd=2, text_label=None):
     plt.legend(loc="upper right")
     plt.xlabel(r"Distance  $\chi$  [-]")
     plt.ylabel(r"Weakness  $\eta(\chi,\tau)$  [-]")
-
+    plt.grid(ls=":")
 
 def stability_check(tau,nu):
     """
@@ -754,7 +755,7 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
     plt.legend(loc="upper left")
     plt.xlabel("Weathering number  ${{W}}$  [-]")
     plt.ylabel("Erosion rate  $\\nu_\mathsf{ss}$  [-]")
-
+    # plt.grid(ls=":")
 
 def plot_nus_W_transition(fig, em, text_label=None):
     """
@@ -820,7 +821,7 @@ def plot_nus_W_transition(fig, em, text_label=None):
         r"Approx erosion rate deviation  "
         + r"$\nu_\mathsf{ss}^\mathrm{apx}/\nu_\mathsf{ss}$  [-]"
     )
-
+    # plt.grid(ls=":")
 
 def plot_v0_vs_w0(fig, em, k__=1, text_label=None):
     """
@@ -847,7 +848,7 @@ def plot_v0_vs_w0(fig, em, k__=1, text_label=None):
     plt.ylabel("$w_0$")
     plt.xlabel("$v_0$")
     plt.legend(loc="lower right")
-
+    plt.grid(ls=":")
 
 def plot_v0_vs_etas0(fig, em, text_label=None):
     """
@@ -875,7 +876,7 @@ def plot_v0_vs_etas0(fig, em, text_label=None):
     plt.xlim(0,3)
     plt.ylim(5,0)
     plt.legend(loc="lower right")
-
+    plt.grid(ls=":")
 
 def plot_channel_generic(fig, zy_list, text_labels=None, do_equal_aspect=False):
     """
@@ -919,7 +920,7 @@ def plot_channel_generic(fig, zy_list, text_labels=None, do_equal_aspect=False):
         alt_axes = axes.twiny()
         alt_axes.plot(zy[2], zy[0], label=zy[4], color="forestgreen")
         alt_axes.set_xlabel(zy[3], color="forestgreen")
-
+    plt.grid(ls=":")
 
 def plot_channel_w0_v0_W(fig, cw, text_label=None):
     """
