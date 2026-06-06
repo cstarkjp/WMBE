@@ -18,10 +18,17 @@
 ### Abstract
 
 Weathering weakens bedrock and makes it more susceptible to mechanical erosion. 
+Such weakening is an important process not only on rock slopes, but also in bedrock river channels. 
+
+The motivation in this project is to understand how weathering-driven weakening mediates erosion rates in cover-free bedrock e.g., along the walls of such channels. 
+
+Rock weakness is defined here as its propensity to erosion by particle impacts: experimental data indicate such weakness is inversely proportional to the square of tensile strength, and that weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth below the surface.
+
+<!-- Weathering weakens bedrock and makes it more susceptible to mechanical erosion. 
 Such weakening is an important process not only on rockslopes, but also in bedrock channels. 
 The motivation in this project is to understand how weathering-driven weakening mediates erosion rates along cover-free bedrock channel boundaries, e.g., along channel walls. 
 
-Rock weakness is defined here as its propensity to erosion by flow-driven particle impacts: experimental data indicate such weakness is inversely proportional to the square of tensile strength, and that weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth below the surface.
+Rock weakness is defined here as its propensity to erosion by flow-driven particle impacts: experimental data indicate such weakness is inversely proportional to the square of tensile strength, and that weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth below the surface. -->
 
 Solving a 1d model of this form of weathering, weakening and coeval erosion of bedrock, a surprising result emerges. Two speeds control model behavior: (i) the speed of ingress of the weathering front $w_0/k$, which arises from a baseline weathering rate $w_0$ and an e-folding depth $1/k$, and (ii) the baseline speed of erosion of fresh rock $v_0$. 
 Behavior is parameterized by the ratio of the two speeds, defined here as the dimensionless weathering number ${{W}}$.
