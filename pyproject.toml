@@ -1,6 +1,6 @@
 [project]
 name = "wmbe"
-version = "0.1.3"
+version = "0.1.4"
 description = "Tools for simulating the weathering-mediated erosion of bedrock"
 readme = "README.md"
 classifiers = [
