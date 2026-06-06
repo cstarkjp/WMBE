@@ -583,7 +583,7 @@ def plot_etas_steadystate(fig, ew):
     plt.legend()
     plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
     plt.ylabel(r"Weakness  $\eta_s(\chi_s)$  [-]")
-    
+    plt.grid(ls=":")
 
 def plot_etas_steadystate_set(fig, ew_list, chi_max=8):
     r"""
@@ -639,7 +639,7 @@ def plot_etas_steadystate_set(fig, ew_list, chi_max=8):
     plt.legend()
     plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
     plt.ylabel(r"Weakness  $\eta_s(\chi_s)$  [-]")
-
+    plt.grid(ls=":")
 
 def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
     r"""
