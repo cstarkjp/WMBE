@@ -683,29 +683,53 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
         plt.plot((0.25,0.25),(y_limits[0],y_limits[1]/3), color="gray", ls=":")
         plt.plot((2.63,2.63),(y_limits[0],y_limits[1]), color="gray", ls=":")
 #         plt.ylim(*y_limits)
-        plt.text(0.2,0.35, r"low $W$", color="brown",
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
-        plt.text(0.2,0.25, r"$\nu_s \approx 1 + W$", color="brown",
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
-        plt.text(0.2,0.15, r"$v_s \approx v_0 + \dfrac{w_0}{k}$", color="brown",
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
-        plt.text(0.52,0.43, r"transitional $W$", color="gray",
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
-        plt.text(0.75,0.7, r"high $W$", color="blue",
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
-        plt.text(0.78,0.8, r"$\nu_s \approx \dfrac{1}{2}+\sqrt{W}$", 
-                 color="blue",
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
-        plt.text(0.81,0.92, r"$v_s \approx \dfrac{v_0}{2}+\sqrt{\dfrac{v_0 w_0}{k}}$", 
-                 color="blue",
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
+        plt.text(
+            0.2, 0.23, 
+            r"low ${{W}}$", 
+            color="brown",
+            verticalalignment="center", 
+            horizontalalignment="center",
+            transform=axes.transAxes,
+        )
+        plt.text(
+            0.2, 0.13, 
+            r"$\nu_\mathsf{ss} \approx 1 + W$", 
+            color="brown",
+            verticalalignment="center", 
+            horizontalalignment="center",
+            transform=axes.transAxes,
+        )
+        # plt.text(0.2, 0.15, r"$v_s \approx v_0 + \dfrac{w_0}{k}$", color="brown",
+        #          verticalalignment="center", horizontalalignment="center",
+        #          transform=axes.transAxes)
+        plt.text(
+            0.52, 0.43, 
+            r"transitional ${{W}}$", 
+            color="gray",
+            verticalalignment="center", 
+            horizontalalignment="center",
+            transform=axes.transAxes,
+        )
+        plt.text(
+            0.78, 0.9, 
+            r"high ${{W}}$", 
+            color="blue",
+            verticalalignment="center", 
+            horizontalalignment="center",
+            transform=axes.transAxes,
+        )
+        plt.text(
+            0.78, 0.8, 
+            r"$\nu_\mathsf{ss} \approx \dfrac{1}{2}+\sqrt{W}$", 
+            color="blue",
+            verticalalignment="center", 
+            horizontalalignment="center",
+            transform=axes.transAxes,
+        )
+        # plt.text(0.81,0.92, r"$v_s \approx \dfrac{v_0}{2}+\sqrt{\dfrac{v_0 w_0}{k}}$", 
+        #          color="blue",
+        #          verticalalignment="center", horizontalalignment="center",
+        #          transform=axes.transAxes)
          
     if nus_solns_list is not None:
         for idx,nus_soln in enumerate(nus_solns_list):
@@ -717,14 +741,19 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
     plt.plot(W_array[W_array>1],0.5+np.sqrt(W_array[W_array>1]), 
              label="high W approx", ls="--",c="blue")
     if text_label is not None:
-        plt.text(0.82,0.25, text_label, 
-                 color="k", size=14,
-                 verticalalignment="center", horizontalalignment="center",
-                 transform=axes.transAxes)
+        plt.text(
+            0.82,0.25, 
+            text_label, 
+            color="k", 
+            size=14,
+            verticalalignment="center", 
+            horizontalalignment="center",
+            transform=axes.transAxes,
+        )
      
     plt.legend(loc="upper left")
-    plt.xlabel("Weathering number  $W$  [-]")
-    plt.ylabel("Erosion rate  $\\nu_s$  [-]")
+    plt.xlabel("Weathering number  ${{W}}$  [-]")
+    plt.ylabel("Erosion rate  $\\nu_\mathsf{ss}$  [-]")
 
 
 def plot_nus_W_transition(fig, em, text_label=None):
@@ -752,23 +781,23 @@ def plot_nus_W_transition(fig, em, text_label=None):
     axes = plt.gca()
     plt.plot(W_array[W_array<0.48], 
          nus_array[W_array<0.48]/(1+(W_array[W_array<0.48])),
-             color="brown", ls="-", lw=1.5, label="low $W$ approx")
+             color="brown", ls="-", lw=1.5, label="low ${{W}}$ approx")
     plt.plot(W_array[W_array>1], 
              nus_array[W_array>1]/(0.5+np.sqrt(W_array[W_array>1])),
-             color="b", ls="-", lw=1.5, label="high $W$ approx")
-    plt.text(0.18,0.18, r"low $W$", color="brown",
+             color="b", ls="-", lw=1.5, label="high ${{W}}$ approx")
+    plt.text(0.18,0.18, r"low ${{W}}$", color="brown",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
-    plt.text(0.18,0.26, r"$\nu_s \approx 1 + W$", color="brown",
+    plt.text(0.18,0.26, r"$\nu_\mathsf{ss} \approx 1 + W$", color="brown",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
-    plt.text(0.5,0.53, r"transitional $W$", color="gray",
+    plt.text(0.5,0.53, r"transitional ${{W}}$", color="gray",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
-    plt.text(0.82,0.85, r"high $W$", color="blue",
+    plt.text(0.82,0.85, r"high ${{W}}$", color="blue",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
-    plt.text(0.82,0.75, r"$\nu_s \approx \dfrac{1}{2}+\sqrt{W}$", 
+    plt.text(0.82,0.75, r"$\nu_\mathsf{ss} \approx \dfrac{1}{2}+\sqrt{W}$", 
              color="blue",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
@@ -786,8 +815,11 @@ def plot_nus_W_transition(fig, em, text_label=None):
     plt.plot((0.25,0.25),y_limits, color="gray", ls=":")
     plt.plot((2.63,2.63),y_limits, color="gray", ls=":")
     plt.legend(loc="upper left")
-    plt.xlabel("Weathering number  $W$  [-]")
-    plt.ylabel(r"Approx erosion rate deviation  $\nu_s^\mathrm{apx}/\nu_s$  [-]")
+    plt.xlabel("Weathering number  ${{W}}$  [-]")
+    plt.ylabel(
+        r"Approx erosion rate deviation  "
+        + r"$\nu_\mathsf{ss}^\mathrm{apx}/\nu_\mathsf{ss}$  [-]"
+    )
 
 
 def plot_v0_vs_w0(fig, em, k__=1, text_label=None):
@@ -918,7 +950,7 @@ def plot_channel_w0_v0_W(fig, cw, text_label=None):
 
     axes = plt.gca()
     alt_axes = axes.twiny()
-    alt_axes.plot(cw.W_array,  cw.z_array, label="$W$", color="forestgreen")
+    alt_axes.plot(cw.W_array,  cw.z_array, label="${{W}}$", color="forestgreen")
     alt_axes.set_xlabel("Weathering number  $W(z)$", color="forestgreen")
     x_limits = axes.get_xlim()
     axes.set_xlim(x_limits[0],x_limits[1]*1.05)
