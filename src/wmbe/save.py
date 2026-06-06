@@ -69,8 +69,11 @@ def export_plot(fig_name,fig,results_dir, file_type='pdf'):
     """
     fig_name += '.'+file_type.lower()
     try:
-        fig.savefig(os.path.join(results_dir,fig_name),
-                   bbox_inches = 'tight', pad_inches = 0)
+        fig.savefig(
+            os.path.join(results_dir,fig_name),
+            bbox_inches = "tight", 
+            # pad_inches = 0,
+        )
         print('Exported "'+fig_name+'"')
     except OSError:  
         print('Failed to export figure "'+fig_name+'"')
