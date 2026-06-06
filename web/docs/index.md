@@ -6,7 +6,7 @@
 
 **Summary:**    Tools for simulating the weathering-mediated erosion of bedrock. The focus is on environments with no soil or talus accumulation: for example, on steep bedrock channel walls. The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock.
 
-![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/nu_s.png?raw=true
+![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/nu_s.png
 )
 
 ### Abstract
