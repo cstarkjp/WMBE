@@ -11,21 +11,20 @@
 
 ### Abstract
 
-Weathering weakens bedrock and makes it more susceptible to mechanical erosion. 
-Such weakening is an important process not only on rock slopes, but also in bedrock river channels. 
+Weathering is important not only on hillslopes, but also in bedrock river channels, where it weakens exposed rock and makes it more susceptible to mechanical erosion. Removal of surface rock modifies the weathering depth profile, which in turn modifies the rate of weathering.
+Here we study how this interaction acts to set a steady-state erosion rate.
 
-The motivation in this project is to understand how weathering-driven weakening mediates erosion rates in cover-free bedrock e.g., along the walls of such channels. 
+We define rock weakness to be its propensity to erosion by particle impacts: experiments indicate such weakness is inversely proportional to tensile strength squared; they show how such weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth; as such, we equate weakening explicitly with weathering.
 
-Rock weakness is defined here as its propensity to erosion by particle impacts: experimental data indicate such weakness is inversely proportional to the square of tensile strength, and that weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth below the surface.
+Two speeds control the erosion rate: (i)~the speed at which weathering propagates into the rock $w_0/k$, where  $w_0$ is the weathering rate of fresh rock and $1/k$ is the e-folding depth; (ii)~the baseline speed of erosion of fresh rock $v_0$. 
 
-Solving a 1d model of this form of weathering, weakening and coeval erosion of bedrock, a surprising result emerges. Two speeds control model behavior: (i) the speed of ingress of the weathering front $w_0/k$, which arises from a baseline weathering rate $w_0$ and an e-folding depth $1/k$, and (ii) the baseline speed of erosion of fresh rock $v_0$. 
-Behavior is parameterized by the ratio of the two speeds, defined here as the dimensionless weathering number ${{W}}$.
+Model behavior is parameterized by the ratio of these two speeds at steady-state, and is defined here as the dimensionless weathering number ${{W}}$.
 
-For slow weathering relative to the baseline erosion rate, ${{W}}<0.25$, the two speeds simply add and the rate of erosion is ${v_0 + w_0/k}$.
+For slow weathering relative to erosion, ${{W}}<0.25$, they simply add and the erosion rate is ${v_0 + w_0/k}$.
 
-However, for relatively fast weathering, ${{W}}>2.5$, the predicted behavior is counter-intuitive: the rate of erosion becomes half the baseline speed $v_0/2$ augmented by the geometric mean of the two speeds $\sqrt{v_0 w_0/k}$; for very fast weathering, the multiplicative average dominates. 
+However, for relatively fast weathering, ${{W}}>2.5$, the predicted behavior is counter-intuitive: the erosion rate is half the baseline rate $v_0/2$ plus the geometric mean of the two speeds $\sqrt{v_0 w_0/k}$; for very fast weathering, the multiplicative average dominates. 
 
-Under no circumstances does the weathering rate alone limit the rate of erosion.
+The weathering rate alone never limits the rate of erosion, so the concept of weathering limitation does not apply in the traditional sense.
 
 ### Code
 
@@ -38,4 +37,4 @@ The code is provided as a [Python package](https://pypi.org/project/wmbe/) and [
 
  1. [Li, K., Ma, L., Li, X., and Peng, S., 2016.](https://www.jestr.org/downloads/Volume9Issue3/fulltext10932016.pdf) "Effect of drying-wetting cycles on triaxial compression mechanical properties of sandstone", Journal of Engineering Science and Technology Review, 9, 66–73.
 
- 2. [Stark, C.P., & Stark, G.J., 2022.](https://doi.org/10.5194/esurf-10-383-2022) "The direction of landscape erosion", Earth Surface Dynamics, 10: 383-419.
+ 2. [Stark, C.P., and Stark, G.J., 2022.](https://doi.org/10.5194/esurf-10-383-2022) "The direction of landscape erosion", Earth Surface Dynamics, 10: 383-419.
