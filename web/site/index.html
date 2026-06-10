@@ -509,15 +509,14 @@
 <p><strong>Summary:</strong>    Tools for simulating the weathering-mediated erosion of bedrock. The focus is on environments with no soil or talus accumulation: for example, on steep bedrock channel walls. The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock.</p>
 <p><figure id="_figure-1"><img alt="Graph of erosion rate vs weathering number" src="https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/nu_s.png"><figcaption>Figure 1: Graph of erosion rate vs weathering number</figcaption></figure></p>
 <h3 id="abstract">Abstract<a class="headerlink" href="#abstract" title="Permanent link">¶</a></h3>
-<p>Weathering weakens bedrock and makes it more susceptible to mechanical erosion. 
-Such weakening is an important process not only on rock slopes, but also in bedrock river channels. </p>
-<p>The motivation in this project is to understand how weathering-driven weakening mediates erosion rates in cover-free bedrock e.g., along the walls of such channels. </p>
-<p>Rock weakness is defined here as its propensity to erosion by particle impacts: experimental data indicate such weakness is inversely proportional to the square of tensile strength, and that weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth below the surface.</p>
-<p>Solving a 1d model of this form of weathering, weakening and coeval erosion of bedrock, a surprising result emerges. Two speeds control model behavior: (i) the speed of ingress of the weathering front <span class="arithmatex">\(w_0/k\)</span>, which arises from a baseline weathering rate <span class="arithmatex">\(w_0\)</span> and an e-folding depth <span class="arithmatex">\(1/k\)</span>, and (ii) the baseline speed of erosion of fresh rock <span class="arithmatex">\(v_0\)</span>. 
-Behavior is parameterized by the ratio of the two speeds, defined here as the dimensionless weathering number <span class="arithmatex">\({{W}}\)</span>.</p>
-<p>For slow weathering relative to the baseline erosion rate, <span class="arithmatex">\({{W}}&lt;0.25\)</span>, the two speeds simply add and the rate of erosion is <span class="arithmatex">\({v_0 + w_0/k}\)</span>.</p>
-<p>However, for relatively fast weathering, <span class="arithmatex">\({{W}}&gt;2.5\)</span>, the predicted behavior is counter-intuitive: the rate of erosion becomes half the baseline speed <span class="arithmatex">\(v_0/2\)</span> augmented by the geometric mean of the two speeds <span class="arithmatex">\(\sqrt{v_0 w_0/k}\)</span>; for very fast weathering, the multiplicative average dominates. </p>
-<p>Under no circumstances does the weathering rate alone limit the rate of erosion.</p>
+<p>Weathering is important not only on hillslopes, but also in bedrock river channels, where it weakens exposed rock and makes it more susceptible to mechanical erosion. Removal of surface rock modifies the weathering depth profile, which in turn modifies the rate of weathering.
+Here we study how this interaction acts to set a steady-state erosion rate.</p>
+<p>We define rock weakness to be its propensity to erosion by particle impacts: experiments indicate such weakness is inversely proportional to tensile strength squared; they show how such weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth; as such, we equate weakening explicitly with weathering.</p>
+<p>Two speeds control the erosion rate: (i)~the speed at which weathering propagates into the rock <span class="arithmatex">\(w_0/k\)</span>, where  <span class="arithmatex">\(w_0\)</span> is the weathering rate of fresh rock and <span class="arithmatex">\(1/k\)</span> is the e-folding depth; (ii)~the baseline speed of erosion of fresh rock <span class="arithmatex">\(v_0\)</span>. </p>
+<p>Model behavior is parameterized by the ratio of these two speeds at steady-state, and is defined here as the dimensionless weathering number <span class="arithmatex">\({{W}}\)</span>.</p>
+<p>For slow weathering relative to erosion, <span class="arithmatex">\({{W}}&lt;0.25\)</span>, they simply add and the erosion rate is <span class="arithmatex">\({v_0 + w_0/k}\)</span>.</p>
+<p>However, for relatively fast weathering, <span class="arithmatex">\({{W}}&gt;2.5\)</span>, the predicted behavior is counter-intuitive: the erosion rate is half the baseline rate <span class="arithmatex">\(v_0/2\)</span> plus the geometric mean of the two speeds <span class="arithmatex">\(\sqrt{v_0 w_0/k}\)</span>; for very fast weathering, the multiplicative average dominates. </p>
+<p>The weathering rate alone never limits the rate of erosion, so the concept of weathering limitation does not apply in the traditional sense.</p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">¶</a></h3>
 <p>The code is provided as a <a href="https://pypi.org/project/wmbe/">Python package</a> and <a href="https://github.com/cstarkjp/WMBE/tree/main/notebooks">Jupyter notebooks</a>.</p>
 <h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">¶</a></h3>
@@ -529,7 +528,7 @@ Behavior is parameterized by the ratio of the two speeds, defined here as the di
 <p><a href="https://www.jestr.org/downloads/Volume9Issue3/fulltext10932016.pdf">Li, K., Ma, L., Li, X., and Peng, S., 2016.</a> "Effect of drying-wetting cycles on triaxial compression mechanical properties of sandstone", Journal of Engineering Science and Technology Review, 9, 66–73.</p>
 </li>
 <li>
-<p><a href="https://doi.org/10.5194/esurf-10-383-2022">Stark, C.P., &amp; Stark, G.J., 2022.</a> "The direction of landscape erosion", Earth Surface Dynamics, 10: 383-419.</p>
+<p><a href="https://doi.org/10.5194/esurf-10-383-2022">Stark, C.P., and Stark, G.J., 2022.</a> "The direction of landscape erosion", Earth Surface Dynamics, 10: 383-419.</p>
 </li>
 </ol>
 
