@@ -1,17 +1,5 @@
 """
----------------------------------------------------------------------
-
-Module for :mod:`sympy` exposition of weathering-mediated erosion theory
-
----------------------------------------------------------------------
-
-Requires Python packages/modules:
-  -  :mod:`numpy`
-  -  :mod:`sympy`
-
-Imports symbols from :mod:`.symbols` module
-
----------------------------------------------------------------------
+Module for `sympy` exposition of weathering-mediated erosion theory
 
 """
 
@@ -23,7 +11,7 @@ from .symbols import *
 
 
 
-class WeatheringMediatedErosion:
+class Theory:
     """
     Weathering-mediated erosion theory in various forms
     

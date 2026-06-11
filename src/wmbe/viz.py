@@ -15,8 +15,8 @@ from typing import Any, Callable
 from collections.abc import Sequence
 from numpy.typing import NDArray
 
-from wmbe.theory import WeatheringMediatedErosion
-from wmbe.solve1d import eta_chi_tau, ErosionWeathering
+from wmbe.theory import Theory
+from wmbe.solve1d import eta_chi_tau, NumericalModel
 from wmbe.data import linear_model, ExperimentalData
 from wmbe.symbols import *
 
@@ -119,7 +119,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExperimentalData|None=None, 
+            expt_data: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -145,19 +145,19 @@ class Viz:
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        df = ed.ddict.get("inoue")
+        df = expt_data.ddict.get("inoue")
         # sigmaT  = df.sigmaT
         wetdryN = df.wetdryN
         erodibility_sigma2   = df.w_sigma2
         # erodibility_sigma1p5 = df.w_sigma1p5
-        erodibility_sigma2_fit = ed.fdict["inoue"][0]
+        erodibility_sigma2_fit = expt_data.fdict["inoue"][0]
             
         plt.plot(wetdryN,linear_model(wetdryN,*erodibility_sigma2_fit),
                 color="k",
                 label=r"$w \sim 1/\sigma_T^2$")
-        plt.errorbar(np.unique(wetdryN),ed.w_s2_means, label="",
+        plt.errorbar(np.unique(wetdryN),expt_data.w_s2_means, label="",
                     xerr=None,
-                    yerr=ed.w_s2_stds*1,
+                    yerr=expt_data.w_s2_stds*1,
                     ecolor="k", mec="w", 
                     color="w", fillstyle="full", 
                     alpha=1,
@@ -165,7 +165,8 @@ class Viz:
                     markersize=0, markeredgewidth=2,
                     elinewidth=1.5,capthick=3,capsize=7)
         plt.plot(
-            np.unique(wetdryN),ed.w_s2_means, 
+            np.unique(wetdryN),
+            expt_data.w_s2_means, 
             label="mean data",
             color="lightgray", 
             fillstyle="full", 
@@ -203,7 +204,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExperimentalData|None=None, 
+            expt_data: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -230,7 +231,7 @@ class Viz:
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
-        df = ed.ddict["li"]
+        df = expt_data.ddict["li"]
         color_list = ("darkblue","darkmagenta","firebrick","red","orange","green")
         marker_list = ("o","s","v","^","8","+")
         n_cols = len(color_list)
@@ -239,7 +240,7 @@ class Viz:
             # sigma  = df.sigmaC[df.P==P__]/100
             wetdryN = df.wetdryN[df.P==P__]
             erodibility_sigma   = df.w_sigma2[df.P==P__]
-            erodibility_sigma_fit = ed.fdict[selection_name][0]
+            erodibility_sigma_fit = expt_data.fdict[selection_name][0]
             
             plt.plot(wetdryN,linear_model(wetdryN,*erodibility_sigma_fit),
                     color=color_list[idx%n_cols],label="")
@@ -273,7 +274,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExperimentalData|None=None, 
+            expt_data: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -301,9 +302,9 @@ class Viz:
         marker_list = ("o","s","v","^","P","p")
         n_cols = len(color_list)
         
-        df = ed.ddict["li"]
-        # fit = ed.fdict["li"]
-        sampled_fit = ed.sdict["li"]
+        df = expt_data.ddict["li"]
+        # fit = expt_data.fdict["li"]
+        sampled_fit = expt_data.sdict["li"]
         # w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
         
         for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
@@ -344,7 +345,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExperimentalData|None=None, 
+            expt_data: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -373,9 +374,9 @@ class Viz:
         marker_list = ("o","s","v","^","P","p")
         n_cols = len(color_list)
         
-        df = ed.ddict["li"]
-        # fit = ed.fdict["li"]
-        sampled_fit = ed.sdict["li"]
+        df = expt_data.ddict["li"]
+        # fit = expt_data.fdict["li"]
+        sampled_fit = expt_data.sdict["li"]
         w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
         
         P_fit = sampled_fit[1]
@@ -383,10 +384,10 @@ class Viz:
 
         plt.errorbar(
             np.unique(df.P),
-            ed.w_s2normed_means, 
+            expt_data.w_s2normed_means, 
             label="mean data",
             xerr=None,
-            yerr=ed.w_s2normed_stds*2,
+            yerr=expt_data.w_s2normed_stds*2,
             ecolor="k", mec="k", 
             color="lightgray", 
             fillstyle="full", 
@@ -444,7 +445,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExperimentalData|None=None, 
+            expt_data: ExperimentalData|None=None, 
             model_surface: str|None=None,
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
@@ -476,9 +477,9 @@ class Viz:
 
         axes = fig.add_subplot(1, 1, 1, projection = "3d",)
         
-        df      = ed.ddict["li"]
+        df      = expt_data.ddict["li"]
         # TBD: need an exception here if model_surface not specified
-        X,Y,Z   = ed.fdict[model_surface]
+        X,Y,Z   = expt_data.fdict[model_surface]
 
         axes.scatter(df.wetdryN, df.P, df.w_sigma2, color="k", s=40,)
         
@@ -509,7 +510,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ew: ErosionWeathering|None=None, 
+            nm: NumericalModel|None=None, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
@@ -532,11 +533,11 @@ class Viz:
             plt.title(title, fontdict={"fontsize": 11.5})
         
         plt.plot(
-            ew.tau_array, 
-            ew.nu_array,  
+            nm.tau_array, 
+            nm.nu_array,  
             color="k", 
             lw=1, 
-            label="$W=${}".format(ew.W),
+            label="$W=${}".format(nm.W),
         )
         plt.legend(loc="center right")
         plt.xlabel(r"Time  $\tau$  [-]")
@@ -547,7 +548,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ew: ErosionWeathering|None=None, 
+            nm: NumericalModel|None=None, 
             tc: float=40, 
             nd: int=2,
             text_label: str|None=None,
@@ -563,7 +564,7 @@ class Viz:
         This series of time slices 
         shows the propagation and development of a steady-state form
         of the weathering depth-profile
-        as the rock surface is eroded. Quantities are all dimensionless.
+        as the rock surface is erodexpt_data. Quantities are all dimensionless.
         
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -581,14 +582,14 @@ class Viz:
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        chi__ = ew.chi_array
-        tau__ = ew.tau_array
-        eta__ = ew.eta_array
-        j__   = ew.j
+        chi__ = nm.chi_array
+        tau__ = nm.tau_array
+        eta__ = nm.eta_array
+        j__   = nm.j
 
-        tau_slices1 = np.linspace(0,(ew.tau_n_steps-1)//tc,
+        tau_slices1 = np.linspace(0,(nm.tau_n_steps-1)//tc,
                                 num=5,endpoint=True,dtype=np.int64)
-        tau_slices2 = np.linspace((ew.tau_n_steps-1)//tc*2 ,j__+1,
+        tau_slices2 = np.linspace((nm.tau_n_steps-1)//tc*2 ,j__+1,
                                 num=5,endpoint=True,dtype=np.int64)
         tau_slices = np.concatenate((tau_slices1,tau_slices2))
         cmap = plt.cm.brg.reversed()
@@ -655,7 +656,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ew: ErosionWeathering|None=None, 
+            nm: NumericalModel|None=None, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         r"""
@@ -678,22 +679,22 @@ class Viz:
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        j__ = (ew.j*3)//4
-        i_offset = ew.n_chi_domain//7
-        phi__  = ew.phi_array[j__]
-        phi0__ = int(phi__/ew.Delta_chi)-i_offset
-        chi_s__= ew.chi_array[phi0__:]-ew.chi_array[phi0__+i_offset]
-        tau__  = ew.tau_array[-1]
+        j__ = (nm.j*3)//4
+        i_offset = nm.n_chi_domain//7
+        phi__  = nm.phi_array[j__]
+        phi0__ = int(phi__/nm.Delta_chi)-i_offset
+        chi_s__= nm.chi_array[phi0__:]-nm.chi_array[phi0__+i_offset]
+        tau__  = nm.tau_array[-1]
 
-        eta_s_numerical  = ew.eta_array[j__,phi0__:]
-        eta_s_analytical = eta_chi_tau(chi_s__,tau__,ew.W)
+        eta_s_numerical  = nm.eta_array[j__,phi0__:]
+        eta_s_analytical = eta_chi_tau(chi_s__,tau__,nm.W)
         
         chi_front = chi_s__[eta_s_numerical==0][-1]
         plt.plot(chi_s__[chi_s__>=chi_front],eta_s_numerical[chi_s__>=chi_front],
                 color="k", lw=1, label="numerical")
         plt.plot(chi_s__[chi_s__>=chi_front],eta_s_analytical[chi_s__>=chi_front], 
                 color="r", lw=2, label="analytical", ls=(0, (4, 5)) )
-        plt.xlim(ew.tau_array[0],ew.tau_array[-1])
+        plt.xlim(nm.tau_array[0],nm.tau_array[-1])
         
         axes = plt.gca()
         plt.xlim((chi_s__[0],chi_s__[-1]))
@@ -726,7 +727,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ews: Sequence|None=None, 
+            nms: Sequence|None=None, 
             chi_max: float=8,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:            
@@ -754,16 +755,16 @@ class Viz:
         cmap = plt.cm.brg
         
         chi_min = 0
-        for idx,(ew,label) in enumerate(ews):
-            j__ = (ew.j*3)//4
-            i_offset = ew.n_chi_domain//10
-            phi__  = ew.phi_array[j__]
-            phi0__ = int(phi__/ew.Delta_chi)-i_offset
-            chi_s__= ew.chi_array[phi0__:]-ew.chi_array[phi0__+i_offset]
-            tau__  = ew.tau_array[-1]
+        for (idx, (nm, label,),) in enumerate(nms):
+            j__ = (nm.j*3)//4
+            i_offset = nm.n_chi_domain//10
+            phi__  = nm.phi_array[j__]
+            phi0__ = int(phi__/nm.Delta_chi)-i_offset
+            chi_s__= nm.chi_array[phi0__:]-nm.chi_array[phi0__+i_offset]
+            tau__  = nm.tau_array[-1]
             chi_min = min(chi_min,np.min(chi_s__))
-            color=cmap(idx/len(ews))
-            eta_s_numerical  = ew.eta_array[j__,phi0__:]
+            color=cmap(idx/len(nms))
+            eta_s_numerical  = nm.eta_array[j__,phi0__:]
             chi_front = chi_s__[eta_s_numerical==0][-1]
             plt.plot(chi_s__[chi_s__>=chi_front],eta_s_numerical[chi_s__>=chi_front],
                     lw=1, color=color, label=label)
@@ -818,9 +819,9 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            em: WeatheringMediatedErosion|None=None, 
+            eqns: Theory|None=None, 
             do_loglog: bool=True, 
-            ews: Sequence|None=None, 
+            nms: Sequence|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -833,7 +834,7 @@ class Viz:
         for the 1d weathering-mediated erosion model.
         The analytical solution is plotted as a black curve; numerical solutions are
         plotted as black circles; asymptotic behavior for low and high $W$
-        are shown as dashed lines. Explanatory annotations are included.
+        are shown as dashed lines. Explanatory annotations are includexpt_data.
         
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -853,7 +854,7 @@ class Viz:
         
         n_W_pts = 200
         W_array   = np.exp(np.linspace(np.log(0.01),np.log(50),n_W_pts))
-        nus_array = np.array([em.nus_eqn_W.rhs.subs({W:W__}) for W__ in W_array])
+        nus_array = np.array([eqns.nus_eqn_W.rhs.subs({W:W__}) for W__ in W_array])
         y_limits = (nus_array[0]*0.95,nus_array[-1])
     
         plt.plot(W_array, nus_array, color="k", lw=1.5, label="analytical")
@@ -916,8 +917,8 @@ class Viz:
             #          verticalalignment="center", horizontalalignment="center",
             #          transform=axes.transAxes)
             
-        if ews is not None:
-            for idx,nus_soln in enumerate(ews):
+        if nms is not None:
+            for idx,nus_soln in enumerate(nms):
                 plt.plot(nus_soln.W,nus_soln.nu_s,"o",c="k",
                         label=("numerical" if idx==0 else None))
         
@@ -945,7 +946,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            em: WeatheringMediatedErosion|None=None, 
+            eqns: Theory|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -970,7 +971,7 @@ class Viz:
         
         n_W_pts = 200
         W_array    = np.exp(np.linspace(np.log(0.015),np.log(50),n_W_pts))
-        nus_array = np.array([em.nus_eqn_W.rhs.subs({W:W__}) for W__ in W_array])
+        nus_array = np.array([eqns.nus_eqn_W.rhs.subs({W:W__}) for W__ in W_array])
         plt.plot(W_array, 1+0*W_array, color="k", lw=1.5)
         axes = plt.gca()
         plt.plot(W_array[W_array<0.48], 
@@ -1022,7 +1023,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            em: WeatheringMediatedErosion|None=None, 
+            eqns: Theory|None=None, 
             k__: float=1, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -1046,7 +1047,7 @@ class Viz:
         w0_array = 10**np.linspace(-3,+1,100)
         for vs__ in [0.1,1,3]:
             v0_array = np.array(
-                [sy.N(em.v0_eqn_vs_w0.rhs.subs({v_s:vs__, w_0:w0__,k:k__})) 
+                [sy.N(eqns.v0_eqn_vs_w0.rhs.subs({v_s:vs__, w_0:w0__,k:k__})) 
                                     for w0__ in w0_array])
             plt.plot(v0_array,w0_array, label="$v_s=${}".format(vs__))
         plt.ylabel(r"$w_0$")
@@ -1058,7 +1059,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            em: WeatheringMediatedErosion|None=None, 
+            eqns: Theory|None=None, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
@@ -1079,7 +1080,7 @@ class Viz:
         etas0_array = 10**np.linspace(-2,+1,100)
         for vs__ in [0.5,1,1.5]:
             v0_array = np.array(
-                [sy.N(em.v0_eqn_etas0_vs.rhs.subs({v_s:vs__,eta_s0:etas0__})) 
+                [sy.N(eqns.v0_eqn_etas0_vs.rhs.subs({v_s:vs__,eta_s0:etas0__})) 
                                     for etas0__ in etas0_array])
             plt.plot(etas0_array,v0_array, label="$v_s=${}".format(vs__))
         plt.xlabel(r"Surface weakness (degree of weathering)  ${\omega}_{s0}$")
@@ -1150,7 +1151,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            cw: Any|None=None, 
+            model: Any|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:   
@@ -1170,12 +1171,12 @@ class Viz:
             plt.title(title, fontdict={"fontsize": 11.5})
         
 
-        plt.plot(cw.w0_array/cw.pdict[k], cw.z_array, label="$w_0/k$")
-        plt.plot(cw.v0_array, cw.z_array, label="${u_0}$")
+        plt.plot(model.w0_array/model.pdict[k], model.z_array, label="$w_0/k$")
+        plt.plot(model.v0_array, model.z_array, label="${u_0}$")
         x_limits = plt.xlim()
         y_limits = plt.ylim()
         plt.plot([-1,-1], label="$W=w_0/{u_0} k$", color="forestgreen")  # dummy
-        plt.plot(cw.vs_array, cw.z_array, label="$v_s$", color="k", lw=2)
+        plt.plot(model.vs_array, model.z_array, label="$v_s$", color="k", lw=2)
         plt.xlim(x_limits)
         plt.ylim(y_limits)
         plt.xlabel(r"Speeds $w_0(z)/k$, ${u_0}(z)$, $v_s(z)$")
@@ -1185,7 +1186,7 @@ class Viz:
 
         axes = plt.gca()
         alt_axes = axes.twiny()
-        alt_axes.plot(cw.W_array,  cw.z_array, label="${{W}}$", color="forestgreen")
+        alt_axes.plot(model.W_array,  model.z_array, label="${{W}}$", color="forestgreen")
         alt_axes.set_xlabel("Weathering number  $W(z)$", color="forestgreen")
         x_limits = axes.get_xlim()
         axes.set_xlim(x_limits[0],x_limits[1]*1.05)

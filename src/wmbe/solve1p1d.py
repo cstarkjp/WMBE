@@ -8,7 +8,7 @@ import numpy as np
 from scipy import integrate
 from .symbols import *
 
-class ChannelWall:
+class ChannelWallApplication:
     """
     Numerical solution of combined models of weathering-mediated erosion & bedrock channel
     

@@ -21,12 +21,12 @@ warnings.filterwarnings("ignore")
 
 __all__ = [
     "negExpH",
-    "nu_s_W",
+    "erosionrate_steadystate_W",
     "eta_chi_tau",
-    "ErosionWeathering",
+    "NumericalModel",
 ]
 
-def negExpH(chi: float , dchi: float,):
+def negExpH(chi: float|NDArray , dchi: float|NDArray,):
     """
     Negate, exponentiate and Heaviside clip.
     
@@ -52,21 +52,21 @@ def negExpH(chi: float , dchi: float,):
     """
     return np.exp(-chi*np.heaviside(chi+dchi,0))
 
-def nu_s_W(W: float):
+def erosionrate_steadystate_W(W: float) -> float|NDArray:
     """
-    Dimensionless steady-state speed of the erosion front :math:`\\nu_s(W)`.
+    Dimensionless steady-state speed of the erosion front $\omega_s(W)$.
     
-    Assumes: :math:`\\nu_s = \\tfrac{1}{2}\\left(1+\sqrt{1+4W}\\right)`
+    Assumes: $\\nu_s = \\tfrac{1}{2}\\left(1+\sqrt{1+4W}\\right)$
     
     Args:
-        W (float): weathering number :math:`W`
+        W (float): weathering number $W$
     
     Returns:
-        float: dimensionless erosion rate :math:`\\nu_s`
+        float: dimensionless erosion rate $\omega_s$
     """
     return 0.5*(1+np.sqrt(1+4*W))
 
-def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,):
+def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
     """
     Weathering-driven weakness function.
     
@@ -84,10 +84,14 @@ def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,):
         float: 
             weakness :math:`\\eta(\\chi,\\tau;W)`
     """
-    return (1+(W/nu_s_W(W))*np.exp(-(chi)))*np.heaviside(chi,0)
+    return (
+        (1+(W/erosionrate_steadystate_W(W))
+            *np.exp(-(chi)))
+            *np.heaviside(chi,0)
+    )
 
 
-class ErosionWeathering:
+class NumericalModel:
     """
     Numerical solution of $\eta(\chi,\\tau)$` and $\\varphi(\\tau)$ evolution.
     
@@ -159,7 +163,7 @@ class ErosionWeathering:
                 /
             (physical_parameters[k]*physical_parameters[v_0])
         )
-        self.nu_s  = nu_s_W(self.W)
+        self.nu_s  = erosionrate_steadystate_W(self.W)
         self.v_s = self.nu_s*physical_parameters[v_0]
         self.physical_parameters.update({W:self.W, nu_s:self.nu_s, v_s:self.v_s})
         
