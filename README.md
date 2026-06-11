@@ -10,7 +10,7 @@
 
 <div align="center">
 
-![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/nu_s.png
+![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/weakness_steadystate.png
 )
 
 </div>
@@ -22,13 +22,11 @@ Here we study how this interaction acts to set a steady-state erosion rate.
 
 We define rock weakness to be its propensity to erosion by particle impacts: experiments indicate such weakness is inversely proportional to tensile strength squared; they show how such weakening takes place through wet/dry, freeze-thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth; as such, we equate weakening explicitly with weathering.
 
-Two speeds control the erosion rate: (i)~the speed at which weathering propagates into the rock $w_0/k$, where  $w_0$ is the weathering rate of fresh rock and $1/k$ is the e-folding depth; (ii)~the baseline speed of erosion of fresh rock $v_0$. 
+Two speeds control the erosion rate: (i)~the speed at which weathering propagates into the rock ${\lambda} {w_0}$, where  $w_0$ is the weathering rate of fresh rock and ${\lambda}$ is the e-folding depth; (ii)~the baseline speed of erosion of fresh rock ${u}_0$. 
+Model behavior is parameterized by the ratio of these two speeds at steady-state, and is defined here as the dimensionless weathering number ${\mathcal{W}}$.
 
-Model behavior is parameterized by the ratio of these two speeds at steady-state, and is defined here as the dimensionless weathering number ${{W}}$.
-
-For slow weathering relative to erosion, ${{W}}<0.25$, they simply add and the erosion rate is ${v_0 + w_0/k}$.
-
-However, for relatively fast weathering, ${{W}}>2.5$, the predicted behavior is counter-intuitive: the erosion rate is half the baseline rate $v_0/2$ plus the geometric mean of the two speeds $\sqrt{v_0 w_0/k}$; for very fast weathering, the multiplicative average dominates. 
+For slow weathering relative to erosion, ${\mathcal{W}}<0.25$, they simply add and the erosion rate is ${\lambda}{w_0} + {u_0}$.
+However, for relatively fast weathering, ${\mathcal{W}}>2.5$, the predicted behavior is counter-intuitive: the erosion rate is half the baseline rate ${u_0}/2$ plus the geometric mean of the two speeds $\sqrt{ {\lambda} {w_0} {u_0} }$; for very fast weathering, the multiplicative average dominates. 
 
 The weathering rate alone never limits the rate of erosion, so the concept of weathering limitation does not apply in the traditional sense.
 
