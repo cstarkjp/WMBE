@@ -1,6 +1,6 @@
 [project]
 name = "wmbe"
-version = "0.1.10"
+version = "0.1.11"
 description = "Tools for simulating the weathering-mediated erosion of bedrock"
 readme = "README.md"
 classifiers = [
@@ -17,7 +17,15 @@ classifiers = [
 ]
 requires-python = ">=3.14"
 dependencies = [
-    "numpy", "matplotlib", "sympy", "scipy", "pandas", "jupyter", "ipython", "openpyxl"
+    "numpy", 
+    "matplotlib", 
+    "sympy", 
+    "scipy", 
+    "pandas", 
+    "jupyter", 
+    "ipython", 
+    "openpyxl",
+    "tqdm"
 ]
 authors = [{ name = 'Colin P. Stark', email = 'cstarkjp@gmail.com' }]
 keywords = [
