@@ -17,7 +17,7 @@ from numpy.typing import NDArray
 
 from wmbe.theory import WeatheringMediatedErosion
 from wmbe.solve1d import eta_chi_tau, ErosionWeathering
-from wmbe.data import linear_model, ExptData
+from wmbe.data import linear_model, ExperimentalData
 from wmbe.symbols import *
 
 warnings.filterwarnings("ignore")
@@ -119,7 +119,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExptData|None=None, 
+            ed: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -145,7 +145,7 @@ class Viz:
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        df = ed.ddict["inoue"]
+        df = ed.ddict.get("inoue")
         # sigmaT  = df.sigmaT
         wetdryN = df.wetdryN
         erodibility_sigma2   = df.w_sigma2
@@ -164,12 +164,26 @@ class Viz:
                     fmt="o", 
                     markersize=0, markeredgewidth=2,
                     elinewidth=1.5,capthick=3,capsize=7)
-        plt.plot(np.unique(wetdryN),ed.w_s2_means, label="mean data",
-                color="lightgray", fillstyle="full", 
-                ls="", marker="o",markeredgecolor="k",ms=15) 
-        plt.plot(wetdryN,erodibility_sigma2, label="raw data",  
-                color="orange", alpha=0.7,
-                ls="", marker="s",markeredgecolor="k",ms=5)
+        plt.plot(
+            np.unique(wetdryN),ed.w_s2_means, 
+            label="mean data",
+            color="lightgray", 
+            fillstyle="full", 
+            ls="", 
+            marker="o",
+            markeredgecolor="k",
+            ms=13,
+        ) 
+        plt.plot(
+            wetdryN,
+            erodibility_sigma2, 
+            label="raw data",  
+            color="orange", alpha=0.7,
+            ls="", 
+            marker="s",
+            markeredgecolor="k",
+            ms=5,
+        )
 
         plt.legend(loc="upper left")
     #     plt.ylim(0,)
@@ -189,7 +203,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExptData|None=None, 
+            ed: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -259,7 +273,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExptData|None=None, 
+            ed: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -326,11 +340,11 @@ class Viz:
                     transform=axes.transAxes)
         plt.grid(ls=":")
                 
-    def li_w_surface_normed_P(
+    def li_w_normed_P(
             self, 
             name: str,
             title: str|None=None,
-            ed: ExptData|None=None, 
+            ed: ExperimentalData|None=None, 
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -367,15 +381,23 @@ class Viz:
         P_fit = sampled_fit[1]
         w_fit = (np.flipud(sampled_fit[2].T)[-1]-1)/w_ref_vec[-1]+1
 
-        plt.errorbar(np.unique(df.P),ed.w_s2normed_means, label="mean data",
-                    xerr=None,
-                    yerr=ed.w_s2normed_stds*2,
-                    ecolor="k", mec="k", 
-                    color="lightgray", fillstyle="full", 
-                    alpha=0.7,
-                    fmt="o", 
-                    markersize=14, markeredgewidth=1.5,
-                    elinewidth=1.5,capthick=3,capsize=7)
+        plt.errorbar(
+            np.unique(df.P),
+            ed.w_s2normed_means, 
+            label="mean data",
+            xerr=None,
+            yerr=ed.w_s2normed_stds*2,
+            ecolor="k", mec="k", 
+            color="lightgray", 
+            fillstyle="full", 
+            alpha=0.7,
+            fmt="o", 
+            markersize=13, 
+            markeredgewidth=1.5,
+            elinewidth=1.5,
+            capthick=3,
+            capsize=7,
+        )
         
         for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
             # wdN__ = df.wetdryN[df.wetdryN==wetdryN]
@@ -422,7 +444,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            ed: ExptData|None=None, 
+            ed: ExperimentalData|None=None, 
             model_surface: str|None=None,
             text_label: str|None=None,
             fig_size: tuple[float,float]=(6,4,),

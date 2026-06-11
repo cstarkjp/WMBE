@@ -67,7 +67,7 @@ def weathering_model(wetdryN_P,k,w0,tau0):
     chi = wetdryN_P[1]
     return 1 + w0*(tau+tau0)*np.exp(-k*chi)
 
-class ExptData:
+class ExperimentalData:
     """
     Rock weathering experimental data import and modeling
     
