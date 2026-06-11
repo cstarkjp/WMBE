@@ -453,7 +453,7 @@ def plot_weakness_evolution(fig, ew, tc=40, nd=2, text_label=None):
     plt.ylabel(r"Weakness  ${\omega}(\chi,\tau)$  [-]")
     plt.grid(ls=":")
 
-def stability_check(tau,nu):
+def stability_check(tau, nu):
     """
     Visualize stability of numerical solution.
     
@@ -468,7 +468,6 @@ def stability_check(tau,nu):
     plt.plot(tau,nu,"o-")
     plt.ylim(1.204,1.21);
     plt.xlim(4,4.03);
-
 
 def plot_weakness_steadystate(fig, ew):
     r"""
@@ -577,7 +576,9 @@ def plot_weakness_steadystate_set(fig, ew_list, chi_max=8):
     plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
     plt.grid(ls=":")
 
-def plot_weakness_steadystate_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
+def plot_weakness_steadystate_W(
+        fig, em, do_loglog=True, nus_solns_list=None, text_label=None
+    ):
     r"""
     Plot the 1d model steady-state erosion rate $\nu_s$
     versus weathering number $W$.
@@ -636,7 +637,7 @@ def plot_weakness_steadystate_W(fig, em, do_loglog=True, nus_solns_list=None, te
             horizontalalignment="center",
             transform=axes.transAxes,
         )
-        # plt.text(0.2, 0.15, r"$v_s \approx v_0 + \dfrac{w_0}{k}$", color="brown",
+        # plt.text(0.2, 0.15, r"$v_s \approx {u_0} + \dfrac{w_0}{k}$", color="brown",
         #          verticalalignment="center", horizontalalignment="center",
         #          transform=axes.transAxes)
         plt.text(
@@ -663,7 +664,7 @@ def plot_weakness_steadystate_W(fig, em, do_loglog=True, nus_solns_list=None, te
             horizontalalignment="center",
             transform=axes.transAxes,
         )
-        # plt.text(0.81,0.92, r"$v_s \approx \dfrac{v_0}{2}+\sqrt{\dfrac{v_0 w_0}{k}}$", 
+        # plt.text(0.81,0.92, r"$v_s \approx \dfrac{{u_0}}{2}+\sqrt{\dfrac{{u_0} w_0}{k}}$", 
         #          color="blue",
         #          verticalalignment="center", horizontalalignment="center",
         #          transform=axes.transAxes)
@@ -759,7 +760,7 @@ def plot_weakness_steadystate_W_transition(fig, em, text_label=None):
     )
     # plt.grid(ls=":")
 
-def plot_v0_vs_w0(fig, em, k__=1, text_label=None):
+def plot_referosionrate_vs_refweatheringrate(fig, em, k__=1, text_label=None):
     """
     Plot baseline erosion rate versus baseline weathering rate.
         
@@ -781,12 +782,12 @@ def plot_v0_vs_w0(fig, em, k__=1, text_label=None):
             [sy.N(em.v0_eqn_vs_w0.rhs.subs({v_s:vs__, w_0:w0__,k:k__})) 
                                 for w0__ in w0_array])
         plt.plot(v0_array,w0_array, label="$v_s=${}".format(vs__))
-    plt.ylabel("$w_0$")
-    plt.xlabel("$v_0$")
+    plt.ylabel(r"$w_0$")
+    plt.xlabel(r"${u_0}$")
     plt.legend(loc="lower right")
     plt.grid(ls=":")
 
-def plot_v0_vs_etas0(fig, em, text_label=None):
+def plot_referosionrate_vs_refweatheringrate_steadystate(fig, em, text_label=None):
     """
     Plot baseline erosion rate versus surface weakness at steady-state.
         
@@ -807,7 +808,7 @@ def plot_v0_vs_etas0(fig, em, text_label=None):
                                 for etas0__ in etas0_array])
         plt.plot(etas0_array,v0_array, label="$v_s=${}".format(vs__))
     plt.xlabel(r"Surface weakness (degree of weathering)  ${\omega}_{s0}$")
-    plt.ylabel(r"Baseline (potential) erosion rate  $v_0$")
+    plt.ylabel(r"Baseline (potential) erosion rate  ${u_0}$")
     plt.gca().invert_yaxis()
     plt.xlim(0,3)
     plt.ylim(5,0)
@@ -858,7 +859,7 @@ def plot_channel_generic(fig, zy_list, text_labels=None, do_equal_aspect=False):
         alt_axes.set_xlabel(zy[3], color="forestgreen")
     plt.grid(ls=":")
 
-def plot_channel_w0_v0_W(fig, cw, text_label=None):
+def plot_channel_refweatheringrate_referosionrate_W(fig, cw, text_label=None):
     """
     Plot numerical solutions applied to channel cross-section model (vertical profiles).
         
@@ -873,15 +874,15 @@ def plot_channel_w0_v0_W(fig, cw, text_label=None):
     plt.figure(fig.number)
 
     plt.plot(cw.w0_array/cw.pdict[k], cw.z_array, label="$w_0/k$")
-    plt.plot(cw.v0_array, cw.z_array, label="$v_0$")
+    plt.plot(cw.v0_array, cw.z_array, label="${u_0}$")
     x_limits = plt.xlim()
     y_limits = plt.ylim()
-    plt.plot([-1,-1], label="$W=w_0/v_0 k$", color="forestgreen")  # dummy
+    plt.plot([-1,-1], label="$W=w_0/{u_0} k$", color="forestgreen")  # dummy
     plt.plot(cw.vs_array, cw.z_array, label="$v_s$", color="k", lw=2)
     plt.xlim(x_limits)
     plt.ylim(y_limits)
-    plt.xlabel("Speeds $w_0(z)/k$, $v_0(z)$, $v_s(z)$")
-    plt.ylabel("Height above bed  $z$")
+    plt.xlabel(r"Speeds $w_0(z)/k$, ${u_0}(z)$, $v_s(z)$")
+    plt.ylabel(r"Height above bed  $z$")
     plt.legend(loc="upper center")
     plt.grid("on",ls=":")
 

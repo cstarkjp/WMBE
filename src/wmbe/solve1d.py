@@ -1,27 +1,15 @@
 """
----------------------------------------------------------------------
-
 Module for performing finite-difference solution of weathering-driven
 weakening of a 1d bedrock surface half-space and its concomitant erosion.
 
 The moving-boundary problem is solved using a continuous-valued 
 distance (from the erosion front) function that tracks motion with sub-grid
 resolution. Upwind differencing and explicit Euler methods are employed. 
-
----------------------------------------------------------------------
-
-Requires Python packages/modules:
-  -  :mod:`numpy`
-
-Imports symbols from :mod:`.symbols` module
-
----------------------------------------------------------------------
-
 """
 
 
 import numpy as np
-from .symbols import *
+from wmbe.symbols import *
 
 
 def negExpH(chi,dchi):
@@ -100,31 +88,29 @@ class ErosionWeathering:
     
     
     Args:
-        pdict (dict): model parameters dictionary
-        ndict (dict): numerical method parameters dictionary
-        
-
+        parameters (dict): model parameters dictionary
+        numbers (dict): numerical method parameters dictionary
     """
-    def __init__(self, pdict, ndict):
+    def __init__(self, parameters, numbers):
         """
         Initialize class instance.
         
         
         Attributes:
-            pdict (:obj:`dict`) : 
+            parameters (:obj:`dict`) : 
                 model parameters dictionary, extended during & after instantiation
-            ndict (:obj:`dict`) : 
+            numbers (:obj:`dict`) : 
                 numerical method parameters dictionary
             
             chi_domain_size (:obj:`float`):  
-                length of chi solution domain (extracted from ndict)
+                length of chi solution domain (extracted from numbers)
             Delta_chi (:obj:`float`):        
-                spacing between discrete chi solution points (extracted from ndict)
+                spacing between discrete chi solution points (extracted from numbers)
             n_chi_domain (:obj:`int`):       
-                number of solution points in distance chi (extracted from ndict)
+                number of solution points in distance chi (extracted from numbers)
             tau_domain_size (:obj:`float`):  
                 maximum duration of solution (truncated if/when front 
-                exits chi domain) (extracted from ndict)
+                exits chi domain) (extracted from numbers)
             tau_n_steps (:obj:`int`):        
                 number of solution points in time tau
             Delta_tau (:obj:`float`):        
@@ -154,17 +140,17 @@ class ErosionWeathering:
             v_s (:obj:`float`)  : 
                 predicted (by analytical solution) steady-state erosion rate :math:`v_s`     
         """
-        self.pdict = pdict
-        self.W     = pdict[w_0]/(pdict[k]*pdict[v_0])
+        self.parameters = parameters
+        self.W     = parameters[w_0]/(parameters[k]*parameters[v_0])
         self.nu_s  = nu_s_W(self.W)
-        self.v_s   = self.nu_s*pdict[v_0]
-        self.pdict.update({W:self.W, nu_s:self.nu_s, v_s:self.v_s})
+        self.v_s   = self.nu_s*parameters[v_0]
+        self.parameters.update({W:self.W, nu_s:self.nu_s, v_s:self.v_s})
         
-        self.ndict = ndict
-        self.chi_domain_size = ndict[chi_domain_size]
-        self.tau_domain_size = ndict[tau_domain_size]
-        self.Delta_chi = ndict[Delta_chi]
-        self.Delta_tau = ndict[Delta_tau]
+        self.numbers = numbers
+        self.chi_domain_size = numbers[chi_domain_size]
+        self.tau_domain_size = numbers[tau_domain_size]
+        self.Delta_chi = numbers[Delta_chi]
+        self.Delta_tau = numbers[Delta_tau]
         self.n_chi_domain = np.int64(self.chi_domain_size/self.Delta_chi)+1
         self.tau_n_steps  = np.int64(self.tau_domain_size/self.Delta_tau)+1
 
@@ -186,7 +172,7 @@ class ErosionWeathering:
         and its eroding surface position :math:`\\phi^j`.
         
         Attributes:
-            pdict (:obj:`dict`) : 
+            parameters (:obj:`dict`) : 
                 model parameters dictionary, extended during & after instantiation
             nu_array  (:class:`numpy.ndarray`) :  discrete (in time) series of 
                                         dimensionless erosion rates :math:`\\nu^j` 
@@ -229,4 +215,4 @@ class ErosionWeathering:
         self.nu_array[j+1] = (f_left*eta[j,f]+f_right*eta[j,fp1])
         di = self.nu_array.shape[0]//10
         self.nu_s_bar = np.mean(self.nu_array[4*di:6*di])
-        self.pdict.update({nu_s_bar:self.nu_s_bar})
+        self.parameters.update({nu_s_bar:self.nu_s_bar})
