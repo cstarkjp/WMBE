@@ -1,39 +1,17 @@
 """
----------------------------------------------------------------------
-
 Graphing tools to viz behavior of weathering-driven weakening of a 1d rock
 mass.
 
----------------------------------------------------------------------
-
-Requires Python packages/modules:
-  -  :mod:`numpy`
-  -  :mod:`matplotlib.pyplot`
-  -  :mod:`matplotlib.ticker`
-  -  mpl_toolkits.mplot3d_
-  -  :mod:`scipy.optimize`
-
-Imports methods from :mod:`wme`  module :mod:`.solve1d` 
-
-Imports symbols from :mod:`.symbols` module
-
----------------------------------------------------------------------
-
-.. _mpl_toolkits.mplot3d: https://matplotlib.org/api/toolkits/mplot3d.html#axes3d
-.. _`Inoue et al (2017)`: https://doi.org/10.1016/j.geomorph.2017.02.018
-.. _`Li et al (2016)`: https://doi.org/10.25103/jestr.093.10
-
 """
 
-
-import matplotlib as mpl, matplotlib.pyplot as plt, matplotlib.ticker as ticker
-# from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-# from scipy.optimize import curve_fit
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 
-from .symbols import *
-from .solve1d import eta_chi_tau #, nu_s_W
-from .data import linear_model #, weathering_model
+from wmbe.symbols import *
+from wmbe.solve1d import eta_chi_tau
+from wmbe.data import linear_model
 
 fdict = dict()
 
@@ -64,48 +42,6 @@ def create_figure(fig_name):
     return fig
 
 
-# def plot_inoue_sigmaT_wetdryN_multiple(fig, ed, text_label=None):
-#     """
-#     Plot Inoue data on weakness versus proxy time (number of wet/dry cycles).
-#     
-#     Generate graph of rock weakness versus proxy time inferred from 
-#     `Inoue et al (2017)`_
-#     data on tensile strength after N wetting and drying cycles.
-#     
-#     Args:
-#         fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-#                   reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
-#                                         figure 
-#         ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-#                                       containing data sets as :mod:`pandas` dataframes
-#         text_label (list): text annotation as list of form (x-y coordinate, string, 
-#                            font size)
-#                            
-#     .. _`Inoue et al (2017)`: https://doi.org/10.1016/j.geomorph.2017.02.018
-#     
-#     """
-#     plt.figure(fig.number)
-#     
-#     df = ed.ddict["inoue"]
-#     sigmaT  = df.sigmaT
-#     wetdryN = df.wetdryN
-#     erodibility_sigma2   = df.w_sigma2
-#     erodibility_sigma1p5 = df.w_sigma1p5
-#     erodibility_sigma2_fit = ed.fdict["inoue"][0]
-#         
-#     plt.plot(wetdryN,erodibility_sigma2,   label="$n=2$",c="mediumblue", 
-#              ls="", marker="o")
-#     plt.plot(wetdryN,erodibility_sigma1p5, label="$n=1.5$",
-#              color="chocolate",ls="", marker="s")
-#     plt.plot(wetdryN,linear_model(wetdryN,*erodibility_sigma2_fit),
-#              color="mediumblue",
-#              label="$w \sim 1/\sigma_T^2$")
-#     plt.legend(loc="upper left")
-#     plt.ylim(0,)
-#     plt.xlabel("Proxy time (no. wet/dry cycles)  $N$  [-]")
-#     plt.ylabel("Weakness  $w=(\sigma_T[N]/\sigma_\mathrm{ref})^{-n}$  [-]")
-
-
 def plot_inoue_w_wetdryN(fig, ed, text_label=None):
     r"""
     Plot Inoue et al data on weakness :math:`w` versus 
@@ -128,10 +64,10 @@ def plot_inoue_w_wetdryN(fig, ed, text_label=None):
     plt.figure(fig.number)
     
     df = ed.ddict["inoue"]
-    sigmaT  = df.sigmaT
+    # sigmaT  = df.sigmaT
     wetdryN = df.wetdryN
     erodibility_sigma2   = df.w_sigma2
-    erodibility_sigma1p5 = df.w_sigma1p5
+    # erodibility_sigma1p5 = df.w_sigma1p5
     erodibility_sigma2_fit = ed.fdict["inoue"][0]
         
     plt.plot(wetdryN,linear_model(wetdryN,*erodibility_sigma2_fit),
@@ -195,7 +131,7 @@ def plot_li_w_wetdryN(fig, ed, text_label=None):
     n_cols = len(color_list)
     for idx,P__ in enumerate(np.unique(df.P)):
         selection_name = "{0}_{1}_{2}".format("li","P",P__)
-        sigma  = df.sigmaC[df.P==P__]/100
+        # sigma  = df.sigmaC[df.P==P__]/100
         wetdryN = df.wetdryN[df.P==P__]
         erodibility_sigma   = df.w_sigma2[df.P==P__]
         erodibility_sigma_fit = ed.fdict[selection_name][0]
@@ -252,9 +188,9 @@ def plot_li_w_P(fig, ed, text_label=None):
     n_cols = len(color_list)
     
     df = ed.ddict["li"]
-    fit = ed.fdict["li"]
+    # fit = ed.fdict["li"]
     sampled_fit = ed.sdict["li"]
-    w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
+    # w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
     
     for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
         wdN__ = df.wetdryN[df.wetdryN==wetdryN]
@@ -314,7 +250,7 @@ def plot_li_w_surface_normed_P(fig, ed, text_label=None):
     n_cols = len(color_list)
     
     df = ed.ddict["li"]
-    fit = ed.fdict["li"]
+    # fit = ed.fdict["li"]
     sampled_fit = ed.sdict["li"]
     w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
     
@@ -332,7 +268,7 @@ def plot_li_w_surface_normed_P(fig, ed, text_label=None):
                  elinewidth=1.5,capthick=3,capsize=7)
     
     for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
-        wdN__ = df.wetdryN[df.wetdryN==wetdryN]
+        # wdN__ = df.wetdryN[df.wetdryN==wetdryN]
         P__ = df.P[df.wetdryN==wetdryN]
         w_normed = df.w_s2normed[df.wetdryN==wetdryN]
         plt.errorbar(
@@ -423,7 +359,7 @@ def plot_li_w_wetdryN_P(fig, ed, model_surface, text_label=None):
     axes.set_zlabel("Weakness  $w=$  [-]")
     plt.grid(ls=":")
 
-def plot_nu_evolution(fig, ew):
+def plot_frontspeed_evolution(fig, ew):
     """
     Plot time-evolution of dimensionless erosion rate :math:`\\nu(\\tau)`.
     
@@ -443,11 +379,11 @@ def plot_nu_evolution(fig, ew):
     
     plt.plot(ew.tau_array,ew.nu_array,  color="k", lw=1, label="$W=${}".format(ew.W))
     plt.legend(loc="center right")
-    plt.xlabel("Time  $\tau$  [-]")
-    plt.ylabel("Front speed  $\\partial\\varphi/\\partial\\tau$  [-]")
+    plt.xlabel(r"Time  $\tau$  [-]")
+    plt.ylabel(r"Front speed  $\partial\varphi/\partial\tau$  [-]")
     plt.grid(ls=":")
 
-def plot_eta_evolution(fig, ew, tc=40, nd=2, text_label=None):
+def plot_weakness_evolution(fig, ew, tc=40, nd=2, text_label=None):
     r"""
     Plot 1d evolution of weathering profile :math:`{\omega}(\chi,\\tau)` 
     undergoing erosion.
@@ -534,7 +470,7 @@ def stability_check(tau,nu):
     plt.xlim(4,4.03);
 
 
-def plot_etas_steadystate(fig, ew):
+def plot_weakness_steadystate(fig, ew):
     r"""
     Plot steady-state solution of weakness :math:`{\omega}_s`.
     
@@ -585,7 +521,7 @@ def plot_etas_steadystate(fig, ew):
     plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
     plt.grid(ls=":")
 
-def plot_etas_steadystate_set(fig, ew_list, chi_max=8):
+def plot_weakness_steadystate_set(fig, ew_list, chi_max=8):
     r"""
     Plot a set of steady-state solutions of weakness :math:`{\omega}_s`.
     
@@ -641,7 +577,7 @@ def plot_etas_steadystate_set(fig, ew_list, chi_max=8):
     plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
     plt.grid(ls=":")
 
-def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
+def plot_weakness_steadystate_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
     r"""
     Plot the 1d model steady-state erosion rate $\nu_s$
     versus weathering number $W$.
@@ -753,11 +689,11 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
         )
      
     plt.legend(loc="upper left")
-    plt.xlabel("Weathering number  ${{W}}$  [-]")
-    plt.ylabel("Erosion rate  $\\nu_\mathsf{{s}}$  [-]")
+    plt.xlabel(r"Weathering number  ${{W}}$  [-]")
+    plt.ylabel(r"Erosion rate  ${\omega}_\mathsf{{s}}$  [-]")
     # plt.grid(ls=":")
 
-def plot_nus_W_transition(fig, em, text_label=None):
+def plot_weakness_steadystate_W_transition(fig, em, text_label=None):
     """
     Plot the steady-state erosion rate :math:`\\nu_s` relative to its asymptotic behavior.
     
@@ -961,3 +897,47 @@ def plot_channel_w0_v0_W(fig, cw, text_label=None):
                  color="k", size=text_label[2],
                  verticalalignment="center", horizontalalignment="center",
                  transform=axes.transAxes)
+
+
+# def plot_inoue_sigmaT_wetdryN_multiple(fig, ed, text_label=None):
+#     """
+#     Plot Inoue data on weakness versus proxy time (number of wet/dry cycles).
+#     
+#     Generate graph of rock weakness versus proxy time inferred from 
+#     `Inoue et al (2017)`_
+#     data on tensile strength after N wetting and drying cycles.
+#     
+#     Args:
+#         fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+#                   reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
+#                                         figure 
+#         ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
+#                                       containing data sets as :mod:`pandas` dataframes
+#         text_label (list): text annotation as list of form (x-y coordinate, string, 
+#                            font size)
+#                            
+#     .. _`Inoue et al (2017)`: https://doi.org/10.1016/j.geomorph.2017.02.018
+#     
+#     """
+#     plt.figure(fig.number)
+#     
+#     df = ed.ddict["inoue"]
+#     sigmaT  = df.sigmaT
+#     wetdryN = df.wetdryN
+#     erodibility_sigma2   = df.w_sigma2
+#     erodibility_sigma1p5 = df.w_sigma1p5
+#     erodibility_sigma2_fit = ed.fdict["inoue"][0]
+#         
+#     plt.plot(wetdryN,erodibility_sigma2,   label="$n=2$",c="mediumblue", 
+#              ls="", marker="o")
+#     plt.plot(wetdryN,erodibility_sigma1p5, label="$n=1.5$",
+#              color="chocolate",ls="", marker="s")
+#     plt.plot(wetdryN,linear_model(wetdryN,*erodibility_sigma2_fit),
+#              color="mediumblue",
+#              label="$w \sim 1/\sigma_T^2$")
+#     plt.legend(loc="upper left")
+#     plt.ylim(0,)
+#     plt.xlabel("Proxy time (no. wet/dry cycles)  $N$  [-]")
+#     plt.ylabel("Weakness  $w=(\sigma_T[N]/\sigma_\mathrm{ref})^{-n}$  [-]")
+
+
