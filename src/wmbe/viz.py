@@ -537,7 +537,7 @@ class Viz:
             nm.nu_array,  
             color="k", 
             lw=1, 
-            label="$W=${}".format(nm.W),
+            label=r"${\mathcal{W}}=$"+f"{nm.W}",
         )
         plt.legend(loc="center right")
         plt.xlabel(r"Time  $\tau$  [-]")
@@ -660,13 +660,13 @@ class Viz:
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         r"""
-        Plot steady-state solution of weakness :math:`{\omega}_s`.
+        Plot steady-state solution of weakness ${\omega}_s$.
         
         Graph the numerical solution 
         of the 1d weathering-mediated erosion model
-        for weakness :math:`{\omega}_s(\chi_i | W)` 
-        as a function of depth from the rock surface :math:`\chi_i`
-        for a given value of the weathering number :math:`W`.
+        for weakness ${\omega}_s(\chi_i | {\mathcal{W}})$ 
+        as a function of depth from the rock surface $\chi_i$
+        for a given value of the weathering number 4{\mathcal{W}}$.
             
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -686,14 +686,25 @@ class Viz:
         chi_s__= nm.chi_array[phi0__:]-nm.chi_array[phi0__+i_offset]
         tau__  = nm.tau_array[-1]
 
-        eta_s_numerical  = nm.eta_array[j__,phi0__:]
-        eta_s_analytical = eta_chi_tau(chi_s__,tau__,nm.W)
+        eta_s_numerical  = nm.eta_array[j__, phi0__:]
+        eta_s_analytical = eta_chi_tau(chi_s__, tau__, nm.W)
         
         chi_front = chi_s__[eta_s_numerical==0][-1]
-        plt.plot(chi_s__[chi_s__>=chi_front],eta_s_numerical[chi_s__>=chi_front],
-                color="k", lw=1, label="numerical")
-        plt.plot(chi_s__[chi_s__>=chi_front],eta_s_analytical[chi_s__>=chi_front], 
-                color="r", lw=2, label="analytical", ls=(0, (4, 5)) )
+        plt.plot(
+            chi_s__[chi_s__>=chi_front],
+            eta_s_numerical[chi_s__>=chi_front],
+            color="k", 
+            lw=1, 
+            label="numerical",
+        )
+        plt.plot(
+            chi_s__[chi_s__>=chi_front],
+            eta_s_analytical[chi_s__>=chi_front], 
+            color="r", 
+            lw=2, 
+            label="analytical", 
+            ls=(0, (4, 5)),
+        )
         plt.xlim(nm.tau_array[0],nm.tau_array[-1])
         
         axes = plt.gca()
@@ -732,13 +743,13 @@ class Viz:
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:            
         r"""
-        Plot a set of steady-state solutions of weakness :math:`{\omega}_s`.
+        Plot a set of steady-state solutions of weakness ${\omega}_s$.
         
         Graph a set of numerical solution 
         of the 1d weathering-mediated erosion model
-        for weakness :math:`{\omega}_s(\chi_i | W)` 
-        as a function of depth from the rock surface :math:`\chi_i`
-        for a set of weathering numbers :math:`W`.
+        for weakness ${\omega}_s(\chi_i | {\mathcal{W}})$
+        as a function of depth from the rock surface $\chi_i$
+        for a set of weathering numbers ${\mathcal{W}}$.
         
         Args:
             fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -826,14 +837,14 @@ class Viz:
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         r"""
-        Plot the 1d model steady-state erosion rate $\nu_s$
-        versus weathering number $W$.
+        Plot the 1d model steady-state erosion rate $\nu_s$ 
+        versus weathering number ${\mathcal{W}}$.
         
         Graph the functional dependence of dimensionless steady-state 
-        erosion rate $\nu_s$ as a function of versus weathering number $W4
+        erosion rate $\nu_s$ as a function of versus weathering number ${\mathcal{W}}$
         for the 1d weathering-mediated erosion model.
         The analytical solution is plotted as a black curve; numerical solutions are
-        plotted as black circles; asymptotic behavior for low and high $W$
+        plotted as black circles; asymptotic behavior for low and high ${\mathcal{W}}$
         are shown as dashed lines. Explanatory annotations are includexpt_data.
         
         Args:
@@ -866,12 +877,16 @@ class Viz:
             axes.set_yscale("log",) # nonposy="clip")
             axes.yaxis.set_major_formatter(ticker.FormatStrFormatter("%0.0f"))
             axes.yaxis.set_minor_formatter(ticker.FormatStrFormatter("%0.0f"))
-            plt.plot((0.25,0.25),(y_limits[0],y_limits[1]/3), color="gray", ls=":")
-            plt.plot((2.63,2.63),(y_limits[0],y_limits[1]), color="gray", ls=":")
+            plt.plot(
+                (0.25,0.25), (y_limits[0],y_limits[1]/3), color="gray", ls=":",
+            )
+            plt.plot(
+                (2.63,2.63), (y_limits[0],y_limits[1]), color="gray", ls=":",
+            )
     #         plt.ylim(*y_limits)
             plt.text(
                 0.2, 0.23, 
-                r"low ${{W}}$", 
+                r"low ${\mathcal{W}}$", 
                 color="brown",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -879,7 +894,7 @@ class Viz:
             )
             plt.text(
                 0.2, 0.13, 
-                r"$\nu_\mathsf{{s}} \approx 1 + W$", 
+                r"$\nu_\mathsf{{s}} \approx 1 + {\mathcal{W}}$", 
                 color="brown",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -890,7 +905,7 @@ class Viz:
             #          transform=axes.transAxes)
             plt.text(
                 0.52, 0.43, 
-                r"transitional ${{W}}$", 
+                r"transitional ${\mathcal{W}}$", 
                 color="gray",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -898,7 +913,7 @@ class Viz:
             )
             plt.text(
                 0.78, 0.9, 
-                r"high ${{W}}$", 
+                r"high ${\mathcal{W}}$", 
                 color="blue",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -906,7 +921,7 @@ class Viz:
             )
             plt.text(
                 0.78, 0.8, 
-                r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{W}$", 
+                r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{{\mathcal{W}}}$", 
                 color="blue",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -919,13 +934,28 @@ class Viz:
             
         if nms is not None:
             for idx,nus_soln in enumerate(nms):
-                plt.plot(nus_soln.W,nus_soln.nu_s,"o",c="k",
-                        label=("numerical" if idx==0 else None))
+                plt.plot(
+                    nus_soln.W,
+                    nus_soln.nu_s,
+                    "o",
+                    c="k",
+                    label=("numerical" if idx==0 else None),
+                )
         
-        plt.plot(W_array[W_array<0.7],1+W_array[W_array<0.7], 
-                label="low W approx",  ls="--",c="brown")
-        plt.plot(W_array[W_array>1],0.5+np.sqrt(W_array[W_array>1]), 
-                label="high W approx", ls="--",c="blue")
+        plt.plot(
+            W_array[W_array<0.7],
+            1+W_array[W_array<0.7], 
+            label=r"low ${\mathcal{W}}$ approx",  
+            ls="--",
+            c="brown",
+        )
+        plt.plot(
+            W_array[W_array>1],
+            0.5+np.sqrt(W_array[W_array>1]), 
+            label=r"high ${\mathcal{W}}$ approx", 
+            ls="--",
+            c="blue",
+        )
         if text_label is not None:
             plt.text(
                 0.82,0.25, 
@@ -938,7 +968,7 @@ class Viz:
             )
         
         plt.legend(loc="upper left", fontsize=10,)
-        plt.xlabel(r"Weathering number  ${{W}}$  [-]")
+        plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
         plt.ylabel(r"Erosion rate  ${\omega}_\mathsf{{s}}$  [-]")
         # plt.grid(ls=":")
 
@@ -970,29 +1000,29 @@ class Viz:
             plt.title(title, fontdict={"fontsize": 11.5})
         
         n_W_pts = 200
-        W_array    = np.exp(np.linspace(np.log(0.015),np.log(50),n_W_pts))
+        W_array = np.exp(np.linspace(np.log(0.015),np.log(50),n_W_pts))
         nus_array = np.array([eqns.nus_eqn_W.rhs.subs({W:W__}) for W__ in W_array])
         plt.plot(W_array, 1+0*W_array, color="k", lw=1.5)
         axes = plt.gca()
         plt.plot(W_array[W_array<0.48], 
             nus_array[W_array<0.48]/(1+(W_array[W_array<0.48])),
-                color="brown", ls="-", lw=1.5, label="low ${{W}}$ approx")
+                color="brown", ls="-", lw=1.5, label="low ${\mathcal{W}}$ approx")
         plt.plot(W_array[W_array>1], 
                 nus_array[W_array>1]/(0.5+np.sqrt(W_array[W_array>1])),
-                color="b", ls="-", lw=1.5, label="high ${{W}}$ approx")
-        plt.text(0.18,0.18, r"low ${{W}}$", color="brown",
+                color="b", ls="-", lw=1.5, label="high ${\mathcal{W}}$ approx")
+        plt.text(0.18,0.18, r"low ${\mathcal{W}}$", color="brown",
                 verticalalignment="center", horizontalalignment="center",
                 transform=axes.transAxes)
-        plt.text(0.18,0.26, r"$\nu_\mathsf{{s}} \approx 1 + W$", color="brown",
+        plt.text(0.18,0.26, r"$\nu_\mathsf{{s}} \approx 1 + {\mathcal{W}}$", color="brown",
                 verticalalignment="center", horizontalalignment="center",
                 transform=axes.transAxes)
-        plt.text(0.5,0.53, r"transitional ${{W}}$", color="gray",
+        plt.text(0.5,0.53, r"transitional ${\mathcal{W}}$", color="gray",
                 verticalalignment="center", horizontalalignment="center",
                 transform=axes.transAxes)
-        plt.text(0.82,0.85, r"high ${{W}}$", color="blue",
+        plt.text(0.82,0.85, r"high ${\mathcal{W}}$", color="blue",
                 verticalalignment="center", horizontalalignment="center",
                 transform=axes.transAxes)
-        plt.text(0.82,0.75, r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{W}$", 
+        plt.text(0.82,0.75, r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{{\mathcal{W}}}$", 
                 color="blue",
                 verticalalignment="center", horizontalalignment="center",
                 transform=axes.transAxes)
@@ -1010,7 +1040,7 @@ class Viz:
         plt.plot((0.25,0.25),y_limits, color="gray", ls=":")
         plt.plot((2.63,2.63),y_limits, color="gray", ls=":")
         plt.legend(loc="upper left")
-        plt.xlabel("Weathering number  ${{W}}$  [-]")
+        plt.xlabel("Weathering number  ${\mathcal{W}}$  [-]")
         plt.ylabel(
             r"Approx erosion rate deviation  "
             + r"$\nu_\mathsf{{s}}^\mathrm{apx}/\nu_\mathsf{{s}}$  [-]"
@@ -1175,8 +1205,12 @@ class Viz:
         plt.plot(model.v0_array, model.z_array, label="${u_0}$")
         x_limits = plt.xlim()
         y_limits = plt.ylim()
-        plt.plot([-1,-1], label="$W=w_0/{u_0} k$", color="forestgreen")  # dummy
-        plt.plot(model.vs_array, model.z_array, label="$v_s$", color="k", lw=2)
+        plt.plot(
+            [-1,-1], label="${\mathcal{W}}=w_0/{u_0} k$", color="forestgreen",
+        )
+        plt.plot(
+            model.vs_array, model.z_array, label="$v_s$", color="k", lw=2,
+        )
         plt.xlim(x_limits)
         plt.ylim(y_limits)
         plt.xlabel(r"Speeds $w_0(z)/k$, ${u_0}(z)$, $v_s(z)$")
@@ -1186,8 +1220,15 @@ class Viz:
 
         axes = plt.gca()
         alt_axes = axes.twiny()
-        alt_axes.plot(model.W_array,  model.z_array, label="${{W}}$", color="forestgreen")
-        alt_axes.set_xlabel("Weathering number  $W(z)$", color="forestgreen")
+        alt_axes.plot(
+            model.W_array,  
+            model.z_array, 
+            label="${\mathcal{W}}$", 
+            color="forestgreen",
+        )
+        alt_axes.set_xlabel(
+            "Weathering number  ${\mathcal{W}}(z)$", color="forestgreen",
+        )
         x_limits = axes.get_xlim()
         axes.set_xlim(x_limits[0],x_limits[1]*1.05)
 
