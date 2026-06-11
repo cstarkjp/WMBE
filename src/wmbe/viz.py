@@ -826,7 +826,7 @@ class Viz:
         plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
         plt.grid(ls=":")
 
-    def weakness_steadystate_W(
+    def erosionrate_steadystate_W(
             self, 
             name: str,
             title: str|None=None,
@@ -969,10 +969,10 @@ class Viz:
         
         plt.legend(loc="upper left", fontsize=10,)
         plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
-        plt.ylabel(r"Erosion rate  ${\omega}_\mathsf{{s}}$  [-]")
+        plt.ylabel(r"Erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
         # plt.grid(ls=":")
 
-    def weakness_steadystate_W_transition(
+    def erosionrate_steadystate_W_transition(
             self, 
             name: str,
             title: str|None=None,

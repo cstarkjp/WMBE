@@ -10,7 +10,7 @@
 
 <div align="center">
 
-![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/weakness_steadystate.png
+![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/erosionrate_steadystate.png
 )
 
 </div>
