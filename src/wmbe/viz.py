@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
-
 import matplotlib.ticker as ticker
+
 from typing import Any, Callable
 from collections.abc import Sequence
 from numpy.typing import NDArray

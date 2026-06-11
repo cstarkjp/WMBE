@@ -8,11 +8,25 @@ resolution. Upwind differencing and explicit Euler methods are employed.
 """
 
 
+import warnings
 import numpy as np
+
+from typing import Any, Callable
+from collections.abc import Sequence
+from numpy.typing import NDArray
+
 from wmbe.symbols import *
 
+warnings.filterwarnings("ignore")
 
-def negExpH(chi,dchi):
+__all__ = [
+    "negExpH",
+    "nu_s_W",
+    "eta_chi_tau",
+    "ErosionWeathering",
+]
+
+def negExpH(chi: float , dchi: float,):
     """
     Negate, exponentiate and Heaviside clip.
     
@@ -38,7 +52,7 @@ def negExpH(chi,dchi):
     """
     return np.exp(-chi*np.heaviside(chi+dchi,0))
 
-def nu_s_W(W):
+def nu_s_W(W: float):
     """
     Dimensionless steady-state speed of the erosion front :math:`\\nu_s(W)`.
     
@@ -52,7 +66,7 @@ def nu_s_W(W):
     """
     return 0.5*(1+np.sqrt(1+4*W))
 
-def eta_chi_tau(chi,tau,W):
+def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,):
     """
     Weathering-driven weakness function.
     
@@ -75,8 +89,7 @@ def eta_chi_tau(chi,tau,W):
 
 class ErosionWeathering:
     """
-    Numerical solution of :math:`\\eta(\\chi,\\tau)` 
-    and :math:`\\varphi(\\tau)` evolution 
+    Numerical solution of $\eta(\chi,\\tau)$` and $\\varphi(\\tau)$ evolution.
     
     Class that provides a finite-difference method for solving the 
     :math:`(chi,tau)` evolution
@@ -88,10 +101,10 @@ class ErosionWeathering:
     
     
     Args:
-        parameters (dict): model parameters dictionary
-        numbers (dict): numerical method parameters dictionary
+        physical_parameters (dict): model parameters dictionary
+        model_parameters (dict): numerical method parameters dictionary
     """
-    def __init__(self, parameters, numbers):
+    def __init__(self, physical_parameters, model_parameters):
         """
         Initialize class instance.
         
@@ -99,18 +112,18 @@ class ErosionWeathering:
         Attributes:
             parameters (:obj:`dict`) : 
                 model parameters dictionary, extended during & after instantiation
-            numbers (:obj:`dict`) : 
+            model_parameters (:obj:`dict`) : 
                 numerical method parameters dictionary
             
             chi_domain_size (:obj:`float`):  
-                length of chi solution domain (extracted from numbers)
+                length of chi solution domain (extracted from model_parameters)
             Delta_chi (:obj:`float`):        
-                spacing between discrete chi solution points (extracted from numbers)
+                spacing between discrete chi solution points (extracted from model_parameters)
             n_chi_domain (:obj:`int`):       
-                number of solution points in distance chi (extracted from numbers)
+                number of solution points in distance chi (extracted from model_parameters)
             tau_domain_size (:obj:`float`):  
                 maximum duration of solution (truncated if/when front 
-                exits chi domain) (extracted from numbers)
+                exits chi domain) (extracted from model_parameters)
             tau_n_steps (:obj:`int`):        
                 number of solution points in time tau
             Delta_tau (:obj:`float`):        
@@ -140,17 +153,21 @@ class ErosionWeathering:
             v_s (:obj:`float`)  : 
                 predicted (by analytical solution) steady-state erosion rate :math:`v_s`     
         """
-        self.parameters = parameters
-        self.W     = parameters[w_0]/(parameters[k]*parameters[v_0])
+        self.physical_parameters = physical_parameters
+        self.W = (
+            physical_parameters[w_0]
+                /
+            (physical_parameters[k]*physical_parameters[v_0])
+        )
         self.nu_s  = nu_s_W(self.W)
-        self.v_s   = self.nu_s*parameters[v_0]
-        self.parameters.update({W:self.W, nu_s:self.nu_s, v_s:self.v_s})
+        self.v_s = self.nu_s*physical_parameters[v_0]
+        self.physical_parameters.update({W:self.W, nu_s:self.nu_s, v_s:self.v_s})
         
-        self.numbers = numbers
-        self.chi_domain_size = numbers[chi_domain_size]
-        self.tau_domain_size = numbers[tau_domain_size]
-        self.Delta_chi = numbers[Delta_chi]
-        self.Delta_tau = numbers[Delta_tau]
+        self.model_parameters = model_parameters
+        self.chi_domain_size = model_parameters[chi_domain_size]
+        self.tau_domain_size = model_parameters[tau_domain_size]
+        self.Delta_chi = model_parameters[Delta_chi]
+        self.Delta_tau = model_parameters[Delta_tau]
         self.n_chi_domain = np.int64(self.chi_domain_size/self.Delta_chi)+1
         self.tau_n_steps  = np.int64(self.tau_domain_size/self.Delta_tau)+1
 
@@ -162,7 +179,7 @@ class ErosionWeathering:
         self.tau_array = np.linspace(0,self.tau_domain_size,self.tau_n_steps,
                                      dtype=np.float64)
         self.nu_array  = np.zeros((self.tau_n_steps),dtype=np.float64)
-        self.j         = 0
+        self.j = 0
         
 
     def solve(self):
@@ -215,4 +232,4 @@ class ErosionWeathering:
         self.nu_array[j+1] = (f_left*eta[j,f]+f_right*eta[j,fp1])
         di = self.nu_array.shape[0]//10
         self.nu_s_bar = np.mean(self.nu_array[4*di:6*di])
-        self.parameters.update({nu_s_bar:self.nu_s_bar})
+        self.physical_parameters.update({nu_s_bar:self.nu_s_bar})
