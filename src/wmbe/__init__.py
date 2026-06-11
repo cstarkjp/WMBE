@@ -6,7 +6,6 @@ from wmbe import data
 from wmbe import file
 from wmbe import initialize
 from wmbe import plot
-from wmbe import save
 from wmbe import solve1p1d
 from wmbe import theory
 from wmbe import viz
@@ -18,7 +17,6 @@ __all__ = [
     "file",
     "initialize",
     "plot",
-    "save",
     "serialize",
     "solve",
     "solve1p1d",

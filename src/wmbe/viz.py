@@ -1096,7 +1096,7 @@ class Viz:
             self, 
             name: str,
             title: str|None=None,
-            zy_list: Sequence|None=None, 
+            zys: Sequence|None=None, 
             do_equal_aspect=False,
             text_labels: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
@@ -1118,7 +1118,7 @@ class Viz:
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        zy=zy_list[0]
+        zy=zys[0]
         plt.plot(zy[2], zy[0], label=zy[4], color="k")
         plt.ylabel(zy[1])
         plt.xlabel(zy[3])
@@ -1134,13 +1134,13 @@ class Viz:
                         verticalalignment="center", horizontalalignment="center",
                         transform=axes.transAxes, rotation=text_label[4])
         plt.grid("on",ls=":")
-        if len(zy_list)>=2:
-            zy=zy_list[1]
+        if len(zys)>=2:
+            zy=zys[1]
             plt.plot(0,0, label=zy[4], color="forestgreen")
         plt.legend()
         
-        if len(zy_list)>=2:
-            zy=zy_list[1]
+        if len(zys)>=2:
+            zy=zys[1]
             alt_axes = axes.twiny()
             alt_axes.plot(zy[2], zy[0], label=zy[4], color="forestgreen")
             alt_axes.set_xlabel(zy[3], color="forestgreen")

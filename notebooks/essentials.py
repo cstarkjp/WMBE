@@ -8,6 +8,7 @@ import wmbe
 from wmbe.data import ExperimentalData
 from wmbe.file import create_directories, export_plots, export_plot
 from wmbe.solve1d import ErosionWeathering
+from wmbe.solve1p1d import ChannelWall
 from wmbe.symbols import *
 from wmbe.theory import WeatheringMediatedErosion
 from wmbe.viz import Viz
