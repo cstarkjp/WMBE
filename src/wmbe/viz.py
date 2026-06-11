@@ -114,20 +114,6 @@ class Viz:
         fig.set_dpi(dpi_)
         return fig
 
-    def lattice_history(
-            self,
-            name: str,
-            title: str|None=None,
-            fig_size: tuple[float,float]=(6,4,),
-        ) -> None:
-        """
-        Plot colorized image of 1d lattice history.
-        """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
-        if title is None:
-            plt.title(title, fontdict={"fontsize": 11.5})
-
-
 
     def inoue_w_wetdryN(
             self, 
@@ -155,7 +141,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -226,7 +212,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
@@ -253,7 +239,6 @@ class Viz:
                         fmt=marker_list[idx%n_cols], 
                         markersize=7, markeredgewidth=0.5,
                         elinewidth=1.5,capthick=3,capsize=7)    
-        
         
         plt.legend(loc="upper left")
         plt.ylim(0,)
@@ -294,7 +279,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
@@ -366,7 +351,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
@@ -470,7 +455,7 @@ class Viz:
         axes = fig.add_subplot(1, 1, 1, projection = "3d",)
         
         df      = ed.ddict["li"]
-        # TBD: exception here if model_surface not specified
+        # TBD: need an exception here if model_surface not specified
         X,Y,Z   = ed.fdict[model_surface]
 
         axes.scatter(df.wetdryN, df.P, df.w_sigma2, color="k", s=40,)
@@ -520,11 +505,17 @@ class Viz:
             ew (:class:`~.solve1d.ErosionWeathering`): 
                     instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        plt.plot(ew.tau_array,ew.nu_array,  color="k", lw=1, label="$W=${}".format(ew.W))
+        plt.plot(
+            ew.tau_array, 
+            ew.nu_array,  
+            color="k", 
+            lw=1, 
+            label="$W=${}".format(ew.W),
+        )
         plt.legend(loc="center right")
         plt.xlabel(r"Time  $\tau$  [-]")
         plt.ylabel(r"Front speed  $\partial\varphi/\partial\tau$  [-]")
@@ -564,7 +555,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -630,7 +621,7 @@ class Viz:
             nu (numpy.ndarray): speed of erosion front :math:`\\nu^j` 
                                 at each time slice :math:`\\tau^j` 
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
@@ -661,7 +652,7 @@ class Viz:
             ew (:class:`~.solve1d.ErosionWeathering`): 
                     instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -734,7 +725,7 @@ class Viz:
                     list of instances of 1d weathering-mediated erosion model 
                     :mod:`~.solve1d` class :class:`~.solve1d.ErosionWeathering`
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
@@ -834,7 +825,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -951,7 +942,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -1026,7 +1017,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -1059,7 +1050,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -1101,7 +1092,7 @@ class Viz:
             do_equal_aspect (bool): 
                 flag whether to use force equal sizing of x and y axis scales
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
@@ -1152,7 +1143,7 @@ class Viz:
             text_label (list): text annotation as list of form (x-y coordinate, string, 
                             font size)
         """
-        fig = self.create_figure(fig_name=name, fig_size=fig_size,)
+        _ = self.create_figure(fig_name=name, fig_size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
