@@ -449,12 +449,12 @@ def plot_nu_evolution(fig, ew):
 
 def plot_eta_evolution(fig, ew, tc=40, nd=2, text_label=None):
     r"""
-    Plot 1d evolution of weathering profile :math:`\eta(\chi,\\tau)` 
+    Plot 1d evolution of weathering profile :math:`{\omega}(\chi,\\tau)` 
     undergoing erosion.
     
     Generate graph of selected solutions :math:`j` 
     of 1d weathering-mediated erosion model
-    weakness :math:`\eta_i^j = \eta(\chi_i,\\tau^j)`.
+    weakness :math:`{\omega}_i^j = {\omega}(\chi_i,\\tau^j)`.
     This series of time slices 
     shows the propagation and development of a steady-state form
     of the weathering depth-profile
@@ -514,7 +514,7 @@ def plot_eta_evolution(fig, ew, tc=40, nd=2, text_label=None):
 
     plt.legend(loc="upper right")
     plt.xlabel(r"Distance  $\chi$  [-]")
-    plt.ylabel(r"Weakness  $\eta(\chi,\tau)$  [-]")
+    plt.ylabel(r"Weakness  ${\omega}(\chi,\tau)$  [-]")
     plt.grid(ls=":")
 
 def stability_check(tau,nu):
@@ -536,11 +536,11 @@ def stability_check(tau,nu):
 
 def plot_etas_steadystate(fig, ew):
     r"""
-    Plot steady-state solution of weakness :math:`\eta_s`.
+    Plot steady-state solution of weakness :math:`{\omega}_s`.
     
     Graph the numerical solution 
     of the 1d weathering-mediated erosion model
-    for weakness :math:`\eta_s(\chi_i | W)` 
+    for weakness :math:`{\omega}_s(\chi_i | W)` 
     as a function of depth from the rock surface :math:`\chi_i`
     for a given value of the weathering number :math:`W`.
         
@@ -582,16 +582,16 @@ def plot_etas_steadystate(fig, ew):
     
     plt.legend()
     plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
-    plt.ylabel(r"Weakness  $\eta_s(\chi_s)$  [-]")
+    plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
     plt.grid(ls=":")
 
 def plot_etas_steadystate_set(fig, ew_list, chi_max=8):
     r"""
-    Plot a set of steady-state solutions of weakness :math:`\eta_s`.
+    Plot a set of steady-state solutions of weakness :math:`{\omega}_s`.
     
     Graph a set of numerical solution 
     of the 1d weathering-mediated erosion model
-    for weakness :math:`\eta_s(\chi_i | W)` 
+    for weakness :math:`{\omega}_s(\chi_i | W)` 
     as a function of depth from the rock surface :math:`\chi_i`
     for a set of weathering numbers :math:`W`.
     
@@ -638,19 +638,19 @@ def plot_etas_steadystate_set(fig, ew_list, chi_max=8):
     plt.xlim((chi_min,chi_max))
     plt.legend()
     plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
-    plt.ylabel(r"Weakness  $\eta_s(\chi_s)$  [-]")
+    plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
     plt.grid(ls=":")
 
 def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
     r"""
-    Plot the 1d model steady-state erosion rate :math:`\\nu_s` 
-    versus weathering number :math:`W`.
+    Plot the 1d model steady-state erosion rate $\nu_s$
+    versus weathering number $W$.
     
     Graph the functional dependence of dimensionless steady-state 
-    erosion rate :math:`\\nu_s` as a function of versus weathering number :math:`W`
+    erosion rate $\nu_s$ as a function of versus weathering number $W4
     for the 1d weathering-mediated erosion model.
     The analytical solution is plotted as a black curve; numerical solutions are
-    plotted as black circles; asymptotic behavior for low and high :math:`W`
+    plotted as black circles; asymptotic behavior for low and high $W$
     are shown as dashed lines. Explanatory annotations are included.
     
     Args:
@@ -661,7 +661,7 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
         do_loglog (bool): 
             flag whether to use log scales on both axes
         nus_solns_list (list): 
-            set of numerical solutions of :math:`\\nu_s`
+            set of numerical solutions of $\nu_s$
         text_label (list): text annotation as list of form (x-y coordinate, string, 
                            font size)
     """
@@ -870,8 +870,8 @@ def plot_v0_vs_etas0(fig, em, text_label=None):
             [sy.N(em.v0_eqn_etas0_vs.rhs.subs({v_s:vs__,eta_s0:etas0__})) 
                                 for etas0__ in etas0_array])
         plt.plot(etas0_array,v0_array, label="$v_s=${}".format(vs__))
-    plt.xlabel("Surface weakness (degree of weathering)  $\\eta_{s0}$")
-    plt.ylabel("Baseline (potential) erosion rate  $v_0$")
+    plt.xlabel(r"Surface weakness (degree of weathering)  ${\omega}_{s0}$")
+    plt.ylabel(r"Baseline (potential) erosion rate  $v_0$")
     plt.gca().invert_yaxis()
     plt.xlim(0,3)
     plt.ylim(5,0)
