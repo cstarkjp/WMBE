@@ -694,7 +694,7 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
         )
         plt.text(
             0.2, 0.13, 
-            r"$\nu_\mathsf{ss} \approx 1 + W$", 
+            r"$\nu_\mathsf{{s}} \approx 1 + W$", 
             color="brown",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -721,7 +721,7 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
         )
         plt.text(
             0.78, 0.8, 
-            r"$\nu_\mathsf{ss} \approx \dfrac{1}{2}+\sqrt{W}$", 
+            r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{W}$", 
             color="blue",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -754,7 +754,7 @@ def plot_nus_W(fig, em, do_loglog=True, nus_solns_list=None, text_label=None):
      
     plt.legend(loc="upper left")
     plt.xlabel("Weathering number  ${{W}}$  [-]")
-    plt.ylabel("Erosion rate  $\\nu_\mathsf{ss}$  [-]")
+    plt.ylabel("Erosion rate  $\\nu_\mathsf{{s}}$  [-]")
     # plt.grid(ls=":")
 
 def plot_nus_W_transition(fig, em, text_label=None):
@@ -789,7 +789,7 @@ def plot_nus_W_transition(fig, em, text_label=None):
     plt.text(0.18,0.18, r"low ${{W}}$", color="brown",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
-    plt.text(0.18,0.26, r"$\nu_\mathsf{ss} \approx 1 + W$", color="brown",
+    plt.text(0.18,0.26, r"$\nu_\mathsf{{s}} \approx 1 + W$", color="brown",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
     plt.text(0.5,0.53, r"transitional ${{W}}$", color="gray",
@@ -798,7 +798,7 @@ def plot_nus_W_transition(fig, em, text_label=None):
     plt.text(0.82,0.85, r"high ${{W}}$", color="blue",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
-    plt.text(0.82,0.75, r"$\nu_\mathsf{ss} \approx \dfrac{1}{2}+\sqrt{W}$", 
+    plt.text(0.82,0.75, r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{W}$", 
              color="blue",
              verticalalignment="center", horizontalalignment="center",
              transform=axes.transAxes)
@@ -819,7 +819,7 @@ def plot_nus_W_transition(fig, em, text_label=None):
     plt.xlabel("Weathering number  ${{W}}$  [-]")
     plt.ylabel(
         r"Approx erosion rate deviation  "
-        + r"$\nu_\mathsf{ss}^\mathrm{apx}/\nu_\mathsf{ss}$  [-]"
+        + r"$\nu_\mathsf{{s}}^\mathrm{apx}/\nu_\mathsf{{s}}$  [-]"
     )
     # plt.grid(ls=":")
 
