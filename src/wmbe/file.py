@@ -1,18 +1,17 @@
 """
-Write to files.
+File handling.
 """
 import warnings
 import logging
-from typing import Any, Callable, Sequence, List
-from os.path import exists, join, realpath, pardir
+from os.path import exists, join, realpath
 from os import mkdir
 from shutil import rmtree
-from json import dump, load
 from io import TextIOWrapper
 from functools import partial
-import os
+from json import dump, load
 import pandas as pd
 
+from typing import Any, Callable, Sequence, List
 from pandas import DataFrame
 
 from tqdm import tqdm
@@ -24,14 +23,14 @@ from wmbe.serialize import is_serializable, from_serializable, to_serializable
 warnings.filterwarnings("ignore")
 
 __all__ = [
-    "read_excel",
-    "create_directories",
     "create_dir",
-    "import_info",
-    "export_info",
-    "read_info",
+    "create_directories",
+    "export_plot",
     "export_plots",
-    "export_plot"
+    "export_info",
+    "import_info",
+    "read_excel",
+    "read_info",
 ]
 
 def read_excel(
@@ -51,13 +50,13 @@ def read_excel(
         skiprows  (:obj:`int`)  : number of rows to skip when creating dataframe
 
     """
-    dir_name = os.path.join(*dir_name)
-    if not os.path.exists(dir_name):
+    dir_name = join(*dir_name)
+    if not exists(dir_name):
         print("Cannot find data directory")
         raise
     try:
         df = pd.read_excel(
-            os.path.join(dir_name, file_name+".xlsx",),
+            join(dir_name, file_name+".xlsx",),
             header=header, 
             skiprows=skiprows,
         )
