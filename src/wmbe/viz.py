@@ -15,10 +15,11 @@ from typing import Any, Callable
 from collections.abc import Sequence
 from numpy.typing import NDArray
 
-from wmbe.theory import Equations
+from wmbe.data import ExperimentalData
+from wmbe.model import WeatheringMediatedWeakness, linear_model
 from wmbe.solve1d import eta_chi_tau, NumericalModel
-from wmbe.data import linear_model, ExperimentalData
 from wmbe.symbols import *
+from wmbe.theory import Equations
 
 warnings.filterwarnings("ignore")
 
@@ -134,7 +135,8 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            expt_data: ExperimentalData|None=None, 
+            data: ExperimentalData|None=None, 
+            model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -147,25 +149,25 @@ class DataViz(BaseViz):
         data on tensile strength :math:`\sigma_T` 
         (normalized by a reference tensile strength :math:`\sigma_\mathrm{ref}`)
         after :math:`N` wetting and drying cycles.
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-                                        containing data sets as :mod:`pandas` dataframes
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
+        #                                 containing data sets as :mod:`pandas` dataframes
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
+
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        df = expt_data.data.get("inoue")
+        df = data.df
         # sigmaT  = df.sigmaT
         wetdryN = df.wetdryN
         erodibility_sigma2   = df.w_sigma2
         # erodibility_sigma1p5 = df.w_sigma1p5
-        erodibility_sigma2_fit = expt_data.fits["inoue"][0]
+        erodibility_sigma2_fit = model.fits["inoue"][0]
             
         plt.plot(
             wetdryN,
@@ -175,10 +177,10 @@ class DataViz(BaseViz):
         )
         plt.errorbar(
             np.unique(wetdryN),
-            expt_data.w_s2_means, 
+            model.w_s2_means, 
             label="",
             xerr=None,
-            yerr=expt_data.w_s2_stds*1,
+            yerr=model.w_s2_stds*1,
             ecolor="k", 
             mec="w", 
             color="w", 
@@ -193,7 +195,7 @@ class DataViz(BaseViz):
         )
         plt.plot(
             np.unique(wetdryN),
-            expt_data.w_s2_means, 
+            model.w_s2_means, 
             label="mean data",
             color="lightgray", 
             fillstyle="full", 
@@ -241,7 +243,8 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            expt_data: ExperimentalData|None=None, 
+            data: ExperimentalData|None=None, 
+            model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -255,20 +258,20 @@ class DataViz(BaseViz):
         (normalized by a reference compressive strength :math:`\sigma_\mathrm{ref}`)
         after :math:`N` wetting and drying cycles
         at a range of confining pressures :math:`P`.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-                                        containing data sets as :mod:`pandas` dataframes
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
+        #                                 containing data sets as :mod:`pandas` dataframes
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
+
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
-        df = expt_data.data["li"]
+        df = data.df
         color_list = (
             "darkblue",
             "darkmagenta",
@@ -281,12 +284,12 @@ class DataViz(BaseViz):
             "o", "s", "v", "^", "8", "+",
         )
         n_cols = len(color_list)
-        for idx,P_ in enumerate(np.unique(df.P)):
-            selection_name = "{0}_{1}_{2}".format("li","P",P_)
+        for (idx, P_,) in enumerate(np.unique(df.P)):
+            selection_name = f"{'li'}_{'P'}_{P_}"
             # sigma  = df.sigmaC[df.P==P_]/100
             wetdryN = df.wetdryN[df.P==P_]
             erodibility_sigma   = df.w_sigma2[df.P==P_]
-            erodibility_sigma_fit = expt_data.fits[selection_name][0]
+            erodibility_sigma_fit = model.fits[selection_name][0]
             
             plt.plot(
                 wetdryN,
@@ -338,7 +341,8 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            expt_data: ExperimentalData|None=None, 
+            data: ExperimentalData|None=None, 
+            model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -349,15 +353,14 @@ class DataViz(BaseViz):
         inferred from  `Li et al (2016)`_ data on compressive strength :math:`\sigma_C` 
         at a range of confining pressures :math:`P` after :math:`N` 
         wetting and drying cycles.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-                                        containing data sets as :mod:`pandas` dataframes
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
+        #                                 containing data sets as :mod:`pandas` dataframes
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -375,13 +378,13 @@ class DataViz(BaseViz):
         )
         n_cols = len(color_list)
         
-        df = expt_data.data["li"]
+        df = data.df
         # fit = expt_data.fdict["li"]
-        sampled_fit = expt_data.fits2d["li"]
+        sampled_fit = model.fits2d["li"]
         # w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
         
         for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
-            wdN_ = df.wetdryN[df.wetdryN==wetdryN]
+            # wdN_ = df.wetdryN[df.wetdryN==wetdryN]
             P_ = df.P[df.wetdryN==wetdryN]
             w_ = df.w_sigma2[df.wetdryN==wetdryN]
             P_fit = sampled_fit[1]
@@ -392,7 +395,7 @@ class DataViz(BaseViz):
             plt.errorbar(
                 P_, 
                 w_,
-                label="N = {}".format(wetdryN),
+                label=f"N = {wetdryN}",
                 xerr=None,
                 yerr=None,
                 ecolor="k", 
@@ -435,7 +438,8 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            expt_data: ExperimentalData|None=None, 
+            data: ExperimentalData|None=None, 
+            model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -473,9 +477,8 @@ class DataViz(BaseViz):
         )
         n_cols = len(color_list)
         
-        df = expt_data.data["li"]
-        # fit = expt_data.fdict["li"]
-        sampled_fit = expt_data.fits2d["li"]
+        df = data.df
+        sampled_fit = model.fits2d["li"]
         w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
         
         P_fit = sampled_fit[1]
@@ -483,10 +486,10 @@ class DataViz(BaseViz):
 
         plt.errorbar(
             np.unique(df.P),
-            expt_data.w_s2normed_means, 
+            model.w_s2normed_means, 
             label="mean data",
             xerr=None,
-            yerr=expt_data.w_s2normed_stds*2,
+            yerr=model.w_s2normed_stds*2,
             ecolor="k", mec="k", 
             color="lightgray", 
             fillstyle="full", 
@@ -556,7 +559,8 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            expt_data: ExperimentalData|None=None, 
+            data: ExperimentalData|None=None, 
+            model: WeatheringMediatedWeakness|None=None,
             model_surface: str|None=None,
             # text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
@@ -588,9 +592,9 @@ class DataViz(BaseViz):
 
         axes = fig.add_subplot(1, 1, 1, projection = "3d",)
         
-        df = expt_data.data["li"]
+        df = data.df
         # TBD: need an exception here if model_surface not specified
-        (X, Y, Z,)   = expt_data.fits[model_surface]
+        (X, Y, Z,) = model.fits[model_surface]
 
         axes.scatter(
             df.wetdryN, df.P, df.w_sigma2, color="k", s=40,

@@ -7,6 +7,7 @@ from sympy import Eq
 import wmbe
 from wmbe.data import ExperimentalData
 from wmbe.file import create_directories, export_plots, export_plot
+from wmbe.model import WeatheringMediatedWeakness
 from wmbe.solve1d import NumericalModel
 from wmbe.channel1d import ChannelWallApplication
 from wmbe.symbols import *

@@ -12,12 +12,13 @@ from wmbe import viz
 __version__ = "2026.6.13"
 
 __all__ = [
+    "channel1d",
     "data",
     "file",
     "initialize",
+    "model",
     "serialize",
     "solve",
-    "channel1d",
     "symbols",
     "theory",
     "viz",
