@@ -269,8 +269,17 @@ class DataViz(BaseViz):
             plt.title(title, fontdict={"fontsize": 11.5})
 
         df = expt_data.ddict["li"]
-        color_list = ("darkblue","darkmagenta","firebrick","red","orange","green")
-        marker_list = ("o","s","v","^","8","+")
+        color_list = (
+            "darkblue",
+            "darkmagenta",
+            "firebrick",
+            "red",
+            "orange",
+            "green",
+        )
+        marker_list = (
+            "o", "s", "v", "^", "8", "+",
+        )
         n_cols = len(color_list)
         for idx,P_ in enumerate(np.unique(df.P)):
             selection_name = "{0}_{1}_{2}".format("li","P",P_)
@@ -312,8 +321,6 @@ class DataViz(BaseViz):
         plt.ylabel(
             r"Weakness  $w=(\sigma_C\left[N\right]/\sigma_\mathrm{ref})^{-2}$  [-]"
         )
-        # plt.ylabel(r"Weakness  $w=(\sigma_C\left[N\right])$  [-]")
-        # plt.ylabel(r"Weakness   [-]")
 
         if text_label is not None:
             axes = plt.gca()
@@ -355,8 +362,17 @@ class DataViz(BaseViz):
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
-        color_list = ("darkblue","darkmagenta","firebrick","red","orange","green")
-        marker_list = ("o","s","v","^","P","p")
+        color_list = (
+            "darkblue",
+            "darkmagenta",
+            "firebrick",
+            "red",
+            "orange",
+            "green",
+        )
+        marker_list = (
+            "o", "s", "v", "^", "P", "p",
+        )
         n_cols = len(color_list)
         
         df = expt_data.ddict["li"]
@@ -370,23 +386,35 @@ class DataViz(BaseViz):
             w_ = df.w_sigma2[df.wetdryN==wetdryN]
             P_fit = sampled_fit[1]
             w_fit = np.flipud(sampled_fit[2].T)[idx]
-            plt.plot(P_fit, w_fit, color=color_list[idx%n_cols])
-            plt.errorbar(P_, w_,
-                        label="N = {}".format(wetdryN),
-                        xerr=None,
-                        yerr=None,
-                        ecolor="k", mec="k", 
-                        color=color_list[idx%n_cols], fillstyle="full", 
-                        alpha=0.7,
-                        fmt=marker_list[idx%n_cols], 
-                        markersize=7, markeredgewidth=0.5,
-                        elinewidth=1.5,capthick=3,capsize=7)   
+            plt.plot(
+                P_fit, w_fit, color=color_list[idx%n_cols],
+            )
+            plt.errorbar(
+                P_, 
+                w_,
+                label="N = {}".format(wetdryN),
+                xerr=None,
+                yerr=None,
+                ecolor="k", 
+                mec="k", 
+                color=color_list[idx%n_cols], 
+                fillstyle="full", 
+                alpha=0.7,
+                fmt=marker_list[idx%n_cols], 
+                markersize=7, 
+                markeredgewidth=0.5,
+                elinewidth=1.5,
+                capthick=3,
+                capsize=7,
+            )   
             
         plt.legend(loc="upper right")
         plt.ylim(0.,)
         plt.autoscale(enable=True, tight=True, axis="x",)
         x_limits = plt.xlim()
-        plt.plot(x_limits, (1,1), color="gray", ls=":",)
+        plt.plot(
+            x_limits, (1,1), color="gray", ls=":",
+        )
         plt.xlabel("Proxy depth (confining pressure $P$)  [MPa]")
         plt.ylabel(r"Weakness  $w=(\sigma_C[N]/\sigma_\mathrm{ref})^{-2}$  [-]")
 
@@ -505,7 +533,9 @@ class DataViz(BaseViz):
         plt.ylim(0.8,)
         plt.autoscale(enable=True, tight=True, axis="x")
         x_limits = plt.xlim()
-        plt.plot(x_limits,(1,1), color="gray", ls=":")
+        plt.plot(
+            x_limits,(1,1), color="gray", ls=":",
+        )
         plt.xlabel("Proxy depth (confining pressure $P$)  [MPa]")
         plt.ylabel("Normalized weakness  $w(\\tau,\\chi)/w(0,\\tau)$  [-]")
         
@@ -562,7 +592,9 @@ class DataViz(BaseViz):
         # TBD: need an exception here if model_surface not specified
         (X, Y, Z,)   = expt_data.fdict[model_surface]
 
-        axes.scatter(df.wetdryN, df.P, df.w_sigma2, color="k", s=40,)
+        axes.scatter(
+            df.wetdryN, df.P, df.w_sigma2, color="k", s=40,
+        )
         
         colors_list = ("y", "b",)
         colors_array = np.empty(X.shape, dtype=str,)
@@ -595,7 +627,6 @@ class SimViz(BaseViz):
     """
     Numerical simulation visualization class.
     """
-
     def frontspeed_evolution(
             self, 
             name: str,
@@ -675,7 +706,7 @@ class SimViz(BaseViz):
         chi_ = nm.chi_array
         tau_ = nm.tau_array
         eta_ = nm.eta_array
-        j_   = nm.j
+        j_ = nm.j
 
         tau_slices1 = np.linspace(
             0, 
@@ -825,7 +856,7 @@ class SimViz(BaseViz):
             label="analytical", 
             ls=(0, (4, 5),),
         )
-        plt.xlim(nm.tau_array[0],nm.tau_array[-1])
+        plt.xlim(nm.tau_array[0], nm.tau_array[-1],)
         
         axes = plt.gca()
         plt.xlim((chi_s_[0],chi_s_[-1]))
@@ -837,7 +868,7 @@ class SimViz(BaseViz):
             fc="white", 
             ec="DarkGreen",
         )
-        _ = axes.text(
+        axes.text(
             -0.5, 
             (y_limits[1]-y_limits[0])/2, 
             "front motion", 
@@ -906,16 +937,16 @@ class SimViz(BaseViz):
             )
             
         axes = plt.gca()
-        x_limits = plt.xlim()
+        # x_limits = plt.xlim()
         y_limits = plt.ylim()
-        plt.ylim(y_limits[0]/3,y_limits[1])
+        plt.ylim(y_limits[0]/3, y_limits[1],)
         bbox_props = dict(
             boxstyle="rarrow,pad=0.3", 
             lw=1.5, 
             fc="white", 
             ec="DarkGreen",
         )
-        _ = axes.text(
+        axes.text(
             -0.5, 
             (y_limits[1]-y_limits[0])/2, 
             "front motion", 
@@ -945,7 +976,7 @@ class SimViz(BaseViz):
             horizontalalignment="left",
         )
             
-        plt.xlim((chi_min,chi_max))
+        plt.xlim(chi_min, chi_max,)
         plt.legend(fontsize=11,)
         plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
         plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
@@ -994,7 +1025,7 @@ class SimViz(BaseViz):
             eqns.nus_eqn_W.rhs.subs({W: W_}) 
             for W_ in W_array
         ])
-        y_limits = (nus_array[0]*0.95,nus_array[-1])
+        y_limits = (nus_array[0]*0.95, nus_array[-1],)
     
         plt.plot(W_array, nus_array, color="k", lw=1.5, label="analytical",)
         plt.autoscale(enable=True, tight=True)
@@ -1088,7 +1119,8 @@ class SimViz(BaseViz):
         )
         if text_label is not None:
             plt.text(
-                0.82,0.25, 
+                0.82,
+                0.25, 
                 text_label, 
                 color="k", 
                 size=14,
@@ -1134,7 +1166,9 @@ class SimViz(BaseViz):
         nus_array = np.array([
             eqns.nus_eqn_W.rhs.subs({W: W_}) for W_ in W_array
         ])
-        plt.plot(W_array, 1+0*W_array, color="k", lw=1.5,)
+        plt.plot(
+            W_array, 1+0*W_array, color="k", lw=1.5,
+        )
         axes = plt.gca()
         plt.plot(
             W_array[W_array<0.48], 
@@ -1208,7 +1242,7 @@ class SimViz(BaseViz):
                 horizontalalignment="center",
                 transform=axes.transAxes,
             )
-        plt.autoscale(enable=True, tight=True)
+        plt.autoscale(enable=True, tight=True,)
         axes.set_xscale("log",) #nonposx="clip")
         y_limits = (0.9, 1.1,)
         plt.ylim(*y_limits)
@@ -1230,7 +1264,7 @@ class SimViz(BaseViz):
             title: str|None=None,
             eqns: Equations|None=None, 
             k: float=1, 
-            fig_size: tuple[float,float]=(6,4,),
+            fig_size: tuple[float,float]=(6, 4,),
         ) -> None:
         """
         Plot baseline erosion rate versus baseline weathering rate.
@@ -1250,7 +1284,7 @@ class SimViz(BaseViz):
             plt.title(title, fontdict={"fontsize": 11.5})
         
         w0_array = 10**np.linspace(-3,+1,100)
-        for vs in [0.1,1,3]:
+        for vs in (0.1, 1, 3):
             v0_array = np.array([
                 sy.N(eqns.v0_eqn_vs_w0.rhs.subs({v_s:vs, w_0:w0, k:k})) 
                 for w0 in w0_array
@@ -1270,7 +1304,7 @@ class SimViz(BaseViz):
             name: str,
             title: str|None=None,
             eqns: Equations|None=None, 
-            fig_size: tuple[float,float]=(6,4,),
+            fig_size: tuple[float,float]=(6, 4,),
         ) -> None:
         """
         Plot baseline erosion rate versus surface weakness at steady-state.
@@ -1317,7 +1351,7 @@ class AppViz(BaseViz):
             zys: Sequence|None=None, 
             do_equal_aspect=False,
             text_labels: Sequence|None=None,
-            fig_size: tuple[float,float]=(6,4,),
+            fig_size: tuple[float,float]=(6, 4,),
         ) -> None:            
         """
         Plot numerical solutions applied to channel cross-section model (vertical profiles).
@@ -1337,7 +1371,9 @@ class AppViz(BaseViz):
             plt.title(title, fontdict={"fontsize": 11.5})
         
         zy=zys[0]
-        plt.plot(zy[2], zy[0], label=zy[4], color="k")
+        plt.plot(
+            zy[2], zy[0], label=zy[4], color="k",
+        )
         plt.ylabel(zy[1])
         plt.xlabel(zy[3])
         axes = plt.gca()
@@ -1347,14 +1383,20 @@ class AppViz(BaseViz):
             pass
         if text_labels is not None:
             for text_label in text_labels:
-                plt.text(*text_label[0], text_label[1], 
-                        color=text_label[3], size=text_label[2],
-                        verticalalignment="center", horizontalalignment="center",
-                        transform=axes.transAxes, rotation=text_label[4])
+                plt.text(
+                    *text_label[0], 
+                    text_label[1], 
+                    color=text_label[3], 
+                    size=text_label[2],
+                    verticalalignment="center", 
+                    horizontalalignment="center",
+                    transform=axes.transAxes, 
+                    rotation=text_label[4],
+                )
         plt.grid("on",ls=":")
         if len(zys)>=2:
             zy=zys[1]
-            plt.plot(0,0, label=zy[4], color="forestgreen")
+            plt.plot(0,0, label=zy[4], color="forestgreen",)
         plt.legend()
         
         if len(zys)>=2:
@@ -1400,7 +1442,7 @@ class AppViz(BaseViz):
         x_limits = plt.xlim()
         y_limits = plt.ylim()
         plt.plot(
-            [-1,-1], 
+            (-1, -1,), 
             label="${\mathcal{W}}=w_0/{u_0} k$", 
             color="forestgreen",
         )
@@ -1416,7 +1458,7 @@ class AppViz(BaseViz):
         plt.xlabel(r"Speeds $w_0(z)/k$, ${u_0}(z)$, $v_s(z)$")
         plt.ylabel(r"Height above bed  $z$")
         plt.legend(loc="upper center")
-        plt.grid("on",ls=":")
+        plt.grid(ls=":")
 
         axes = plt.gca()
         alt_axes = axes.twiny()
