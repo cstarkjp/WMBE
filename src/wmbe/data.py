@@ -13,16 +13,16 @@ from scipy.optimize import curve_fit
 from typing import Any, Callable
 from collections.abc import Sequence
 from numpy.typing import NDArray
+from pandas import DataFrame
 
 warnings.filterwarnings("ignore")
 
 def read_excel(
-        self, 
         dir_name=("..", "data",), 
         file_name="Inoue_wetdryN_sigmaT",
         header=0, 
         skiprows=[1],
-    ) -> None:
+    ) -> DataFrame:
     """
     Read data from an Excel file into a :mod:`pandas` dataframe
     
@@ -49,8 +49,8 @@ def read_excel(
         raise
     except:  
         raise
-    # self.data.update({data_set:df})
-    self.df = df
+    
+    return df
     
 class ExperimentalData:
     """

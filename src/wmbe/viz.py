@@ -14,6 +14,7 @@ import matplotlib.ticker as ticker
 from typing import Any, Callable
 from collections.abc import Sequence
 from numpy.typing import NDArray
+from pandas import DataFrame
 
 from wmbe.data import ExperimentalData
 from wmbe.model import WeatheringMediatedWeakness, linear_model
@@ -135,7 +136,7 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            data: ExperimentalData|None=None, 
+            data: DataFrame|None=None, 
             model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
@@ -162,12 +163,11 @@ class DataViz(BaseViz):
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        df = data.df
         # sigmaT  = df.sigmaT
-        wetdryN = df.wetdryN
-        erodibility_sigma2   = df.w_sigma2
+        wetdryN = data.wetdryN
+        erodibility_sigma2   = data.w_sigma2
         # erodibility_sigma1p5 = df.w_sigma1p5
-        erodibility_sigma2_fit = model.fits["inoue"][0]
+        erodibility_sigma2_fit = model.fits["default"][0]
             
         plt.plot(
             wetdryN,
@@ -271,7 +271,6 @@ class DataViz(BaseViz):
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
-        df = data.df
         color_list = (
             "darkblue",
             "darkmagenta",
@@ -284,11 +283,11 @@ class DataViz(BaseViz):
             "o", "s", "v", "^", "8", "+",
         )
         n_cols = len(color_list)
-        for (idx, P_,) in enumerate(np.unique(df.P)):
-            selection_name = f"{'li'}_{'P'}_{P_}"
+        for (idx, P_,) in enumerate(np.unique(data.P)):
+            selection_name = f"{'P'}_{P_}"
             # sigma  = df.sigmaC[df.P==P_]/100
-            wetdryN = df.wetdryN[df.P==P_]
-            erodibility_sigma   = df.w_sigma2[df.P==P_]
+            wetdryN = data.wetdryN[data.P==P_]
+            erodibility_sigma   = data.w_sigma2[data.P==P_]
             erodibility_sigma_fit = model.fits[selection_name][0]
             
             plt.plot(
@@ -378,15 +377,12 @@ class DataViz(BaseViz):
         )
         n_cols = len(color_list)
         
-        df = data.df
-        # fit = expt_data.fdict["li"]
-        sampled_fit = model.fits2d["li"]
-        # w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
+        sampled_fit = model.fits2d["default"]
         
-        for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
+        for idx,wetdryN in enumerate(np.flip(np.unique(data.wetdryN))):
             # wdN_ = df.wetdryN[df.wetdryN==wetdryN]
-            P_ = df.P[df.wetdryN==wetdryN]
-            w_ = df.w_sigma2[df.wetdryN==wetdryN]
+            P_ = data.P[data.wetdryN==wetdryN]
+            w_ = data.w_sigma2[data.wetdryN==wetdryN]
             P_fit = sampled_fit[1]
             w_fit = np.flipud(sampled_fit[2].T)[idx]
             plt.plot(
@@ -477,15 +473,14 @@ class DataViz(BaseViz):
         )
         n_cols = len(color_list)
         
-        df = data.df
-        sampled_fit = model.fits2d["li"]
+        sampled_fit = model.fits2d["default"]
         w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
         
         P_fit = sampled_fit[1]
         w_fit = (np.flipud(sampled_fit[2].T)[-1]-1)/w_ref_vec[-1]+1
 
         plt.errorbar(
-            np.unique(df.P),
+            np.unique(data.P),
             model.w_s2normed_means, 
             label="mean data",
             xerr=None,
@@ -502,10 +497,10 @@ class DataViz(BaseViz):
             capsize=7,
         )
         
-        for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
+        for idx,wetdryN in enumerate(np.flip(np.unique(data.wetdryN))):
             # wdN_ = df.wetdryN[df.wetdryN==wetdryN]
-            P_ = df.P[df.wetdryN==wetdryN]
-            w_normed = df.w_s2normed[df.wetdryN==wetdryN]
+            P_ = data.P[data.wetdryN==wetdryN]
+            w_normed = data.w_s2normed[data.wetdryN==wetdryN]
             plt.errorbar(
                 P_, 
                 w_normed,
@@ -561,7 +556,7 @@ class DataViz(BaseViz):
             title: str|None=None,
             data: ExperimentalData|None=None, 
             model: WeatheringMediatedWeakness|None=None,
-            model_surface: str|None=None,
+            surface: str|None=None,
             # text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -592,12 +587,11 @@ class DataViz(BaseViz):
 
         axes = fig.add_subplot(1, 1, 1, projection = "3d",)
         
-        df = data.df
         # TBD: need an exception here if model_surface not specified
-        (X, Y, Z,) = model.fits[model_surface]
+        (X, Y, Z,) = model.fits[surface]
 
         axes.scatter(
-            df.wetdryN, df.P, df.w_sigma2, color="k", s=40,
+            data.wetdryN, data.P, data.w_sigma2, color="k", s=40,
         )
         
         colors_list = ("y", "b",)

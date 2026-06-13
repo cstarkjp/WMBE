@@ -13,6 +13,7 @@ from scipy.optimize import curve_fit
 from typing import Any, Callable
 from collections.abc import Sequence
 from numpy.typing import NDArray
+from pandas import DataFrame
 
 from wmbe.data import ExperimentalData
 
@@ -89,8 +90,7 @@ class WeatheringMediatedWeakness:
 
     def fit_weakness_vs_time_linear_model(
             self, 
-            data: ExperimentalData, 
-            data_set: str,
+            data: DataFrame, 
             x_name: str, 
             y_name: str, 
             select: str|None=None,
@@ -117,27 +117,25 @@ class WeatheringMediatedWeakness:
         #         mean values of weakness :math:`w`
         #     w_s2_stds (:class:`numpy.ndarray`) :
         #         standard deviations of weakness :math:`w`
-        df = data.df
         if select is not None:
-            for selection in np.unique(df[select]):
-                selection_name = f"{data_set}_{select}_{selection}"
-                x = df.loc[df[select]==selection][x_name]
-                y = df.loc[df[select]==selection][y_name]
+            for selection in np.unique(data[select]):
+                selection_name = f"{select}_{selection}"
+                x = data.loc[data[select]==selection][x_name]
+                y = data.loc[data[select]==selection][y_name]
                 self.fits[selection_name] = curve_fit(linear_model, x, y,)
         else:
-            x = df[x_name]
-            y = df[y_name]
-            self.fits[data_set] = curve_fit(linear_model, x, y,)
+            x = data[x_name]
+            y = data[y_name]
+            self.fits["default"] = curve_fit(linear_model, x, y,)
             
         self.w_s2_means \
-            = df.groupby("wetdryN").mean()["w_sigma2"]
+            = data.groupby("wetdryN").mean()["w_sigma2"]
         self.w_s2_stds \
-            = df.groupby("wetdryN").std()[ "w_sigma2"]
+            = data.groupby("wetdryN").std()[ "w_sigma2"]
 
-    def fit_weakness_vs_timedepth_model(
+    def fit_weakness_vs_time_and_depth_model(
             self, 
             data: ExperimentalData, 
-            data_set: str, 
             select: str
         ) -> None:
         """
@@ -162,17 +160,16 @@ class WeatheringMediatedWeakness:
     
         """
         
-        df       = data.df
-        wdN_vec  = df.wetdryN
-        P_vec    = df.P
-        sig_vec  = df.sigmaC/180
+        wdN_vec  = data.wetdryN
+        P_vec    = data.P
+        sig_vec  = data.sigmaC/180
         w_vec    = sig_vec**(-2)
         wdN_P_array = np.vstack((
             wdN_vec,
             P_vec,
         ))
         model_fit   = curve_fit(weakening_model, wdN_P_array, w_vec,)
-        self.fits[data_set] = model_fit
+        self.fits["default"] = model_fit
     
         n_pts = 30
         X = np.linspace(0, wdN_vec.max()*1.1, n_pts,)
@@ -183,7 +180,7 @@ class WeatheringMediatedWeakness:
             Y.reshape(n_pts**2),
         ))
         Z = weakening_model(X_Y_array, *model_fit[0],).reshape(n_pts, n_pts,)
-        self.fits[data_set+"_"+select+"_surface"] = (X, Y, Z,)
+        self.fits[select+"_surface"] = (X, Y, Z,)
         
         P_vec = np.linspace(0,P_vec.max()*1.3)
         X,Y = np.meshgrid(np.unique(wdN_vec), P_vec)
@@ -191,7 +188,7 @@ class WeatheringMediatedWeakness:
             X.reshape(X.shape[0]*Y.shape[1]), 
             Y.reshape(X.shape[0]*Y.shape[1]),
         ))
-        self.fits2d[data_set] = (
+        self.fits2d["default"] = (
             X[0], 
             Y[:,0],
             weakening_model(
@@ -201,14 +198,14 @@ class WeatheringMediatedWeakness:
         )
         
         pd.options.mode.chained_assignment = None
-        w_ref_vec = (self.fits2d[data_set][2].T.copy())[:,0] - 1
-        df["w_s2normed"] = 0.0
-        for idx,wetdryN in enumerate(np.unique(df.wetdryN)):
-            w = df.w_sigma2[df.wetdryN==wetdryN].copy()
+        w_ref_vec = (self.fits2d["default"][2].T.copy())[:,0] - 1
+        data["w_s2normed"] = 0.0
+        for idx,wetdryN in enumerate(np.unique(data.wetdryN)):
+            w = data.w_sigma2[data.wetdryN==wetdryN].copy()
             w_normed = (w-1)/w_ref_vec[idx]+1
-            df.loc[(idx*3):(idx*3+3), "w_s2normed"] = w_normed
+            data.loc[(idx*3):(idx*3+3), "w_s2normed"] = w_normed
 
         self.w_s2normed_means \
-            = df.groupby("P").mean()["w_s2normed"]
+            = data.groupby("P").mean()["w_s2normed"]
         self.w_s2normed_stds \
-            = df.groupby("P").std()["w_s2normed"]
+            = data.groupby("P").std()["w_s2normed"]
