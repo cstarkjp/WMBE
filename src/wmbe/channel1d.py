@@ -1,31 +1,45 @@
 """
----------------------------------------------------------------------
-
-Module applying the weathering-mediated erosion model to bedrock channel geometry
+Module applying the weathering-mediated erosion model to 1d bedrock channel.
 """
-
+import warnings
 import numpy as np
 from scipy import integrate
-from .symbols import *
+import sympy as sy
+from sympy import Eq
+
+from typing import Any, Callable
+from collections.abc import Sequence
+from numpy.typing import NDArray
+
+from wmbe.symbols import *
+from wmbe.theory import Equations
+
+warnings.filterwarnings("ignore")
+
+__all__ = [
+    "ChannelWallApplication",
+]
 
 class ChannelWallApplication:
     """
-    Numerical solution of combined models of weathering-mediated erosion & bedrock channel
+    Numerical solution of combined models of weathering-mediated erosion 
+    & bedrock channel.
     
-    Class that provides numerical solution of a combination model 1d weathering-mediated
-    erosion and 1+1d bedrock channel cross-section (at the channel wall).
+    Class that provides numerical solution of a combination model 1d 
+    weathering-mediated erosion and 1+1d bedrock channel cross-section 
+    (at the channel wall).
     
     Args:
-        em (:class:`~.theory.WeatheringMediatedErosion`): 
+        eqns (:class:`~.theory.WeatheringMediatedErosion`): 
                 instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
         pdict (dict): model parameters dictionary
     """
-    def __init__(self, em, pdict):
+    def __init__(self, eqns: Equations, physical_parameters: dict) -> None:
         """
         Initialize class instance.
 
         Attributes:
-            pdict (:obj:`dict`) : 
+            physical_parameters (:obj:`dict`) : 
                 model parameters dictionary
         """
             # w0_eqn_z_calibrated (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
@@ -51,15 +65,22 @@ class ChannelWallApplication:
             #     :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`
             #     where 
             #     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`
-        self.pdict = pdict
-        self.w0_eqn_z_calibrated = em.w0_eqn_wr_z.subs(self.pdict)
-        self.v0_eqn_z_calibrated = em.v0_eqn_vr_h_z.subs(self.pdict)
-        self.W_eqn_z_calibrated  = em.W_eqn.subs(self.pdict)
-        self.vs_eqn = em.vs_eqn_w0_v0.subs({v_0:em.v0_eqn_vr_h_z.rhs})
+        self.physical_parameters = physical_parameters
+        self.w0_eqn_z_calibrated \
+            = eqns.w0_eqn_wr_z.subs(self.physical_parameters)
+        self.v0_eqn_z_calibrated \
+            = eqns.v0_eqn_vr_h_z.subs(self.physical_parameters)
+        self.W_eqn_z_calibrated \
+            = eqns.W_eqn.subs(self.physical_parameters)
+        self.vs_eqn \
+            = eqns.vs_eqn_w0_v0.subs({v_0:eqns.v0_eqn_vr_h_z.rhs})
         self.vs_eqn_z_calibrated \
-            = self.vs_eqn.subs({w_0:self.w0_eqn_z_calibrated.rhs}).subs(self.pdict)
-
-    def compute_vertical_profiles(self, n_pts=100):
+            = (
+                self.vs_eqn
+                    .subs({w_0:self.w0_eqn_z_calibrated.rhs})
+                    .subs(self.physical_parameters)
+            )
+    def compute_vertical_profiles(self, n_pts: int=100,) -> None:
         """
         Compute dependence of various properties with height above channel base
 
@@ -89,7 +110,7 @@ class ChannelWallApplication:
                 weathering number along vertical profile
         """
         self.n_pts = n_pts
-        self.z_array  = np.linspace(0,1,self.n_pts)
+        self.z_array = np.linspace(0,1,self.n_pts)
         self.w0_array = np.array([
             np.float64(self.w0_eqn_z_calibrated.rhs.subs(z,z__)) for z__ in self.z_array])
         self.v0_array = np.array([
@@ -103,10 +124,10 @@ class ChannelWallApplication:
                             .subs({w_0:self.w0_array[idx]})  )
                                 for idx,z__ in enumerate(self.z_array)])
         self.vs_eqn_z_calibrated = self.vs_eqn.subs({w_0:self.w0_eqn_z_calibrated.rhs}) \
-                                        .subs(self.pdict)
+                                        .subs(self.physical_parameters)
     
     
-    def compute_cross_section(self):
+    def compute_cross_section(self) -> None:
         """
         Compute dependence of various properties with height above channel base
         

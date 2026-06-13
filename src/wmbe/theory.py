@@ -1,17 +1,23 @@
 """
-Module for `sympy` exposition of weathering-mediated erosion theory
-
+Module for Sympy exposition of weathering-mediated erosion theory.
 """
-
-
+import warnings
 import numpy as np
 import sympy as sy
 from sympy import Eq
-from .symbols import *
 
+from typing import Any, Callable
+from collections.abc import Sequence
+from numpy.typing import NDArray
 
+from wmbe.symbols import *
 
-class Theory:
+warnings.filterwarnings("ignore")
+
+__all__ = [
+    "Equations",
+]
+class Equations:
     """
     Weathering-mediated erosion theory in various forms
     
@@ -76,7 +82,7 @@ class Theory:
 
 
     @staticmethod
-    def step(z,z0,kappa):
+    def step(z, z0, kappa,):
         """
         Step function at x0= :math:`z_0` and sharpness k= :math:`k`.
         
@@ -91,7 +97,3 @@ class Theory:
             float: step function :math:`H_s`               
         """
         return (1+sy.tanh((z-z0)*kappa))/2
-
-
-
-        

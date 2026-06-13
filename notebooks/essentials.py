@@ -8,7 +8,7 @@ import wmbe
 from wmbe.data import ExperimentalData
 from wmbe.file import create_directories, export_plots, export_plot
 from wmbe.solve1d import NumericalModel
-from wmbe.solve1p1d import ChannelWallApplication
+from wmbe.channel1d import ChannelWallApplication
 from wmbe.symbols import *
-from wmbe.theory import Theory
+from wmbe.theory import Equations
 from wmbe.viz import DataViz, SimViz, AppViz

@@ -6,8 +6,6 @@ The moving-boundary problem is solved using a continuous-valued
 distance (from the erosion front) function that tracks motion with sub-grid
 resolution. Upwind differencing and explicit Euler methods are employed. 
 """
-
-
 import warnings
 import numpy as np
 
@@ -26,7 +24,7 @@ __all__ = [
     "NumericalModel",
 ]
 
-def negExpH(chi: float|NDArray , dchi: float|NDArray,):
+def negExpH(chi: float|NDArray , dchi: float|NDArray,) -> float|NDArray:
     """
     Negate, exponentiate and Heaviside clip.
     
@@ -90,7 +88,6 @@ def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
             *np.heaviside(chi,0)
     )
 
-
 class NumericalModel:
     """
     Numerical solution of $\eta(\chi,\\tau)$` and $\\varphi(\\tau)$ evolution.
@@ -108,7 +105,7 @@ class NumericalModel:
         physical_parameters (dict): model parameters dictionary
         model_parameters (dict): numerical method parameters dictionary
     """
-    def __init__(self, physical_parameters, model_parameters):
+    def __init__(self, physical_parameters, model_parameters) -> None:
         """
         Initialize class instance.
         
@@ -185,8 +182,7 @@ class NumericalModel:
         self.nu_array  = np.zeros((self.tau_n_steps),dtype=np.float64)
         self.j = 0
         
-
-    def solve(self):
+    def solve(self) -> None:
         """
         Use an explicit finite-difference scheme to solve for evolution of
         a weakness profile :math:`\\eta_i^j` 
