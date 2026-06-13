@@ -15,9 +15,14 @@ from collections.abc import Sequence
 from numpy.typing import NDArray
 from pandas import DataFrame
 
-from wmbe.data import ExperimentalData
-
 warnings.filterwarnings("ignore")
+
+__all__ = [
+    "linear_model",
+    "exponential_decay_model",
+    "weakening_model",
+    "WeatheringMediatedWeakness",
+]
 
 def linear_model(
         x: float|NDArray, 
@@ -135,30 +140,29 @@ class WeatheringMediatedWeakness:
 
     def fit_weakness_vs_time_and_depth_model(
             self, 
-            data: ExperimentalData, 
+            data: DataFrame, 
             select: str
         ) -> None:
         """
         Regress a 2d model against experimental data.
-
-        Args:
-            data_set (:obj:`str`) : which experimental dataset,
-                as key to ddict element :class:`pandas.DataFrame`
-            select (:obj:`str`) : which computation of weakness from rock strength
-
-        Attributes:
-            fdict[data_set] (:obj:`list`) : model surface fit as
-                meshgrid X=wet/dry :math:`N`, Y=confining pressure :math:`P`
-                and corresponding surface Z[X,Y] as list (X,Y,Z)
-            sdict[data_set] (:obj:`list`) : model surface estimates at experimental values as
-                meshgrid X=wet/dry :math:`N`, Y=confining pressure :math:`P`
-                and corresponding surface Z[X,Y] as list (X,Y,Z)
-            w_s2normed_means (:class:`numpy.ndarray`) : 
-                mean values of model-normed weakness :math:`w`
-            w_s2normed_stds (:class:`numpy.ndarray`) : 
-                standard deviations of :math:`w`
-    
         """
+        # Args:
+        #     data_set (:obj:`str`) : which experimental dataset,
+        #         as key to ddict element :class:`pandas.DataFrame`
+        #     select (:obj:`str`) : which computation of weakness from rock strength
+
+        # Attributes:
+        #     fdict[data_set] (:obj:`list`) : model surface fit as
+        #         meshgrid X=wet/dry :math:`N`, Y=confining pressure :math:`P`
+        #         and corresponding surface Z[X,Y] as list (X,Y,Z)
+        #     sdict[data_set] (:obj:`list`) : model surface estimates at experimental values as
+        #         meshgrid X=wet/dry :math:`N`, Y=confining pressure :math:`P`
+        #         and corresponding surface Z[X,Y] as list (X,Y,Z)
+        #     w_s2normed_means (:class:`numpy.ndarray`) : 
+        #         mean values of model-normed weakness :math:`w`
+        #     w_s2normed_stds (:class:`numpy.ndarray`) : 
+        #         standard deviations of :math:`w`
+    
         
         wdN_vec  = data.wetdryN
         P_vec    = data.P

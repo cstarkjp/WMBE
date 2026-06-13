@@ -16,7 +16,6 @@ from collections.abc import Sequence
 from numpy.typing import NDArray
 from pandas import DataFrame
 
-from wmbe.data import ExperimentalData
 from wmbe.model import WeatheringMediatedWeakness, linear_model
 from wmbe.solve1d import eta_chi_tau, NumericalModel
 from wmbe.symbols import *
@@ -33,26 +32,28 @@ __all__ = [
 class BaseViz:
     """
     Provide a visualization class.
-
-    Args:
-        dpi:
-            set resolution for rasterized images
-        font_size:
-            set mpl default font size
-        font_family:
-            set mpl default font family
-
-    Attributes:
-        dpi (int):
-            rasterization resolution
-        fdict  (dict):
-            dictionary to which each figure is appended as it is generated
     """
+    # Args:
+    #     dpi:
+    #         set resolution for rasterized images
+    #     font_size:
+    #         set mpl default font size
+    #     font_family:
+    #         set mpl default font family
+
+    # Attributes:
+    #     dpi (int):
+    #         rasterization resolution
+    #     fdict  (dict):
+    #         dictionary to which each figure is appended as it is generated
     dpi: int
     fdict: dict[Any, Any]
 
     def __init__(
-            self, dpi: int=150, font_size: int=11, font_family: str="Arial",
+            self, 
+            dpi: int=150, 
+            font_size: int=11, 
+            font_family: str="Arial",
         ) -> None:
         self.dpi = dpi
         self.fdict = {}
@@ -99,20 +100,19 @@ class BaseViz:
         Initialize a Pyplot figure.
 
         Set its size and DPI. Append it to the figures dictionary.
-
-
-        Args:
-            fig_name:
-                name of figure; used as key in figures dictionary
-            fig_size:
-                optional width and height of figure in inches
-            dpi:
-                rasterization resolution
-
-        Returns:
-            figure:
-                reference to MatPlotLib/Pyplot figure
         """
+        # Args:
+        #     fig_name:
+        #         name of figure; used as key in figures dictionary
+        #     fig_size:
+        #         optional width and height of figure in inches
+        #     dpi:
+        #         rasterization resolution
+
+        # Returns:
+        #     figure:
+        #         reference to MatPlotLib/Pyplot figure
+
         fig_size_: tuple[float, float] = (
             (6, 4,) if size is None else size
         )
@@ -243,7 +243,7 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            data: ExperimentalData|None=None, 
+            data: DataFrame|None=None, 
             model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
@@ -340,7 +340,7 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            data: ExperimentalData|None=None, 
+            data: DataFrame|None=None, 
             model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
@@ -434,7 +434,7 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            data: ExperimentalData|None=None, 
+            data: DataFrame|None=None, 
             model: WeatheringMediatedWeakness|None=None,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
@@ -447,15 +447,15 @@ class DataViz(BaseViz):
         inferred from  `Li et al (2016)`_
         data on compressive strength :math:`\sigma_C` 
         at a range of confining pressures :math:`P` after :math:`N` wetting and drying cycles.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-                                        containing data sets as :mod:`pandas` dataframes
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
-        """
+        """        
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
+        #                                 containing data sets as :mod:`pandas` dataframes
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
+
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -554,7 +554,7 @@ class DataViz(BaseViz):
             self, 
             name: str,
             title: str|None=None,
-            data: ExperimentalData|None=None, 
+            data: DataFrame|None=None, 
             model: WeatheringMediatedWeakness|None=None,
             surface: str|None=None,
             # text_label: Sequence|None=None,
@@ -567,20 +567,19 @@ class DataViz(BaseViz):
         of rock weakness versus proxy depth inferred from 
         `Li et al (2016)`_ data on compressive strength :math:`\sigma_C` 
         at a range of confining pressures :math:`P` after :math:`N` wetting and drying cycles.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-                                        containing data sets as :mod:`pandas` dataframes
-            model_surface (str): 
-                    key to dict (stored in :attr:`ed`) reference in  to 
-                    2D  function regressed in 
-                    :meth:`~.data.ExptData.fit_weathering_model` that models
-                    joint dependence of weakness on proxy depth and proxy time
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
-        """
+        """        
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
+        #                                 containing data sets as :mod:`pandas` dataframes
+        #     model_surface (str): 
+        #             key to dict (stored in :attr:`ed`) reference in  to 
+        #             2D  function regressed in 
+        #             :meth:`~.data.ExptData.fit_weathering_model` that models
+        #             joint dependence of weakness on proxy depth and proxy time
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         fig = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})

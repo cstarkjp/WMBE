@@ -10,6 +10,10 @@ from shutil import rmtree
 from json import dump, load
 from io import TextIOWrapper
 from functools import partial
+import os
+import pandas as pd
+
+from pandas import DataFrame
 
 from tqdm import tqdm
 progress: Callable = partial(tqdm, colour="green",)
@@ -20,6 +24,7 @@ from wmbe.serialize import is_serializable, from_serializable, to_serializable
 warnings.filterwarnings("ignore")
 
 __all__ = [
+    "read_excel",
     "create_directories",
     "create_dir",
     "import_info",
@@ -28,6 +33,41 @@ __all__ = [
     "export_plots",
     "export_plot"
 ]
+
+def read_excel(
+        dir_name=("..", "data",), 
+        file_name="Inoue_wetdryN_sigmaT",
+        header=0, 
+        skiprows=[1],
+    ) -> DataFrame:
+    """
+    Read data from an Excel file into a :mod:`pandas` dataframe
+    
+    Attributes:
+        data_set  (:obj:`str`)  : name of dataset in data dictionary
+        dir_name  (:obj:`list`) : data source directory as platform-indepedent list
+        file_name (:obj:`str`)  : data source filename
+        header    (:obj:`int`)  : number of header (column title etc) rows
+        skiprows  (:obj:`int`)  : number of rows to skip when creating dataframe
+
+    """
+    dir_name = os.path.join(*dir_name)
+    if not os.path.exists(dir_name):
+        print("Cannot find data directory")
+        raise
+    try:
+        df = pd.read_excel(
+            os.path.join(dir_name, file_name+".xlsx",),
+            header=header, 
+            skiprows=skiprows,
+        )
+    except OSError:  
+        print("Cannot find data directory")
+        raise
+    except:  
+        raise
+    return df
+
 
 def create_directories(
         results_path: Sequence = ("..", "experiments",), 
