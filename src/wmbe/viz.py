@@ -1,5 +1,5 @@
 """
-Data visualization.
+Visualization classes.
 """
 import warnings
 import logging
@@ -22,9 +22,13 @@ from wmbe.symbols import *
 
 warnings.filterwarnings("ignore")
 
-__all__ = ["Viz"]
+__all__ = [
+    "DataViz",
+    "SimViz",
+    "AppViz",
+]
 
-class Viz:
+class BaseViz:
     """
     Provide a visualization class.
 
@@ -42,7 +46,6 @@ class Viz:
         fdict  (dict):
             dictionary to which each figure is appended as it is generated
     """
-
     dpi: int
     fdict: dict[Any, Any]
 
@@ -114,7 +117,10 @@ class Viz:
         fig.set_dpi(dpi_)
         return fig
 
-
+class DataViz(BaseViz):
+    """
+    Data visualization class.
+    """
     def inoue_w_wetdryN(
             self, 
             name: str,
@@ -504,7 +510,10 @@ class Viz:
         axes.set_zlabel("Weakness  $w=$  [-]")
         plt.grid(ls=":")
 
-
+class SimViz(BaseViz):
+    """
+    Numerical simulation visualization class.
+    """
 
     def frontspeed_evolution(
             self, 
@@ -1121,8 +1130,10 @@ class Viz:
         plt.legend(loc="lower right")
         plt.grid(ls=":")
 
-
-
+class AppViz(BaseViz):
+    """
+    Model application visualization class.
+    """
     def channel_generic(
             self, 
             name: str,
@@ -1237,4 +1248,3 @@ class Viz:
                     color="k", size=text_label[2],
                     verticalalignment="center", horizontalalignment="center",
                     transform=axes.transAxes)
-
