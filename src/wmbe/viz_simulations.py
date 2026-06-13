@@ -33,20 +33,19 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
-        Plot time-evolution of dimensionless erosion rate :math:`\\nu(\\tau)`.
+        Plot time-evolution of dimensionless erosion rate $\\nu(\\tau)$.
         
-        Generate graph of numerical solutions :math:`j`  of dimensionless rock-surface erosion
-        rate :math:`\\nu_i^j` over dimensionless time :math:`\\tau^j`. 
-        These solutions are provided in the
-        class instance :class:`~.solve1d.ErosionWeathering`.
+        Generate graph of numerical solutions $j$ of dimensionless rock-surface 
+        erosion rate $\\nu_i^j$ over dimensionless time $\\tau^j$. 
+        These solutions are provided in the class instance 
+        :class:`~.solve1d.ErosionWeathering`.
         Legend-label by weathering number for this instance.
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            ew (:class:`~.solve1d.ErosionWeathering`): 
-                    instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
-        """
+        """            
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     ew (:class:`~.solve1d.ErosionWeathering`): 
+        #             instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -56,11 +55,11 @@ class VizSimulations(VizBase):
             nm.nu_array,  
             color="k", 
             lw=1, 
-            label=r"${\mathcal{W}}=$"+f"{nm.W}",
+            label=r"${\\mathcal{W}}=$"+f"{nm.W}",
         )
         plt.legend(loc="center right")
-        plt.xlabel(r"Time  $\tau$  [-]")
-        plt.ylabel(r"Front speed  $\partial\varphi/\partial\tau$  [-]")
+        plt.xlabel(r"Time  $\\tau$  [-]")
+        plt.ylabel(r"Front speed  $\\partial\\varphi/\\partial\\tau$  [-]")
         plt.grid(ls=":")
 
     def weakness_evolution(
@@ -73,30 +72,27 @@ class VizSimulations(VizBase):
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
-        r"""
-        Plot 1d evolution of weathering profile :math:`{\omega}(\chi,\\tau)` 
+        """
+        Plot 1d evolution of weathering profile ${\\omega}(\\chi,\\tau)$
         undergoing erosion.
         
-        Generate graph of selected solutions :math:`j` 
-        of 1d weathering-mediated erosion model
-        weakness :math:`{\omega}_i^j = {\omega}(\chi_i,\\tau^j)`.
-        This series of time slices 
-        shows the propagation and development of a steady-state form
-        of the weathering depth-profile
-        as the rock surface is erodexpt_data. Quantities are all dimensionless.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            ew (:class:`~.solve1d.ErosionWeathering`): 
-                    instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
-            tc (int): 
-                    :math:`\\tau^j`  slicing "rate"
-            nd (int): 
-                    number of decimal places in :math:`\\tau`  legend label
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
+        Generate graph of selected solutions $j$ of 1d weathering-mediated 
+        erosion model weakness ${\\omega}_i^j = {\\omega}(\\chi_i,\\tau^j)$. 
+        This series of time slices shows the propagation and development of 
+        a steady-state form of the weathering depth-profile as the rock surface
+        is eroded. Quantities are all dimensionless.
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     ew (:class:`~.solve1d.ErosionWeathering`): 
+        #             instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
+        #     tc (int): 
+        #             $\\tau^j`  slicing "rate"
+        #     nd (int): 
+        #             number of decimal places in $\\tau`  legend label
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -170,8 +166,8 @@ class VizSimulations(VizBase):
             )
 
         plt.legend(loc="upper right", fontsize=10,)
-        plt.xlabel(r"Distance  $\chi$  [-]")
-        plt.ylabel(r"Weakness  ${\omega}(\chi,\tau)$  [-]")
+        plt.xlabel(r"Distance  $\\chi$  [-]")
+        plt.ylabel(r"Weakness  ${\\omega}(\\chi,\\tau)$  [-]")
         plt.grid(ls=":")
 
     def stability_check(
@@ -187,12 +183,11 @@ class VizSimulations(VizBase):
         
         Check numerical stability of time-stepping by plotting a close-up of
         the erosion front speed over time.
-        
-        Args:
-            tau (numpy.ndarray): time slices :math:`\\tau^j` of numerical solution 
-            nu (numpy.ndarray): speed of erosion front :math:`\\nu^j` 
-                                at each time slice :math:`\\tau^j` 
         """
+        # Args:
+        #     tau (numpy.ndarray): time slices $\\tau^j` of numerical solution 
+        #     nu (numpy.ndarray): speed of erosion front $\\nu^j` 
+        #                         at each time slice $\\tau^j` 
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -208,22 +203,20 @@ class VizSimulations(VizBase):
             nm: NumericalModel|None=None, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
-        r"""
-        Plot steady-state solution of weakness ${\omega}_s$.
-        
-        Graph the numerical solution 
-        of the 1d weathering-mediated erosion model
-        for weakness ${\omega}_s(\chi_i | {\mathcal{W}})$ 
-        as a function of depth from the rock surface $\chi_i$
-        for a given value of the weathering number 4{\mathcal{W}}$.
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
-                                            figure 
-            ew (:class:`~.solve1d.ErosionWeathering`): 
-                    instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
         """
+        Plot steady-state solution of weakness ${\\omega}_s$.
+        
+        Graph the numerical solution of the 1d weathering-mediated erosion model
+        for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function of 
+        depth from the rock surface $\\chi_i$ for a given value of the 
+        weathering number ${\\mathcal{W}}$.
+        """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
+        #                                     figure 
+        #     ew (:class:`~.solve1d.ErosionWeathering`): 
+        #             instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -277,10 +270,9 @@ class VizSimulations(VizBase):
             size=10, 
             bbox=bbox_props,
         )
-        
         plt.legend()
-        plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
-        plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
+        plt.xlabel(r"Distance relative to front  $\\chi_s=\\chi-\\varphi_s$  [-]")
+        plt.ylabel(r"Weakness  ${\\omega}_s(\\chi_s)$  [-]")
         plt.grid(ls=":")
 
     def weakness_steadystate_setW(
@@ -291,23 +283,21 @@ class VizSimulations(VizBase):
             chi_max: float=8,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:            
-        r"""
-        Plot a set of steady-state solutions of weakness ${\omega}_s$.
-        
-        Graph a set of numerical solution 
-        of the 1d weathering-mediated erosion model
-        for weakness ${\omega}_s(\chi_i | {\mathcal{W}})$
-        as a function of depth from the rock surface $\chi_i$
-        for a set of weathering numbers ${\mathcal{W}}$.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
-                                            figure 
-            ew_list (list): 
-                    list of instances of 1d weathering-mediated erosion model 
-                    :mod:`~.solve1d` class :class:`~.solve1d.ErosionWeathering`
         """
+        Plot a set of steady-state solutions of weakness ${\\omega}_s$.
+        
+        Graph a set of numerical solution of the 1d weathering-mediated erosion
+        model for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function
+        of depth from the rock surface $\\chi_i$ for a set of weathering numbers
+        ${\\mathcal{W}}$.
+        """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
+        #                                     figure 
+        #     ew_list (list): 
+        #             list of instances of 1d weathering-mediated erosion model 
+        #             :mod:`~.solve1d` class :class:`~.solve1d.ErosionWeathering`
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -376,8 +366,8 @@ class VizSimulations(VizBase):
             
         plt.xlim(chi_min, chi_max,)
         plt.legend(fontsize=11,)
-        plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
-        plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
+        plt.xlabel(r"Distance relative to front  $\\chi_s=\\chi-\\varphi_s$  [-]")
+        plt.ylabel(r"Weakness  ${\\omega}_s(\\chi_s)$  [-]")
         plt.grid(ls=":")
 
     def erosionrate_steadystate_W(
@@ -390,29 +380,28 @@ class VizSimulations(VizBase):
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
-        r"""
-        Plot the 1d model steady-state erosion rate $\nu_s$ 
-        versus weathering number ${\mathcal{W}}$.
-        
-        Graph the functional dependence of dimensionless steady-state 
-        erosion rate $\nu_s$ as a function of versus weathering number ${\mathcal{W}}$
-        for the 1d weathering-mediated erosion model.
-        The analytical solution is plotted as a black curve; numerical solutions are
-        plotted as black circles; asymptotic behavior for low and high ${\mathcal{W}}$
-        are shown as dashed lines. Explanatory annotations are includexpt_data.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            em (:class:`~.theory.WeatheringMediatedErosion`): 
-                    instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-            do_loglog (bool): 
-                flag whether to use log scales on both axes
-            nus_solns_list (list): 
-                set of numerical solutions of $\nu_s$
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
         """
+        Plot the 1d model steady-state erosion rate $\\nu_s$  versus weathering
+        number ${\\mathcal{W}}$.
+        
+        Graph the functional dependence of dimensionless steady-state erosion 
+        rate $\\nu_s$ as a function of versus weathering number ${\\mathcal{W}}$
+        for the 1d weathering-mediated erosion model. The analytical solution 
+        is plotted as a black curve; numerical solutions are plotted as black
+        circles; asymptotic behavior for low and high ${\\mathcal{W}}$
+        are shown as dashed lines. 
+        """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
+        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
+        #     do_loglog (bool): 
+        #         flag whether to use log scales on both axes
+        #     nus_solns_list (list): 
+        #         set of numerical solutions of $\nu_s$
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -448,7 +437,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.2, 
                 0.23, 
-                r"low ${\mathcal{W}}$", 
+                r"low ${\\mathcal{W}}$", 
                 color="brown",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -457,7 +446,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.2, 
                 0.13, 
-                r"$\nu_\mathsf{{s}} \approx 1 + {\mathcal{W}}$", 
+                r"$\\nu_\\mathsf{{s}} \\approx 1 + {\\mathcal{W}}$", 
                 color="brown",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -466,7 +455,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.52, 
                 0.43, 
-                r"transitional ${\mathcal{W}}$", 
+                r"transitional ${\\mathcal{W}}$", 
                 color="gray",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -475,7 +464,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.78, 
                 0.9, 
-                r"high ${\mathcal{W}}$", 
+                r"high ${\\mathcal{W}}$", 
                 color="blue",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -484,7 +473,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.78, 
                 0.8, 
-                r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{{\mathcal{W}}}$", 
+                r"$\\nu_\\mathsf{{s}} \\approx \\dfrac{1}{2}+\\sqrt{{\mathcal{W}}}$", 
                 color="blue",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -504,14 +493,14 @@ class VizSimulations(VizBase):
         plt.plot(
             W_array[W_array<0.7],
             1+W_array[W_array<0.7], 
-            label=r"low ${\mathcal{W}}$ approx",  
+            label=r"low ${\\mathcal{W}}$ approx",  
             ls="--",
             c="brown",
         )
         plt.plot(
             W_array[W_array>1],
             0.5+np.sqrt(W_array[W_array>1]), 
-            label=r"high ${\mathcal{W}}$ approx", 
+            label=r"high ${\\mathcal{W}}$ approx", 
             ls="--",
             c="blue",
         )
@@ -528,8 +517,8 @@ class VizSimulations(VizBase):
             )
         
         plt.legend(loc="upper left", fontsize=10,)
-        plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
-        plt.ylabel(r"Erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
+        plt.xlabel(r"Weathering number  ${\\mathcal{W}}$  [-]")
+        plt.ylabel(r"Erosion rate  ${\\nu}_\\mathsf{{s}}$  [-]")
         # plt.grid(ls=":")
 
     def erosionrate_steadystate_W_transition(
@@ -541,20 +530,20 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
-        Plot the steady-state erosion rate :math:`\\nu_s` relative to its asymptotic behavior.
+        Plot the steady-state erosion rate $\\nu_s$ relative to its asymptotic 
+        behavior.
         
-        Visualize the transitional behavior of the steady-state erosion rate :math:`\\nu_s`
-        at intermediate weathering numbers :math:`W` by plotting how asymptotes at
-        low and high :math:`W` deviate from the full model.
-        
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            em (:class:`~.theory.WeatheringMediatedErosion`): 
-                    instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
+        Visualize the transitional behavior of the steady-state erosion rate 
+        $\\nu_s$ at intermediate weathering numbers $W$ by plotting how 
+        asymptotes at low and high $W$ deviate from the full model.
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
+        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -574,7 +563,7 @@ class VizSimulations(VizBase):
             color="brown", 
             ls="-", 
             lw=1.5, 
-            label="low ${\mathcal{W}}$ approx",
+            label=r"low ${\\mathcal{W}}$ approx",
         )
         plt.plot(
             W_array[W_array>1], 
@@ -582,12 +571,12 @@ class VizSimulations(VizBase):
             color="b", 
             ls="-", 
             lw=1.5, 
-            label="high ${\mathcal{W}}$ approx",
+            label=r"high ${\\mathcal{W}}$ approx",
         )
         plt.text(
             0.18,
             0.18, 
-            r"low ${\mathcal{W}}$", 
+            r"low ${\\mathcal{W}}$", 
             color="brown",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -596,7 +585,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.18,
             0.26, 
-            r"$\nu_\mathsf{{s}} \approx 1 + {\mathcal{W}}$", 
+            r"$\\nu_\\mathsf{{s}} \\approx 1 + {\\mathcal{W}}$", 
             color="brown",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -605,7 +594,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.5,
             0.53, 
-            r"transitional ${\mathcal{W}}$", 
+            r"transitional ${\\mathcal{W}}$", 
             color="gray",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -614,7 +603,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.82,
             0.85, 
-            r"high ${\mathcal{W}}$", 
+            r"high ${\\mathcal{W}}$", 
             color="blue",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -623,7 +612,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.82,
             0.75, 
-            r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{{\mathcal{W}}}$", 
+            r"$\\nu_\\mathsf{{s}} \\approx \\dfrac{1}{2}+\\sqrt{{\\mathcal{W}}}$", 
             color="blue",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -649,10 +638,10 @@ class VizSimulations(VizBase):
         plt.plot((0.25, 0.25,), y_limits, color="gray", ls=":",)
         plt.plot((2.63, 2.63,), y_limits, color="gray", ls=":",)
         plt.legend(loc="upper left")
-        plt.xlabel("Weathering number  ${\mathcal{W}}$  [-]")
+        plt.xlabel(r"Weathering number  ${\\mathcal{W}}$  [-]")
         plt.ylabel(
             r"Approx erosion rate deviation  "
-            + r"$\nu_\mathsf{{s}}^\mathrm{apx}/\nu_\mathsf{{s}}$  [-]"
+            + r"$\\nu_\\mathsf{{s}}^\\mathrm{apx}/\\nu_\\mathsf{{s}}$  [-]"
         )
         # plt.grid(ls=":")
 
@@ -666,17 +655,16 @@ class VizSimulations(VizBase):
         ) -> None:
         """
         Plot baseline erosion rate versus baseline weathering rate.
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            em (:class:`~.theory.WeatheringMediatedErosion`): 
-                    instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-            k_ (float): 
-                weathering-weakening rate profile reciprocal e-folding depth
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
+        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
+        #     k_ (float): 
+        #         weathering-weakening rate profile reciprocal e-folding depth
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -706,15 +694,14 @@ class VizSimulations(VizBase):
         ) -> None:
         """
         Plot baseline erosion rate versus surface weakness at steady-state.
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            em (:class:`~.theory.WeatheringMediatedErosion`): 
-                    instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
+        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -751,18 +738,18 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6, 4,),
         ) -> None:            
         """
-        Plot numerical solutions applied to channel cross-section model (vertical profiles).
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure
-            zy_list (list): 
-                set of numerical solutions to plot
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
-            do_equal_aspect (bool): 
-                flag whether to use force equal sizing of x and y axis scales
+        Plot numerical solutions applied to channel cross-section model 
+        (vertical profiles).
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure
+        #     zy_list (list): 
+        #         set of numerical solutions to plot
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
+        #     do_equal_aspect (bool): 
+        #         flag whether to use force equal sizing of x and y axis scales
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -812,16 +799,16 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:   
         """
-        Plot numerical solutions applied to channel cross-section model (vertical profiles).
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            cw (:class:`~.solve1p1d.ChannelWall`): instance of :mod:`~.solve1p1d` model 
-                                class that simulates channel cross-sectional geometry
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
+        Plot numerical solutions applied to channel cross-section model 
+        (vertical profiles).
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     cw (:class:`~.solve1p1d.ChannelWall`): instance of :mod:`~.solve1p1d` model 
+        #                         class that simulates channel cross-sectional geometry
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -829,24 +816,24 @@ class VizSimulations(VizBase):
         plt.plot(
             model.w0_array/model.physical_parameters[k], 
             model.z_array, 
-            label="$w_0/k$",
+            label=r"$w_0/k$",
         )
         plt.plot(
             model.v0_array, 
             model.z_array, 
-            label="${u_0}$",
+            label=r"$u_0$",
         )
         x_limits = plt.xlim()
         y_limits = plt.ylim()
         plt.plot(
             (-1, -1,), 
-            label="${\mathcal{W}}=w_0/{u_0} k$", 
+            label=r"${\\mathcal{W}}=w_0/{u_0} k$", 
             color="forestgreen",
         )
         plt.plot(
             model.vs_array,
             model.z_array, 
-            label="$v_s$", 
+            label=r"$v_s$", 
             color="k", 
             lw=2,
         )
@@ -862,11 +849,12 @@ class VizSimulations(VizBase):
         alt_axes.plot(
             model.W_array,  
             model.z_array, 
-            label="${\mathcal{W}}$", 
+            label=r"${\\mathcal{W}}$", 
             color="forestgreen",
         )
         alt_axes.set_xlabel(
-            "Weathering number  ${\mathcal{W}}(z)$", color="forestgreen",
+            r"Weathering number  ${\\mathcal{W}}(z)$", 
+            color="forestgreen",
         )
         x_limits = axes.get_xlim()
         axes.set_xlim(x_limits[0],x_limits[1]*1.05)

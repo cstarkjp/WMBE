@@ -11,6 +11,7 @@ from pandas import DataFrame
 
 from wmbe.model import WeatheringMediatedWeakness, linear_model
 from wmbe.viz_base import VizBase
+from wmbe.symbols import *
 
 warnings.filterwarnings("ignore")
 
@@ -32,14 +33,14 @@ class VizData(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         r"""
-        Plot Inoue et al data on weakness :math:`w` versus 
-        proxy time :math:`N` (number of wet/dry cycles).
+        Plot Inoue et al data on weakness $w$ versus proxy time $N$ 
+        (number of wet/dry cycles).
         
-        Generate graph of rock weakness :math:`w` versus proxy time inferred from 
+        Generate graph of rock weakness $w$ versus proxy time inferred from 
         `Inoue et al (2017)`_
-        data on tensile strength :math:`\sigma_T` 
-        (normalized by a reference tensile strength :math:`\sigma_\mathrm{ref}`)
-        after :math:`N` wetting and drying cycles.
+        data on tensile strength $\\sigma_T$
+        (normalized by a reference tensile strength $\\sigma_\\mathrm{ref}$)
+        after $N$ wetting and drying cycles.
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -138,16 +139,14 @@ class VizData(VizBase):
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
-        r"""
-        Plot Li et al  data on weakness :math:`w` versus proxy time :math:`N` 
+        """
+        Plot Li et al  data on weakness $w$ versus proxy time $N$
         (number of wet/dry cycles).
         
-        Generate graph of rock weakness :math:`w` versus proxy time :math:`N` 
-        inferred from  `Li et al (2016)`_
-        data on compressive strength :math:`\sigma_C` 
-        (normalized by a reference compressive strength :math:`\sigma_\mathrm{ref}`)
-        after :math:`N` wetting and drying cycles
-        at a range of confining pressures :math:`P`.
+        Generate graph of rock weakness $w$ versus proxy time $N$ inferred 
+        from `Li et al (2016)`_ data on compressive strength $\\sigma_C$
+        (normalized by a reference compressive strength $\\sigma_\\mathrm{ref}$
+        after $N$ wetting and drying cycles at a range of confining pressures $N$.
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -236,12 +235,11 @@ class VizData(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         r"""
-        Plot Li et al  data on weakness :math:`w` versus proxy depth.
+        Plot Li et al data on weakness $w$ versus proxy depth.
         
-        Generate graph of rock weakness :math:`w` versus proxy depth 
-        inferred from  `Li et al (2016)`_ data on compressive strength :math:`\sigma_C` 
-        at a range of confining pressures :math:`P` after :math:`N` 
-        wetting and drying cycles.
+        Generate graph of rock weakness $w$ versus proxy depth inferred from 
+        `Li et al (2016)`_ data on compressive strength $\\sigma_C$ at a range
+        of confining pressures $P$ after $N$ wetting and drying cycles.
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -330,13 +328,12 @@ class VizData(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         r"""
-        Plot Li et al data on weakness :math:`w` (normalized using 2D model) 
+        Plot Li et al data on weakness $w$ (normalized using 2D model) 
         versus proxy depth.
         
-        Generate graph of rock weakness versus proxy depth
-        inferred from  `Li et al (2016)`_
-        data on compressive strength :math:`\sigma_C` 
-        at a range of confining pressures :math:`P` after :math:`N` wetting and drying cycles.
+        Generate graph of rock weakness versus proxy depth inferred from 
+        `Li et al (2016)`_ data on compressive strength $\\sigma_C$ at a range
+        of confining pressures $P$ after $N$ wetting and drying cycles.
         """        
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -451,12 +448,13 @@ class VizData(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         r"""
-        Plot Li et al data in 3D on weakness versus proxy depth and confining pressure.
+        Plot Li et al data in 3D on weakness versus proxy depth and confining 
+        pressure.
         
-        Generate 3D view of 2D surface model & data
-        of rock weakness versus proxy depth inferred from 
-        `Li et al (2016)`_ data on compressive strength :math:`\sigma_C` 
-        at a range of confining pressures :math:`P` after :math:`N` wetting and drying cycles.
+        Generate 3D view of 2D surface model & data of rock weakness versus 
+        proxy depth inferred from `Li et al (2016)`_ data on compressive 
+        strength $\\sigma_C$ at a range of confining pressures $P$ after $N$ 
+        wetting and drying cycles.
         """        
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -523,18 +521,19 @@ class VizData(VizBase):
             fig_size: tuple[float,float]=(6, 4,),
         ) -> None:            
         """
-        Plot numerical solutions applied to channel cross-section model (vertical profiles).
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure
-            zy_list (list): 
-                set of numerical solutions to plot
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
-            do_equal_aspect (bool): 
-                flag whether to use force equal sizing of x and y axis scales
-        """
+        Plot numerical solutions applied to channel cross-section model 
+        (vertical profiles).
+        """            
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure
+        #     zy_list (list): 
+        #         set of numerical solutions to plot
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #         font size)
+        #     do_equal_aspect (bool): 
+        #         flag whether to use force equal sizing of x and y axis scales
+
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -585,15 +584,15 @@ class VizData(VizBase):
         ) -> None:   
         """
         Plot numerical solutions applied to channel cross-section model (vertical profiles).
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            cw (:class:`~.solve1p1d.ChannelWall`): instance of :mod:`~.solve1p1d` model 
-                                class that simulates channel cross-sectional geometry
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
-        """
+        """            
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     cw (:class:`~.solve1p1d.ChannelWall`): instance of :mod:`~.solve1p1d` model 
+        #                         class that simulates channel cross-sectional geometry
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
+
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -601,7 +600,7 @@ class VizData(VizBase):
         plt.plot(
             model.w0_array/model.physical_parameters[k], 
             model.z_array, 
-            label="$w_0/k$",
+            label=r"$w_0/k$",
         )
         plt.plot(
             model.v0_array, 
@@ -612,13 +611,13 @@ class VizData(VizBase):
         y_limits = plt.ylim()
         plt.plot(
             (-1, -1,), 
-            label="${\mathcal{W}}=w_0/{u_0} k$", 
+            label=r"${\mathcal{W}}=w_0/{u_0} k$", 
             color="forestgreen",
         )
         plt.plot(
             model.vs_array,
             model.z_array, 
-            label="$v_s$", 
+            label=r"$v_s$", 
             color="k", 
             lw=2,
         )
@@ -634,11 +633,12 @@ class VizData(VizBase):
         alt_axes.plot(
             model.W_array,  
             model.z_array, 
-            label="${\mathcal{W}}$", 
+            label="${\\mathcal{W}}$", 
             color="forestgreen",
         )
         alt_axes.set_xlabel(
-            "Weathering number  ${\mathcal{W}}(z)$", color="forestgreen",
+            r"Weathering number  ${\\mathcal{W}}(z)$", 
+            color="forestgreen",
         )
         x_limits = axes.get_xlim()
         axes.set_xlim(x_limits[0],x_limits[1]*1.05)

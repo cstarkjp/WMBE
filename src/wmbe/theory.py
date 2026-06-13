@@ -2,13 +2,8 @@
 Module for Sympy exposition of weathering-mediated erosion theory.
 """
 import warnings
-import numpy as np
 import sympy as sy
 from sympy import Eq
-
-from typing import Any, Callable
-from collections.abc import Sequence
-from numpy.typing import NDArray
 
 from wmbe.symbols import *
 
@@ -29,40 +24,40 @@ class Equations:
         Attributes:
             W_eqn           (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 weathering number: 
-                :math:`W = \\dfrac{w_0}{k v_0}`
+                $W = \\dfrac{w_0}{k v_0}$
             nus_eqn_W       (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 dimensionless steady-state erosion rate: 
-                :math:`\\nu_s = \\dfrac{1}{2}(1+\\sqrt{1+4W})`
+                $\\nu_s = \\dfrac{1}{2}(1+\\sqrt{1+4W})$
             nus_eqn_w0_v0   (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 dimensionless steady-state erosion rate:
-                :math:`\\nu_s = \\frac{\\sqrt{1 + \\frac{4 w_{0}}{k v_{0}}}}{2} + \\frac{1}{2}`
+                $\\nu_s = \\frac{\\sqrt{1 + \\frac{4 w_{0}}{k v_{0}}}}{2} + \\frac{1}{2}$
             etas0_eqn_W     (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 steady-state surface weakness:
-                :math:`\\eta_{s0} = \\dfrac{\\sqrt{4 W + 1}}{2} + \\frac{1}{2}`
+                $\\eta_{s0} = \\dfrac{\\sqrt{4 W + 1}}{2} + \\frac{1}{2}$
             etas0_eqn_w0_v0 (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 steady-state surface weakness:
-                :math:`\\eta_{s0} = \\dfrac{\\sqrt{1 + \\frac{4 w_{0}}{k v_{0}}}}{2} + \\frac{1}{2}`
+                $\\eta_{s0} = \\dfrac{\\sqrt{1 + \\frac{4 w_{0}}{k v_{0}}}}{2} + \\frac{1}{2}$
             nus_eqn_etas0   (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 dimensionless steady-state erosion rate:
-                :math:`\\nu_s =  \\eta_{s}(0)`
+                $\\nu_s =  \\eta_{s}(0)$
             vs_eqn_etas0_v0 (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 steady-state erosion rate:
-                :math:`v_{s} = \\eta_{s}(0) v_{0}`
+                $v_{s} = \\eta_{s}(0) v_{0}$
             v0_eqn_etas0_vs (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 erosion rate:
-                :math:`v_{0} = \\dfrac{k v_{s}^{2}}{k v_{s} + w_{0}}`
+                $v_{0} = \\dfrac{k v_{s}^{2}}{k v_{s} + w_{0}}$
             vs_eqn_w0_v0    (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 steady-state erosion rate:
-                :math:`v_{s} = \\eta_{s}(0) v_{0}`
+                $v_{s} = \\eta_{s}(0) v_{0}$
             v0_eqn_vs_w0    (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 erosion rate:
-                :math:`v_{0} = \\dfrac{k v_{s}^{2}}{k v_{s} + w_{0}}`
+                $v_{0} = \\dfrac{k v_{s}^{2}}{k v_{s} + w_{0}}$
             v0_eqn_vr_h_z   (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 erosion rate: 
-                :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},\\kappa_\\mathrm{v}])(1-v_b)+v_b \\right\}`
+                $v_0 =  v_r \\left\\{ (h-H_s[z,z_\\mathrm{vc},\\kappa_\\mathrm{v}])(1-v_b)+v_b \\right\\}$
             w0_eqn_wr_z     (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
                 surface weakness:
-                :math:`w_0 =  w_r H_s[z,z_\\mathrm{wc},\\kappa_w]`         
+                $w_0 =  w_r H_s[z,z_\\mathrm{wc},\\kappa_w]$
             
         """
         self.W_eqn           = Eq(W,w_0/(k*v_0))
@@ -75,25 +70,25 @@ class Equations:
         self.v0_eqn_etas0_vs = Eq(v_0, sy.solve(self.vs_eqn_etas0_v0,v_0)[0])
         self.vs_eqn_w0_v0    = Eq(v_s, self.nus_eqn_w0_v0.rhs*v_0)
         self.v0_eqn_vs_w0    = Eq(v_0, sy.solve(self.vs_eqn_w0_v0,v_0)[0])
-        self.v0_eqn_vr_h_z   = Eq(v_0, 
-                                  v_r*( (h-self.step(z,z_vc,kappa_v))*(1-v_b)+v_b ) 
-                                  )
+        self.v0_eqn_vr_h_z   = Eq(
+            v_0, 
+            v_r*( (h-self.step(z,z_vc,kappa_v))*(1-v_b)+v_b ) 
+        )
         self.w0_eqn_wr_z     = Eq(w_0, w_r*self.step(z,z_wc,kappa_w))
 
 
     @staticmethod
     def step(z, z0, kappa,):
         """
-        Step function at x0= :math:`z_0` and sharpness k= :math:`k`.
+        Step function at $z=z_0$ and sharpness $k$.
         
-        :math:`H_s(z,z_0,\\kappa) = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa(z-z_0)]}\\right)`
-
-        Attributes:
-            z (sympy.float)  : abscissa :math:`z`        
-            z0 (float) : offset :math:`z_0`        
-            kappa (float)  : step sharpness :math:`\\kappa`   
-            
-        Returns:
-            float: step function :math:`H_s`               
+        $H_s(z,z_0,\\kappa) = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa(z-z_0)]}\\right)$
         """
+        # Attributes:
+        #     z (sympy.float)  : abscissa $z$
+        #     z0 (float) : offset $z_0$
+        #     kappa (float)  : step sharpness $\\kappa$
+            
+        # Returns:
+        #     float: step function $H_s$
         return (1+sy.tanh((z-z0)*kappa))/2

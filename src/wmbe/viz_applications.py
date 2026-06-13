@@ -31,17 +31,16 @@ class VizApplications(VizBase):
         ) -> None:            
         """
         Plot numerical solutions applied to channel cross-section model (vertical profiles).
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure
-            zy_list (list): 
-                set of numerical solutions to plot
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
-            do_equal_aspect (bool): 
-                flag whether to use force equal sizing of x and y axis scales
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure
+        #     zy_list (list): 
+        #         set of numerical solutions to plot
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
+        #     do_equal_aspect (bool): 
+        #         flag whether to use force equal sizing of x and y axis scales
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -69,12 +68,10 @@ class VizApplications(VizBase):
                     transform=axes.transAxes, 
                     rotation=text_label[4],
                 )
-        plt.grid("on",ls=":")
         if len(zys)>=2:
             zy=zys[1]
             plt.plot(0,0, label=zy[4], color="forestgreen",)
         plt.legend()
-        
         if len(zys)>=2:
             zy=zys[1]
             alt_axes = axes.twiny()
@@ -92,15 +89,14 @@ class VizApplications(VizBase):
         ) -> None:   
         """
         Plot numerical solutions applied to channel cross-section model (vertical profiles).
-            
-        Args:
-            fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-                reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-            cw (:class:`~.solve1p1d.ChannelWall`): instance of :mod:`~.solve1p1d` model 
-                                class that simulates channel cross-sectional geometry
-            text_label (list): text annotation as list of form (x-y coordinate, string, 
-                            font size)
         """
+        # Args:
+        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
+        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
+        #     cw (:class:`~.solve1p1d.ChannelWall`): instance of :mod:`~.solve1p1d` model 
+        #                         class that simulates channel cross-sectional geometry
+        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
+        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -108,30 +104,30 @@ class VizApplications(VizBase):
         plt.plot(
             model.w0_array/model.physical_parameters[k], 
             model.z_array, 
-            label="$w_0/k$",
+            label=r"$w_0/k$",
         )
         plt.plot(
             model.v0_array, 
             model.z_array, 
-            label="${u_0}$",
+            label=r"$u_0$",
         )
         x_limits = plt.xlim()
         y_limits = plt.ylim()
         plt.plot(
             (-1, -1,), 
-            label="${\mathcal{W}}=w_0/{u_0} k$", 
+            label=r"${\mathcal{W}}=w_0/{u_0} k$", 
             color="forestgreen",
         )
         plt.plot(
             model.vs_array,
             model.z_array, 
-            label="$v_s$", 
+            label=r"$v_s$", 
             color="k", 
             lw=2,
         )
         plt.xlim(x_limits)
         plt.ylim(y_limits)
-        plt.xlabel(r"Speeds $w_0(z)/k$, ${u_0}(z)$, $v_s(z)$")
+        plt.xlabel(r"Speeds $w_0(z)/k$, $u_0(z)$, $v_s(z)$")
         plt.ylabel(r"Height above bed  $z$")
         plt.legend(loc="upper center")
         plt.grid(ls=":")
@@ -141,14 +137,15 @@ class VizApplications(VizBase):
         alt_axes.plot(
             model.W_array,  
             model.z_array, 
-            label="${\mathcal{W}}$", 
+            label=r"${\mathcal{W}}$", 
             color="forestgreen",
         )
         alt_axes.set_xlabel(
-            "Weathering number  ${\mathcal{W}}(z)$", color="forestgreen",
+            r"Weathering number  ${\mathcal{W}}(z)$", 
+            color="forestgreen",
         )
         x_limits = axes.get_xlim()
-        axes.set_xlim(x_limits[0],x_limits[1]*1.05)
+        axes.set_xlim(x_limits[0], x_limits[1]*1.05)
 
         if text_label is not None:
             plt.text(
