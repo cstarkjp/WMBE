@@ -6,12 +6,9 @@ Li et al (2016): https://doi.org/10.25103/jestr.093.10
 """
 import warnings
 import numpy as np
-import os
 import pandas as pd
 from scipy.optimize import curve_fit
 
-from typing import Any, Callable
-from collections.abc import Sequence
 from numpy.typing import NDArray
 from pandas import DataFrame
 
@@ -30,16 +27,15 @@ def linear_model(
         c: float,
     ) -> float|NDArray:
     """
-    Simple linear model of form: :math:`y = m x + c`
-    
-    Args:
-        x (float or numpy.ndarray) : coordinate
-        m (float) : gradient
-        c (float) : intercept
+    Simple linear model of form: $y = m x + c$.
+    """    
+    # Args:
+    #     x (float or NDArray) : coordinate
+    #     m (float) : gradient
+    #     c (float) : intercept
 
-    Returns:
-        float or numpy.ndarray: y
-    """
+    # Returns:
+    #     float or NDArray: y
     return m*x+c
 
 def exponential_decay_model(
@@ -48,16 +44,15 @@ def exponential_decay_model(
         c: float,
     ) -> float|NDArray:
     r"""
-    Shifted exponential decay model of form: :math:`y = 1 + c \exp(-x/m)`
-    
-    Args:
-        x (float or numpy.ndarray) : coordinate
-        m (float) : e-folding scale
-        c (float) : magnitude
+    Shifted exponential decay model of form: $y = 1 + c \exp(-x/m)$.
+    """    
+    # Args:
+    #     x (float or NDArray) : coordinate
+    #     m (float) : e-folding scale
+    #     c (float) : magnitude
 
-    Returns:
-        float or numpy.ndarray: y
-    """
+    # Returns:
+    #     float or NDArray: y
     return 1 + c*np.exp(-x/m)
 
 def weakening_model(
@@ -68,17 +63,16 @@ def weakening_model(
     ) -> float:
     r"""
     Shifted exponential decay weathering model: 
-        :math:`w = 1 + w_0(\\tau+\\tau_0)\exp(-k\chi)`
-    
-    Args:
-        wetdryN_P (numpy.ndarray) : pair :math:`(\\tau,\chi)`
-        k (float) : reciprocal e-folding scale :math:`k`
-        w0 (float) : magnitude :math:`w_0`
-        tau0 (float) : time offset :math:`\\tau_0`
+        $w = 1 + w_0(\\tau+\\tau_0)\exp(-k\\chi)$
+    """    
+    # Args:
+    #     wetdryN_P (numpy.ndarray) : pair $(\\tau,\chi)$
+    #     k (float) : reciprocal e-folding scale $k$
+    #     w0 (float) : magnitude $w_0$
+    #     tau0 (float) : time offset $\\tau_0$
 
-    Returns:
-        float: y
-    """
+    # Returns:
+    #     float: y
     tau = wetdryN_P[0]
     chi = wetdryN_P[1]
     return 1 + w0*(tau+tau0)*np.exp(-k*chi)
