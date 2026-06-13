@@ -43,7 +43,7 @@ def exponential_decay_model(
         m: float, 
         c: float,
     ) -> float|NDArray:
-    r"""
+    """
     Shifted exponential decay model of form: $y = 1 + c \exp(-x/m)$.
     """    
     # Args:
@@ -61,9 +61,8 @@ def weakening_model(
         w0: float, 
         tau0: float,
     ) -> float:
-    r"""
-    Shifted exponential decay weathering model: 
-        $w = 1 + w_0(\\tau+\\tau_0)\exp(-k\\chi)$
+    """
+    Shifted exponential decay weathering model: $w = 1 + w_0(\\tau+\\tau_0)\\exp(-k\\chi)$.
     """    
     # Args:
     #     wetdryN_P (numpy.ndarray) : pair $(\\tau,\chi)$
