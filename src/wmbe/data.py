@@ -17,7 +17,9 @@ from numpy.typing import NDArray
 warnings.filterwarnings("ignore")
 
 def linear_model(
-        x: float|NDArray, m: float, c: float,
+        x: float|NDArray, 
+        m: float, 
+        c: float,
     ) -> float|NDArray:
     """
     Simple linear model of form: :math:`y = m x + c`
@@ -33,7 +35,9 @@ def linear_model(
     return m*x+c
 
 def exponential_decay_model(
-        x: float|NDArray, m: float, c: float,
+        x: float|NDArray, 
+        m: float, 
+        c: float,
     ) -> float|NDArray:
     r"""
     Shifted exponential decay model of form: :math:`y = 1 + c \exp(-x/m)`
@@ -49,7 +53,10 @@ def exponential_decay_model(
     return 1 + c*np.exp(-x/m)
 
 def weathering_model(
-        wetdryN_P: float, k: float, w0: float, tau0: float,
+        wetdryN_P: float, 
+        k: float, 
+        w0: float, 
+        tau0: float,
     ) -> float:
     r"""
     Shifted exponential decay weathering model: 
@@ -86,14 +93,17 @@ class ExperimentalData:
             sdict (:obj:`dict`) : 2d model dictionary, to contain regression fits of
                 2d weathering model to experimental data
         """
-        self.ddict = dict()
-        self.fdict = dict()
-        self.sdict = dict()
+        self.data = dict()
+        self.fits = dict()
+        self.fits2d = dict()
         
     def read_excel(
-            self, data_set,
-            dir_name=("..","data"), file_name="Inoue_wetdryN_sigmaT",
-            header=0, skiprows=[1]
+            self, 
+            data_set,
+            dir_name=("..", "data",), 
+            file_name="Inoue_wetdryN_sigmaT",
+            header=0, 
+            skiprows=[1],
         ) -> None:
         """
         Read data from an Excel file into a :mod:`pandas` dataframe
@@ -111,17 +121,24 @@ class ExperimentalData:
             print("Cannot find data directory")
             raise
         try:
-            df = pd.read_excel(os.path.join(dir_name,file_name+".xlsx"),
-                               header=header, skiprows=skiprows)
+            df = pd.read_excel(
+                os.path.join(dir_name, file_name+".xlsx",),
+                header=header, 
+                skiprows=skiprows,
+            )
         except OSError:  
             print("Cannot find data directory")
             raise
         except:  
             raise
-        self.ddict.update({data_set:df})
+        self.data.update({data_set:df})
 
     def fit_linear_model(
-            self, data_set, x_name, y_name, select=None
+            self, 
+            data_set, 
+            x_name, 
+            y_name, 
+            select=None
         ) -> None:
         """
         Regress a 1d model against experimental data.
@@ -145,25 +162,27 @@ class ExperimentalData:
             w_s2_stds (:class:`numpy.ndarray`) :
                 standard deviations of weakness :math:`w`
         """
-        df = self.ddict[data_set]
+        df = self.data[data_set]
         if select is not None:
-            for selection in np.unique(self.ddict[data_set][select]):
-                selection_name = "{0}_{1}_{2}".format(data_set,select,selection)
+            for selection in np.unique(self.data[data_set][select]):
+                selection_name = f"{data_set}_{select}_{selection}"
                 x = df.loc[df[select]==selection][x_name]
                 y = df.loc[df[select]==selection][y_name]
-                self.fdict[selection_name] = curve_fit(linear_model, x, y)
+                self.fits[selection_name] = curve_fit(linear_model, x, y,)
         else:
             x = df[x_name]
             y = df[y_name]
-            self.fdict[data_set] = curve_fit(linear_model, x, y)
+            self.fits[data_set] = curve_fit(linear_model, x, y,)
             
         self.w_s2_means \
-            = self.ddict[data_set].groupby("wetdryN").mean()["w_sigma2"]
+            = self.data[data_set].groupby("wetdryN").mean()["w_sigma2"]
         self.w_s2_stds \
-            = self.ddict[data_set].groupby("wetdryN").std()[ "w_sigma2"]
+            = self.data[data_set].groupby("wetdryN").std()[ "w_sigma2"]
 
     def fit_weathering_model(
-            self, data_set, select
+            self, 
+            data_set: str, 
+            select: str
         ) -> None:
         """
         Regress a 2d model against experimental data.
@@ -186,7 +205,7 @@ class ExperimentalData:
                 standard deviations of :math:`w`
     
         """
-        df       = self.ddict[data_set]
+        df       = self.data[data_set]
         wdN_vec  = df.wetdryN
         P_vec    = df.P
         sig_vec  = df.sigmaC/180
@@ -196,18 +215,18 @@ class ExperimentalData:
             P_vec,
         ))
         model_fit   = curve_fit(weathering_model, wdN_P_array, w_vec,)
-        self.fdict[data_set] = model_fit
+        self.fits[data_set] = model_fit
     
         n_pts = 30
         X = np.linspace(0, wdN_vec.max()*1.1, n_pts,)
         Y = np.linspace(0, P_vec.max()*1.1, n_pts,)
-        X,Y = np.meshgrid(X, Y)
+        X,Y = np.meshgrid(X, Y,)
         X_Y_array = np.vstack((
             X.reshape(n_pts**2), 
             Y.reshape(n_pts**2),
         ))
         Z = weathering_model(X_Y_array, *model_fit[0],).reshape(n_pts, n_pts,)
-        self.fdict[data_set+"_"+select+"_surface"] = (X, Y, Z,)
+        self.fits[data_set+"_"+select+"_surface"] = (X, Y, Z,)
         
         P_vec = np.linspace(0,P_vec.max()*1.3)
         X,Y = np.meshgrid(np.unique(wdN_vec), P_vec)
@@ -215,26 +234,24 @@ class ExperimentalData:
             X.reshape(X.shape[0]*Y.shape[1]), 
             Y.reshape(X.shape[0]*Y.shape[1]),
         ))
-        self.sdict[data_set] = (
+        self.fits2d[data_set] = (
             X[0], 
             Y[:,0],
             weathering_model(
                 X_Y_array, 
-                *model_fit[0]
+                *model_fit[0],
             ).reshape(X.shape[0], Y.shape[1],)
         )
         
         pd.options.mode.chained_assignment = None
-        w_ref_vec = (self.sdict[data_set][2].T.copy())[:,0]-1
+        w_ref_vec = (self.fits2d[data_set][2].T.copy())[:,0] - 1
         df["w_s2normed"] = 0.0
         for idx,wetdryN in enumerate(np.unique(df.wetdryN)):
-            w__ = df.w_sigma2[df.wetdryN==wetdryN].copy()
-            w_normed = (w__-1)/w_ref_vec[idx]+1
-            # df["w_s2normed"][(idx*3):(idx*3+3)] = w_normed
-            # Updated 2024/05/29
-            df.loc[(idx*3):(idx*3+3),"w_s2normed"] = w_normed #.astype("float")
+            w = df.w_sigma2[df.wetdryN==wetdryN].copy()
+            w_normed = (w-1)/w_ref_vec[idx]+1
+            df.loc[(idx*3):(idx*3+3), "w_s2normed"] = w_normed
 
         self.w_s2normed_means \
-            = self.ddict["li"].groupby("P").mean()["w_s2normed"]
+            = self.data["li"].groupby("P").mean()["w_s2normed"]
         self.w_s2normed_stds \
-            = self.ddict["li"].groupby("P").std()["w_s2normed"]
+            = self.data["li"].groupby("P").std()["w_s2normed"]

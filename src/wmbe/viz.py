@@ -160,12 +160,12 @@ class DataViz(BaseViz):
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        df = expt_data.ddict.get("inoue")
+        df = expt_data.data.get("inoue")
         # sigmaT  = df.sigmaT
         wetdryN = df.wetdryN
         erodibility_sigma2   = df.w_sigma2
         # erodibility_sigma1p5 = df.w_sigma1p5
-        erodibility_sigma2_fit = expt_data.fdict["inoue"][0]
+        erodibility_sigma2_fit = expt_data.fits["inoue"][0]
             
         plt.plot(
             wetdryN,
@@ -268,7 +268,7 @@ class DataViz(BaseViz):
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
-        df = expt_data.ddict["li"]
+        df = expt_data.data["li"]
         color_list = (
             "darkblue",
             "darkmagenta",
@@ -286,7 +286,7 @@ class DataViz(BaseViz):
             # sigma  = df.sigmaC[df.P==P_]/100
             wetdryN = df.wetdryN[df.P==P_]
             erodibility_sigma   = df.w_sigma2[df.P==P_]
-            erodibility_sigma_fit = expt_data.fdict[selection_name][0]
+            erodibility_sigma_fit = expt_data.fits[selection_name][0]
             
             plt.plot(
                 wetdryN,
@@ -375,9 +375,9 @@ class DataViz(BaseViz):
         )
         n_cols = len(color_list)
         
-        df = expt_data.ddict["li"]
+        df = expt_data.data["li"]
         # fit = expt_data.fdict["li"]
-        sampled_fit = expt_data.sdict["li"]
+        sampled_fit = expt_data.fits2d["li"]
         # w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
         
         for idx,wetdryN in enumerate(np.flip(np.unique(df.wetdryN))):
@@ -473,9 +473,9 @@ class DataViz(BaseViz):
         )
         n_cols = len(color_list)
         
-        df = expt_data.ddict["li"]
+        df = expt_data.data["li"]
         # fit = expt_data.fdict["li"]
-        sampled_fit = expt_data.sdict["li"]
+        sampled_fit = expt_data.fits2d["li"]
         w_ref_vec = np.flipud(sampled_fit[2].T)[:,0]-1
         
         P_fit = sampled_fit[1]
@@ -588,9 +588,9 @@ class DataViz(BaseViz):
 
         axes = fig.add_subplot(1, 1, 1, projection = "3d",)
         
-        df = expt_data.ddict["li"]
+        df = expt_data.data["li"]
         # TBD: need an exception here if model_surface not specified
-        (X, Y, Z,)   = expt_data.fdict[model_surface]
+        (X, Y, Z,)   = expt_data.fits[model_surface]
 
         axes.scatter(
             df.wetdryN, df.P, df.w_sigma2, color="k", s=40,
