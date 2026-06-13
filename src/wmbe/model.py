@@ -44,7 +44,7 @@ def exponential_decay_model(
         c: float,
     ) -> float|NDArray:
     """
-    Shifted exponential decay model of form: $y = 1 + c \exp(-x/m)$.
+    Shifted exponential decay model of form: $y = 1 + c \\exp(-x/m)$.
     """    
     # Args:
     #     x (float or NDArray) : coordinate
