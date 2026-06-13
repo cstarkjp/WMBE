@@ -207,7 +207,7 @@ plugins:
       python:
 
         # Where to find your sources, see "Finding modules".
-        paths: [python, demos]
+        paths: [src]
         # paths_recursive: true
 
         # Load object inventories to enable cross-references to other projects.

@@ -9,8 +9,6 @@ resolution. Upwind differencing and explicit Euler methods are employed.
 import warnings
 import numpy as np
 
-from typing import Any, Callable
-from collections.abc import Sequence
 from numpy.typing import NDArray
 
 from wmbe.symbols import *
@@ -18,13 +16,13 @@ from wmbe.symbols import *
 warnings.filterwarnings("ignore")
 
 __all__ = [
-    "negExpH",
+    "neg_exp_H",
     "erosionrate_steadystate_W",
     "eta_chi_tau",
     "NumericalModel",
 ]
 
-def negExpH(chi: float|NDArray , dchi: float|NDArray,) -> float|NDArray:
+def neg_exp_H(chi: float|NDArray , dchi: float|NDArray,) -> float|NDArray:
     """
     Negate, exponentiate and Heaviside clip.
     
@@ -222,12 +220,12 @@ class NumericalModel:
             eta[j+1,f:-1] = (
                   eta[j,f:-1] 
                 + (Delta_phi_j*(eta[j,fp1:]-eta[j,f:-1]))/(Delta_chi)
-                +  Delta_tau*negExpH(chi[f:-1]-phi[j],Delta_chi)
+                +  Delta_tau*neg_exp_H(chi[f:-1]-phi[j],Delta_chi)
                 )
             eta[j+1,-1] = (
                   eta[j,-1] 
                 + (Delta_phi_j*(eta[j,-1]-eta[j,-2]))/(Delta_chi)
-                +  Delta_tau*negExpH(chi[-1]-phi[j],Delta_chi)
+                +  Delta_tau*neg_exp_H(chi[-1]-phi[j],Delta_chi)
             )
         self.nu_array[j+1] = (f_left*eta[j,f]+f_right*eta[j,fp1])
         di = self.nu_array.shape[0]//10
