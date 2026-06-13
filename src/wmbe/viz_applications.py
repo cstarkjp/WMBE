@@ -8,15 +8,15 @@ from typing import Any
 from collections.abc import Sequence
 
 from wmbe.symbols import *
-from wmbe.viz import BaseViz
+from wmbe.viz_base import VizBase
 
 warnings.filterwarnings("ignore")
 
 __all__ = [
-    "AppViz",
+    "VizApplications",
 ]
 
-class AppViz(BaseViz):
+class VizApplications(VizBase):
     """
     Model application visualization class.
     """

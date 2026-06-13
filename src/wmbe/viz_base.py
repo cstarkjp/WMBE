@@ -14,10 +14,10 @@ from collections.abc import Sequence
 warnings.filterwarnings("ignore")
 
 __all__ = [
-    "BaseViz",
+    "VizBase",
 ]
 
-class BaseViz:
+class VizBase:
     """
     Provide a visualization class.
     """

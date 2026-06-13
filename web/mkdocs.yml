@@ -116,14 +116,17 @@ nav:
     # - Jupyter notebooks: 
     #     - jupyter-notebooks/index.md
     - Python package: 
-        - python-package/index.md
+        # - python-package/index.md
         - channel1d.py: python-package/channel1d.md 
         - file.py: python-package/file.md 
         - model.py: python-package/model.md 
         - serialize.py: python-package/serialize.md 
         - solve1d.py: python-package/solve1d.md 
         - theory.py: python-package/theory.md 
-        - viz.py: python-package/viz.md
+        - viz_base.py: python-package/viz_base.md
+        - viz_data.py: python-package/viz_data.md
+        - viz_simulations.py: python-package/viz_simulations.md
+        - viz_applications.py: python-package/viz_applications.md
 
         
 # https://analog-garage.github.io/mkdocstrings-python-xref/latest/

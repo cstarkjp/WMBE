@@ -10,7 +10,7 @@ from collections.abc import Sequence
 from pandas import DataFrame
 
 from wmbe.model import WeatheringMediatedWeakness, linear_model
-from wmbe.viz import BaseViz
+from wmbe.viz_base import VizBase
 
 warnings.filterwarnings("ignore")
 
@@ -18,7 +18,7 @@ __all__ = [
     "DataViz",
 ]
 
-class DataViz(BaseViz):
+class VizData(VizBase):
     """
     Data visualization class.
     """

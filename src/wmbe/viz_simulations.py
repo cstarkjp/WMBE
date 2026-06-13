@@ -13,15 +13,15 @@ from numpy.typing import NDArray
 from wmbe.solve1d import eta_chi_tau, NumericalModel
 from wmbe.symbols import *
 from wmbe.theory import Equations
-from wmbe.viz import BaseViz
+from wmbe.viz_base import VizBase
 
 warnings.filterwarnings("ignore")
 
 __all__ = [
-    "SimViz",
+    "VizSim",
 ]
 
-class SimViz(BaseViz):
+class VizSimulations(VizBase):
     """
     Numerical simulation visualization class.
     """

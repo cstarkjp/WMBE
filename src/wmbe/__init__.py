@@ -6,7 +6,7 @@ from wmbe import file
 from wmbe import initialize
 from wmbe import channel1d
 from wmbe import theory
-from wmbe import viz
+from wmbe import viz_base
 
 __version__ = "2026.6.13"
 
@@ -19,5 +19,5 @@ __all__ = [
     "solve",
     "symbols",
     "theory",
-    "viz",
+    "viz_base",
 ]
