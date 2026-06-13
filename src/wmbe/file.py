@@ -25,9 +25,9 @@ warnings.filterwarnings("ignore")
 __all__ = [
     "create_dir",
     "create_directories",
+    "export_info",
     "export_plot",
     "export_plots",
-    "export_info",
     "import_info",
     "read_excel",
     "read_info",
@@ -66,7 +66,6 @@ def read_excel(
     except:  
         raise
     return df
-
 
 def create_directories(
         results_path: Sequence = ("..", "experiments",), 

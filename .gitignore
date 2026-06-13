@@ -6,7 +6,7 @@
 TODO/*
 *pdf
 *.egg-info
-setup/*
+install/*
 archive/*
 
 # Compiled source #

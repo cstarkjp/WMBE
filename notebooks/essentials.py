@@ -13,4 +13,6 @@ from wmbe.solve1d import NumericalModel
 from wmbe.channel1d import ChannelWallApplication
 from wmbe.symbols import *
 from wmbe.theory import Equations
-from wmbe.viz import DataViz, SimViz, AppViz
+from wmbe.viz_data import DataViz
+from wmbe.viz_simulations import SimViz
+from wmbe.viz_applications import AppViz

@@ -115,9 +115,17 @@ nav:
     # - Navigation: navigation.md
     # - Jupyter notebooks: 
     #     - jupyter-notebooks/index.md
-    # - Python scripts: 
-    #     - python-scripts/index.md
+    - Python package: 
+        - python-package/index.md
+        - channel1d.py: python-package/channel1d.md 
+        - file.py: python-package/file.md 
+        - model.py: python-package/model.md 
+        - serialize.py: python-package/serialize.md 
+        - solve1d.py: python-package/solve1d.md 
+        - theory.py: python-package/theory.md 
+        - viz.py: python-package/viz.md
 
+        
 # https://analog-garage.github.io/mkdocstrings-python-xref/latest/
 # https://github.com/mkdocstrings/autorefs
 # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#arithmatex
