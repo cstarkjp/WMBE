@@ -204,12 +204,12 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
-        Plot steady-state solution of weakness ${\omega}_s$.
+        Plot steady-state solution of weakness ${\\omega}_s$.
         
         Graph the numerical solution of the 1d weathering-mediated erosion model
-        for weakness ${\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function of 
+        for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function of 
         depth from the rock surface $\\chi_i$ for a given value of the 
-        weathering number ${\mathcal{W}}$.
+        weathering number ${\\mathcal{W}}$.
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -284,12 +284,12 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:            
         """
-        Plot a set of steady-state solutions of weakness ${\omega}_s$.
+        Plot a set of steady-state solutions of weakness ${\\omega}_s$.
         
         Graph a set of numerical solution of the 1d weathering-mediated erosion
-        model for weakness ${\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function
+        model for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function
         of depth from the rock surface $\\chi_i$ for a set of weathering numbers
-        ${\mathcal{W}}$.
+        ${\\mathcal{W}}$.
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -382,13 +382,13 @@ class VizSimulations(VizBase):
         ) -> None:
         """
         Plot the 1d model steady-state erosion rate $\\nu_s$  versus weathering
-        number ${\mathcal{W}}$.
+        number ${\\mathcal{W}}$.
         
         Graph the functional dependence of dimensionless steady-state erosion 
-        rate $\\nu_s$ as a function of versus weathering number ${\mathcal{W}}$
+        rate $\\nu_s$ as a function of versus weathering number ${\\mathcal{W}}$
         for the 1d weathering-mediated erosion model. The analytical solution 
         is plotted as a black curve; numerical solutions are plotted as black
-        circles; asymptotic behavior for low and high ${\mathcal{W}}$
+        circles; asymptotic behavior for low and high ${\\mathcal{W}}$
         are shown as dashed lines. 
         """
         # Args:
