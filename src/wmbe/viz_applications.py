@@ -30,7 +30,8 @@ class VizApplications(VizBase):
             fig_size: tuple[float,float]=(6, 4,),
         ) -> None:            
         """
-        Plot numerical solutions applied to channel cross-section model (vertical profiles).
+        Plot numerical solutions applied to channel cross-section model 
+        (vertical profiles).
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -79,7 +80,7 @@ class VizApplications(VizBase):
             alt_axes.set_xlabel(zy[3], color="forestgreen",)
         plt.grid(ls=":")
 
-    def channel_refweatheringrate_referosionrate_W(
+    def channel_ref_weathering_rate_ref_erosion_rate_W(
             self, 
             name: str,
             title: str|None=None,
@@ -88,7 +89,8 @@ class VizApplications(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:   
         """
-        Plot numerical solutions applied to channel cross-section model (vertical profiles).
+        Plot numerical solutions applied to channel cross-section model 
+        (vertical profiles).
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
