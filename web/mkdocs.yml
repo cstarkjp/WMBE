@@ -123,6 +123,7 @@ nav:
         - serialize.py: python-package/serialize.md 
         - solve1d.py: python-package/solve1d.md 
         - theory.py: python-package/theory.md 
+        - utils.py: python-package/utils.md 
         - viz_base.py: python-package/viz_base.md
         - viz_data.py: python-package/viz_data.md
         - viz_simulations.py: python-package/viz_simulations.md

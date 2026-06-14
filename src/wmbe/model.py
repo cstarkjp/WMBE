@@ -1,5 +1,5 @@
 """
-Model Inoue & Li experimental data.
+Analysis of Inoue & Li experimental data.
 
 Inoue et al (2017`: https://doi.org/10.1016/j.geomorph.2017.02.018
 Li et al (2016): https://doi.org/10.25103/jestr.093.10
@@ -9,72 +9,17 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import curve_fit
 
-from numpy.typing import NDArray
 from pandas import DataFrame
+
+from wmbe.utils import (
+    linear_model, exponential_decay_model,
+)
 
 warnings.filterwarnings("ignore")
 
 __all__ = [
-    "linear_model",
-    "exponential_decay_model",
-    "weakening_model",
     "WeatheringMediatedWeakness",
 ]
-
-def linear_model(
-        x: float|NDArray, 
-        m: float, 
-        c: float,
-    ) -> float|NDArray:
-    """
-    Simple linear model of form: $y = m x + c$.
-    """    
-    # Args:
-    #     x (float or NDArray) : coordinate
-    #     m (float) : gradient
-    #     c (float) : intercept
-
-    # Returns:
-    #     float or NDArray: y
-    return m*x+c
-
-def exponential_decay_model(
-        x: float|NDArray, 
-        m: float, 
-        c: float,
-    ) -> float|NDArray:
-    """
-    Shifted exponential decay model of form: $y = 1 + c \\exp(-x/m)$.
-    """    
-    # Args:
-    #     x (float or NDArray) : coordinate
-    #     m (float) : e-folding scale
-    #     c (float) : magnitude
-
-    # Returns:
-    #     float or NDArray: y
-    return 1 + c*np.exp(-x/m)
-
-def weakening_model(
-        wetdryN_P: float, 
-        k: float, 
-        w0: float, 
-        tau0: float,
-    ) -> float:
-    """
-    Shifted exponential decay weathering model: $w = 1 + w_0(\\tau+\\tau_0)\\exp(-k\\chi)$.
-    """    
-    # Args:
-    #     wetdryN_P (numpy.ndarray) : pair $(\\tau,\chi)$
-    #     k (float) : reciprocal e-folding scale $k$
-    #     w0 (float) : magnitude $w_0$
-    #     tau0 (float) : time offset $\\tau_0$
-
-    # Returns:
-    #     float: y
-    tau = wetdryN_P[0]
-    chi = wetdryN_P[1]
-    return 1 + w0*(tau+tau0)*np.exp(-k*chi)
 
 class WeatheringMediatedWeakness:
     """
@@ -85,6 +30,29 @@ class WeatheringMediatedWeakness:
         """
         self.fits = dict()
         self.fits2d = dict()
+
+    @staticmethod
+    def weakening_model(
+            wetdryN_P: float, 
+            k: float, 
+            w0: float, 
+            tau0: float,
+        ) -> float:
+        """
+        Shifted exponential decay weathering model: $w = 1 + w_0(\\tau+\\tau_0)\\exp(-k\\chi)$.
+        """    
+        # Args:
+        #     wetdryN_P (numpy.ndarray) : pair $(\\tau,\chi)$
+        #     k (float) : reciprocal e-folding scale $k$
+        #     w0 (float) : magnitude $w_0$
+        #     tau0 (float) : time offset $\\tau_0$
+
+        # Returns:
+        #     float: y
+        tau = wetdryN_P[0]
+        chi = wetdryN_P[1]
+        return 1 + w0*(tau+tau0)*np.exp(-k*chi)
+
 
     def fit_weakness_vs_time_linear_model(
             self, 
@@ -165,7 +133,7 @@ class WeatheringMediatedWeakness:
             wdN_vec,
             P_vec,
         ))
-        model_fit   = curve_fit(weakening_model, wdN_P_array, w_vec,)
+        model_fit   = curve_fit(self.weakening_model, wdN_P_array, w_vec,)
         self.fits["default"] = model_fit
     
         n_pts = 30
@@ -176,7 +144,7 @@ class WeatheringMediatedWeakness:
             X.reshape(n_pts**2), 
             Y.reshape(n_pts**2),
         ))
-        Z = weakening_model(X_Y_array, *model_fit[0],).reshape(n_pts, n_pts,)
+        Z = self.weakening_model(X_Y_array, *model_fit[0],).reshape(n_pts, n_pts,)
         self.fits[select+"_surface"] = (X, Y, Z,)
         
         P_vec = np.linspace(0,P_vec.max()*1.3)
@@ -188,7 +156,7 @@ class WeatheringMediatedWeakness:
         self.fits2d["default"] = (
             X[0], 
             Y[:,0],
-            weakening_model(
+            self.weakening_model(
                 X_Y_array, 
                 *model_fit[0],
             ).reshape(X.shape[0], Y.shape[1],)

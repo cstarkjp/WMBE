@@ -55,11 +55,11 @@ class VizSimulations(VizBase):
             nm.nu_array,  
             color="k", 
             lw=1, 
-            label=r"${\\mathcal{W}}=$"+f"{nm.W}",
+            label=r"${\mathcal{W}}=$"+f"{nm.W}",
         )
         plt.legend(loc="center right")
-        plt.xlabel(r"Time  $\\tau$  [-]")
-        plt.ylabel(r"Front speed  $\\partial\\varphi/\\partial\\tau$  [-]")
+        plt.xlabel(r"Time  $\tau$  [-]")
+        plt.ylabel(r"Front speed  $\partial\varphi/\partial\tau$  [-]")
         plt.grid(ls=":")
 
     def weakness_evolution(
@@ -166,8 +166,8 @@ class VizSimulations(VizBase):
             )
 
         plt.legend(loc="upper right", fontsize=10,)
-        plt.xlabel(r"Distance  $\\chi$  [-]")
-        plt.ylabel(r"Weakness  ${\\omega}(\\chi,\\tau)$  [-]")
+        plt.xlabel(r"Distance  $\chi$  [-]")
+        plt.ylabel(r"Weakness  ${\omega}(\chi,\tau)$  [-]")
         plt.grid(ls=":")
 
     def stability_check(
@@ -204,12 +204,12 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
-        Plot steady-state solution of weakness ${\\omega}_s$.
+        Plot steady-state solution of weakness ${\omega}_s$.
         
         Graph the numerical solution of the 1d weathering-mediated erosion model
-        for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function of 
+        for weakness ${\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function of 
         depth from the rock surface $\\chi_i$ for a given value of the 
-        weathering number ${\\mathcal{W}}$.
+        weathering number ${\mathcal{W}}$.
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -271,8 +271,8 @@ class VizSimulations(VizBase):
             bbox=bbox_props,
         )
         plt.legend()
-        plt.xlabel(r"Distance relative to front  $\\chi_s=\\chi-\\varphi_s$  [-]")
-        plt.ylabel(r"Weakness  ${\\omega}_s(\\chi_s)$  [-]")
+        plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
+        plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
         plt.grid(ls=":")
 
     def weakness_steadystate_setW(
@@ -284,12 +284,12 @@ class VizSimulations(VizBase):
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:            
         """
-        Plot a set of steady-state solutions of weakness ${\\omega}_s$.
+        Plot a set of steady-state solutions of weakness ${\omega}_s$.
         
         Graph a set of numerical solution of the 1d weathering-mediated erosion
-        model for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function
+        model for weakness ${\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function
         of depth from the rock surface $\\chi_i$ for a set of weathering numbers
-        ${\\mathcal{W}}$.
+        ${\mathcal{W}}$.
         """
         # Args:
         #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
@@ -366,8 +366,8 @@ class VizSimulations(VizBase):
             
         plt.xlim(chi_min, chi_max,)
         plt.legend(fontsize=11,)
-        plt.xlabel(r"Distance relative to front  $\\chi_s=\\chi-\\varphi_s$  [-]")
-        plt.ylabel(r"Weakness  ${\\omega}_s(\\chi_s)$  [-]")
+        plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
+        plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
         plt.grid(ls=":")
 
     def erosionrate_steadystate_W(
@@ -382,13 +382,13 @@ class VizSimulations(VizBase):
         ) -> None:
         """
         Plot the 1d model steady-state erosion rate $\\nu_s$  versus weathering
-        number ${\\mathcal{W}}$.
+        number ${\mathcal{W}}$.
         
         Graph the functional dependence of dimensionless steady-state erosion 
-        rate $\\nu_s$ as a function of versus weathering number ${\\mathcal{W}}$
+        rate $\\nu_s$ as a function of versus weathering number ${\mathcal{W}}$
         for the 1d weathering-mediated erosion model. The analytical solution 
         is plotted as a black curve; numerical solutions are plotted as black
-        circles; asymptotic behavior for low and high ${\\mathcal{W}}$
+        circles; asymptotic behavior for low and high ${\mathcal{W}}$
         are shown as dashed lines. 
         """
         # Args:
@@ -437,7 +437,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.2, 
                 0.23, 
-                r"low ${\\mathcal{W}}$", 
+                r"low ${\mathcal{W}}$", 
                 color="brown",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -446,7 +446,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.2, 
                 0.13, 
-                r"$\\nu_\\mathsf{{s}} \\approx 1 + {\\mathcal{W}}$", 
+                r"$\nu_\mathsf{{s}} \approx 1 + {\mathcal{W}}$", 
                 color="brown",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -455,7 +455,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.52, 
                 0.43, 
-                r"transitional ${\\mathcal{W}}$", 
+                r"transitional ${\mathcal{W}}$", 
                 color="gray",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -464,7 +464,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.78, 
                 0.9, 
-                r"high ${\\mathcal{W}}$", 
+                r"high ${\mathcal{W}}$", 
                 color="blue",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -473,7 +473,7 @@ class VizSimulations(VizBase):
             plt.text(
                 0.78, 
                 0.8, 
-                r"$\\nu_\\mathsf{{s}} \\approx \\dfrac{1}{2}+\\sqrt{{\mathcal{W}}}$", 
+                r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{{\mathcal{W}}}$", 
                 color="blue",
                 verticalalignment="center", 
                 horizontalalignment="center",
@@ -493,14 +493,14 @@ class VizSimulations(VizBase):
         plt.plot(
             W_array[W_array<0.7],
             1+W_array[W_array<0.7], 
-            label=r"low ${\\mathcal{W}}$ approx",  
+            label=r"low ${\mathcal{W}}$ approx",  
             ls="--",
             c="brown",
         )
         plt.plot(
             W_array[W_array>1],
             0.5+np.sqrt(W_array[W_array>1]), 
-            label=r"high ${\\mathcal{W}}$ approx", 
+            label=r"high ${\mathcal{W}}$ approx", 
             ls="--",
             c="blue",
         )
@@ -517,8 +517,8 @@ class VizSimulations(VizBase):
             )
         
         plt.legend(loc="upper left", fontsize=10,)
-        plt.xlabel(r"Weathering number  ${\\mathcal{W}}$  [-]")
-        plt.ylabel(r"Erosion rate  ${\\nu}_\\mathsf{{s}}$  [-]")
+        plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
+        plt.ylabel(r"Erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
         # plt.grid(ls=":")
 
     def erosionrate_steadystate_W_transition(
@@ -563,7 +563,7 @@ class VizSimulations(VizBase):
             color="brown", 
             ls="-", 
             lw=1.5, 
-            label=r"low ${\\mathcal{W}}$ approx",
+            label=r"low ${\mathcal{W}}$ approx",
         )
         plt.plot(
             W_array[W_array>1], 
@@ -571,12 +571,12 @@ class VizSimulations(VizBase):
             color="b", 
             ls="-", 
             lw=1.5, 
-            label=r"high ${\\mathcal{W}}$ approx",
+            label=r"high ${\mathcal{W}}$ approx",
         )
         plt.text(
             0.18,
             0.18, 
-            r"low ${\\mathcal{W}}$", 
+            r"low ${\mathcal{W}}$", 
             color="brown",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -585,7 +585,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.18,
             0.26, 
-            r"$\\nu_\\mathsf{{s}} \\approx 1 + {\\mathcal{W}}$", 
+            r"$\nu_\mathsf{{s}} \approx 1 + {\mathcal{W}}$", 
             color="brown",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -594,7 +594,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.5,
             0.53, 
-            r"transitional ${\\mathcal{W}}$", 
+            r"transitional ${\mathcal{W}}$", 
             color="gray",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -603,7 +603,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.82,
             0.85, 
-            r"high ${\\mathcal{W}}$", 
+            r"high ${\mathcal{W}}$", 
             color="blue",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -612,7 +612,7 @@ class VizSimulations(VizBase):
         plt.text(
             0.82,
             0.75, 
-            r"$\\nu_\\mathsf{{s}} \\approx \\dfrac{1}{2}+\\sqrt{{\\mathcal{W}}}$", 
+            r"$\nu_\mathsf{{s}} \approx \dfrac{1}{2}+\sqrt{{\mathcal{W}}}$", 
             color="blue",
             verticalalignment="center", 
             horizontalalignment="center",
@@ -638,10 +638,10 @@ class VizSimulations(VizBase):
         plt.plot((0.25, 0.25,), y_limits, color="gray", ls=":",)
         plt.plot((2.63, 2.63,), y_limits, color="gray", ls=":",)
         plt.legend(loc="upper left")
-        plt.xlabel(r"Weathering number  ${\\mathcal{W}}$  [-]")
+        plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
         plt.ylabel(
             r"Approx erosion rate deviation  "
-            + r"$\\nu_\\mathsf{{s}}^\\mathrm{apx}/\\nu_\\mathsf{{s}}$  [-]"
+            + r"$\nu_\mathsf{{s}}^\mathrm{apx}/\nu_\mathsf{{s}}$  [-]"
         )
         # plt.grid(ls=":")
 
@@ -849,7 +849,7 @@ class VizSimulations(VizBase):
         alt_axes.plot(
             model.W_array,  
             model.z_array, 
-            label=r"${\\mathcal{W}}$", 
+            label=r"${\mathcal{W}}$", 
             color="forestgreen",
         )
         alt_axes.set_xlabel(
