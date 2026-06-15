@@ -16,47 +16,10 @@ from wmbe.symbols import *
 warnings.filterwarnings("ignore")
 
 __all__ = [
-    "neg_exp_H",
     "erosionrate_steadystate_W",
     "eta_chi_tau",
     "NumericalModel",
 ]
-
-def neg_exp_H(chi: float|NDArray , dchi: float|NDArray,) -> float|NDArray:
-    """
-    Negate, exponentiate and Heaviside clip.
-    
-    Assumes the argument chi= $\\chi$ is the dimensionless distance from the 
-    erosion front, and dchi= $\\Delta\\chi$  is the discrete spatial step size.
-    Exponentiates $-\\chi H(\\chi+\\Delta\\chi)$ where H=Heaviside function.
-    When invoked in computing $d{\\eta}/d{\\chi}$,  adding ${\\Delta}{\\chi}$ means
-    a non-clipped value is returned for the sample point just to the left 
-    (-ve $\\chi$). Thus the ${\\eta}$ gradient is estimated across the erosion 
-    front, where sample points span the moving origin, as well as for all points
-    $\\chi\\geq 0$.
-    """
-    # Args:
-    #     chi (float): distance $\chi` from the erosion front
-    #     dchi (float): discrete spacing $\Delta\chi` 
-    #         between sample points along $\chi`
-    
-    # Returns:
-    #     float:
-    #         $\exp(-\chi)` if $\chi+\Delta\chi \geq 0`, 1 otherwise
-    return np.exp(-chi*np.heaviside(chi+dchi,0))
-
-def erosionrate_steadystate_W(W: float) -> float|NDArray:
-    """
-    Dimensionless steady-state speed of the erosion front $\\omega_s(W)$.
-    """    
-    # Assumes: $\nu_s = \tfrac{1}{2}\left(1+\sqrt{1+4W}\right)$
-    
-    # Args:
-    #     W (float): weathering number $W$
-    
-    # Returns:
-    #     float: dimensionless erosion rate $\omega_s$
-    return 0.5*(1+np.sqrt(1+4*W))
 
 def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
     """
@@ -80,6 +43,20 @@ def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
             *np.exp(-(chi)))
             *np.heaviside(chi,0)
     )
+
+def erosionrate_steadystate_W(W: float) -> float|NDArray:
+    """
+    Dimensionless steady-state speed of the erosion front $\\omega_s(W)$.
+    """    
+    # Assumes: $\nu_s = \tfrac{1}{2}\left(1+\sqrt{1+4W}\right)$
+    
+    # Args:
+    #     W (float): weathering number $W$
+    
+    # Returns:
+    #     float: dimensionless erosion rate $\omega_s$
+    return 0.5*(1+np.sqrt(1+4*W))
+
 
 class NumericalModel:
     """
@@ -208,14 +185,38 @@ class NumericalModel:
             eta[j+1,f:-1] = (
                   eta[j,f:-1] 
                 + (Delta_phi_j*(eta[j,fp1:]-eta[j,f:-1]))/(Delta_chi)
-                +  Delta_tau*neg_exp_H(chi[f:-1]-phi[j],Delta_chi)
+                +  Delta_tau*self.neg_exp_H(chi[f:-1]-phi[j],Delta_chi)
                 )
             eta[j+1,-1] = (
                   eta[j,-1] 
                 + (Delta_phi_j*(eta[j,-1]-eta[j,-2]))/(Delta_chi)
-                +  Delta_tau*neg_exp_H(chi[-1]-phi[j],Delta_chi)
+                +  Delta_tau*self.neg_exp_H(chi[-1]-phi[j],Delta_chi)
             )
         self.nu_array[j+1] = (f_left*eta[j,f]+f_right*eta[j,fp1])
         di = self.nu_array.shape[0]//10
         self.nu_s_bar = np.mean(self.nu_array[4*di:6*di])
         self.physical_parameters.update({nu_s_bar:self.nu_s_bar})
+
+    @staticmethod
+    def neg_exp_H(chi: float|NDArray , dchi: float|NDArray,) -> float|NDArray:
+        """
+        Negate, exponentiate and Heaviside clip.
+        
+        Assumes the argument chi= $\\chi$ is the dimensionless distance from the 
+        erosion front, and dchi= $\\Delta\\chi$  is the discrete spatial step size.
+        Exponentiates $-\\chi H(\\chi+\\Delta\\chi)$ where H=Heaviside function.
+        When invoked in computing $d{\\eta}/d{\\chi}$,  adding ${\\Delta}{\\chi}$ means
+        a non-clipped value is returned for the sample point just to the left 
+        (-ve $\\chi$). Thus the ${\\eta}$ gradient is estimated across the erosion 
+        front, where sample points span the moving origin, as well as for all points
+        $\\chi\\geq 0$.
+        """
+        # Args:
+        #     chi (float): distance $\chi` from the erosion front
+        #     dchi (float): discrete spacing $\Delta\chi` 
+        #         between sample points along $\chi`
+        
+        # Returns:
+        #     float:
+        #         $\exp(-\chi)` if $\chi+\Delta\chi \geq 0`, 1 otherwise
+        return np.exp(-chi*np.heaviside(chi+dchi,0))
