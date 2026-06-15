@@ -31,7 +31,7 @@ theme:
   # name: "spacelab"
   # name: "yeti"
   favicon: images/DP1.png
-  logo: assets/DP5.png
+  logo: assets/mountains.png
   features:
     # - navigation.tabs
     # - content.action.edit
