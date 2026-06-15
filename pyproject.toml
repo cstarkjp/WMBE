@@ -1,6 +1,6 @@
 [project]
 name = "wmbe"
-version = "0.1.23"
+version = "0.1.24"
 description = "Tools for modeling the weathering-mediated erosion of bedrock. The focus is on environments with no soil or talus accumulation: for example, on steep bedrock channel walls. The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock."
 readme = "README.md"
 classifiers = [
