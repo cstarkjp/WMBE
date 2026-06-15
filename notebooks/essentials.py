@@ -5,14 +5,14 @@ sy.init_printing(pretty_print=True,wrap_line=True)
 from sympy import Eq
 
 import wmbe
-from wmbe.file import (
+from wmbe.misc.file import (
     read_excel, create_directories, export_plots, export_plot,
 )
-from wmbe.model import WeatheringMediatedWeakness
-from wmbe.solve1d import NumericalModel
-from wmbe.channel1d import ChannelWallApplication
-from wmbe.symbols import *
-from wmbe.theory import Equations
-from wmbe.viz_data import VizData
-from wmbe.viz_simulations import VizSimulations
-from wmbe.viz_applications import VizApplications
+from wmbe.numerical.model import WeatheringMediatedWeakness
+from wmbe.numerical.solve1d import NumericalModel
+from wmbe.applications.channel1d import ChannelWall
+from wmbe.theory.symbols import *
+from wmbe.theory.equations import Equations
+from wmbe.viz.data import VizData
+from wmbe.viz.simulations import VizSimulations
+from wmbe.viz.applications import VizApplications

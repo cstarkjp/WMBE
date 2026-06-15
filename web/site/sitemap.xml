@@ -5,47 +5,51 @@
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/channel1d/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/applications/channel1d/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/file/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/misc/file/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/model/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/misc/serialize/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/serialize/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/numerical/model/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/solve1d/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/numerical/solve1d/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/theory/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/numerical/utils/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/utils/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/theory/equations/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/viz_applications/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/theory/symbols/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/viz_base/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/viz/applications/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/viz_data/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/viz/base/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
     <url>
-         <loc>https://cstarkjp.github.io/WMBE/python-package/viz_simulations/</loc>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/viz/data/</loc>
+         <lastmod>2026-06-15</lastmod>
+    </url>
+    <url>
+         <loc>https://cstarkjp.github.io/WMBE/python-package/viz/simulations/</loc>
          <lastmod>2026-06-15</lastmod>
     </url>
 </urlset>

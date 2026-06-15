@@ -117,17 +117,18 @@ nav:
     #     - jupyter-notebooks/index.md
     - Python package: 
         # - python-package/index.md
-        - channel1d.py: python-package/channel1d.md 
-        - file.py: python-package/file.md 
-        - model.py: python-package/model.md 
-        - serialize.py: python-package/serialize.md 
-        - solve1d.py: python-package/solve1d.md 
-        - theory.py: python-package/theory.md 
-        - utils.py: python-package/utils.md 
-        - viz_base.py: python-package/viz_base.md
-        - viz_data.py: python-package/viz_data.md
-        - viz_simulations.py: python-package/viz_simulations.md
-        - viz_applications.py: python-package/viz_applications.md
+        - applications/channel1d.py: python-package/applications/channel1d.md 
+        - misc/file.py: python-package/misc/file.md 
+        - misc/serialize.py: python-package/misc/serialize.md 
+        - numerical/model.py: python-package/numerical/model.md 
+        - numerical/solve1d.py: python-package/numerical/solve1d.md 
+        - numerical/utils.py: python-package/numerical/utils.md 
+        - theory/equations.py: python-package/theory/equations.md 
+        - theory/symbols.py: python-package/theory/symbols.md 
+        - viz/base.py: python-package/viz/base.md
+        - viz/data.py: python-package/viz/data.md
+        - viz/simulations.py: python-package/viz/simulations.md
+        - viz/applications.py: python-package/viz/applications.md
 
         
 # https://analog-garage.github.io/mkdocstrings-python-xref/latest/
