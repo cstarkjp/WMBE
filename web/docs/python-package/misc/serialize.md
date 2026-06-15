@@ -1,4 +1,4 @@
-# serialize.py
+# misc/serialize.py
 
 ::: wmbe.misc.serialize.is_serializable
 ::: wmbe.misc.serialize.to_serializable

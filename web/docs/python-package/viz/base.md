@@ -1,3 +1,3 @@
-# base.py
+# viz/base.py
 
 ::: wmbe.viz.base.VizBase

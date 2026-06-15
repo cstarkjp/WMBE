@@ -1,3 +1,3 @@
-# data.py
+# viz/data.py
 
 ::: wmbe.viz.data.VizData

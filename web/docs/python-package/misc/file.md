@@ -1,4 +1,4 @@
-# file.py
+# misc/file.py
 
 ::: wmbe.misc.file.create_dir
 ::: wmbe.misc.file.create_directories

@@ -1,3 +1,3 @@
-# applications.py
+# viz/applications.py
 
 ::: wmbe.viz.applications.VizApplications

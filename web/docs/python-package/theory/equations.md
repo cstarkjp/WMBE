@@ -1,3 +1,3 @@
-# equations.py
+# theory/equations.py
 
 ::: wmbe.theory.equations.Equations

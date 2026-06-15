@@ -1,3 +1,3 @@
-# symbols.py
+# theory/symbols.py
 
 ::: wmbe.theory.symbols

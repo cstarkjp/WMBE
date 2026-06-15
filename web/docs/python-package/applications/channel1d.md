@@ -1,3 +1,3 @@
-# channel1d.py
+# applications/channel1d.py
 
 ::: wmbe.applications.channel1d.ChannelWall

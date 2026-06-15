@@ -1,4 +1,4 @@
-# solve1d.py
+# numerical/solve1d.py
 
 ::: wmbe.numerical.solve1d.NumericalModel
 ::: wmbe.numerical.solve1d.eta_chi_tau
