@@ -4,7 +4,7 @@
 [![](https://github.com/cstarkjp/WMBE/actions/workflows/pypi-publish.yml/badge.svg?style=cache-control=no-cache)](https://github.com/cstarkjp/WMBE/actions/workflows/pypi-publish.yml)
 
 
-**Summary:**    Tools for simulating the weathering-mediated erosion of bedrock. The focus is on environments with no soil or talus accumulation: for example, on steep bedrock channel walls. The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock.
+**Summary:**    Tools for modeling the weathering-mediated erosion of bedrock. The focus is on environments with no soil or talus accumulation: for example, on steep bedrock channel walls. The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock.
 
 ![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/erosionrate_steadystate.png
 )
