@@ -59,7 +59,7 @@ class VizSimulations(VizBase):
         )
         plt.legend(loc="center right")
         plt.xlabel(r"Time  $\tau$  [-]")
-        plt.ylabel(r"Front speed  $\partial\varphi/\partial\tau$  [-]")
+        plt.ylabel(r"Front speed  $\partial\phi/\partial\tau$  [-]")
         plt.grid(ls=":")
 
     def weakness_evolution(
@@ -262,7 +262,7 @@ class VizSimulations(VizBase):
         axes.text(
             -0.5, 
             (y_limits[1]-y_limits[0])/2, 
-            "front motion", 
+            "surface erosion", 
             ha="right", 
             va="center", 
             rotation=0, 
@@ -271,7 +271,7 @@ class VizSimulations(VizBase):
             bbox=bbox_props,
         )
         plt.legend()
-        plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
+        plt.xlabel(r"Distance relative to erosion surface  $\chi_s=\chi-\phi_s$  [-]")
         plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
         plt.grid(ls=":")
 
@@ -307,12 +307,12 @@ class VizSimulations(VizBase):
         chi_min = 0
         for (idx, (nm, label,),) in enumerate(numerical_models):
             j_ = (nm.j*3)//4
-            i_offset = nm.n_chi_domain//10
+            i_offset = nm.n_chi_domain//15
             phi_  = nm.phi_array[j_]
             phi0_ = int(phi_/nm.Delta_chi)-i_offset
             chi_s_= nm.chi_array[phi0_:]-nm.chi_array[phi0_+i_offset]
             # tau_  = nm.tau_array[-1]
-            chi_min = min(chi_min,np.min(chi_s_))
+            chi_min = min(chi_min, np.min(chi_s_))
             color=cmap(idx/len(numerical_models))
             eta_s_numerical  = nm.eta_array[j_,phi0_:]
             chi_front = chi_s_[eta_s_numerical==0][-1]
@@ -337,7 +337,7 @@ class VizSimulations(VizBase):
         axes.text(
             -0.5, 
             (y_limits[1]-y_limits[0])/2, 
-            "front motion", 
+            "erosion", 
             ha="right", 
             va="center", 
             rotation=0, 
@@ -366,7 +366,7 @@ class VizSimulations(VizBase):
             
         plt.xlim(chi_min, chi_max,)
         plt.legend(fontsize=11,)
-        plt.xlabel(r"Distance relative to front  $\chi_s=\chi-\varphi_s$  [-]")
+        plt.xlabel(r"Distance relative to erosion surface  $\chi_s=\chi-\phi_s$  [-]")
         plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
         plt.grid(ls=":")
 
@@ -518,7 +518,7 @@ class VizSimulations(VizBase):
         
         plt.legend(loc="upper left", fontsize=10,)
         plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
-        plt.ylabel(r"Erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
+        plt.ylabel(r"Dimensionless erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
         # plt.grid(ls=":")
 
     def erosion_rate_steadystate_W_transition(

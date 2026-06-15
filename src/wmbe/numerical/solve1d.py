@@ -60,12 +60,12 @@ def erosionrate_steadystate_W(W: float) -> float|NDArray:
 
 class NumericalModel:
     """
-    Numerical solution of $\\eta(\\chi,\\tau)$ and $\\varphi(\\tau)$ evolution.
+    Numerical solution of $\\eta(\\chi,\\tau)$ and $\\phi(\\tau)$ evolution.
     
     Class that provides a finite-difference method for solving the 
     $(\\chi,\\tau) evolution of a weakness profile $\\eta(\\chi,\\tau)$ and 
-    its eroding surface position $\\varphi(\\tau)$ as 2d array $\\eta_i^j$ 
-    and 1d vector $\\varphi^j$ respectively, and that provides dictionaries 
+    its eroding surface position $\\phi(\\tau)$ as 2d array $\\eta_i^j$ 
+    and 1d vector $\\phi^j$ respectively, and that provides dictionaries 
     for the model and its numerical solution parameters.
     """
     # Args:
