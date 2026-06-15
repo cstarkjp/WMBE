@@ -12,31 +12,31 @@
         <meta name="author" content="Colin P. Stark">
       
       
-        <link rel="canonical" href="https://cstarkjp.github.io/WMBE/python-package/model/">
+        <link rel="canonical" href="https://cstarkjp.github.io/WMBE/python-package/numerical/model/">
       
       
-        <link rel="prev" href="../file/">
+        <link rel="prev" href="../../misc/serialize/">
       
       
-        <link rel="next" href="../serialize/">
+        <link rel="next" href="../solve1d/">
       
       
         
       
       
-      <link rel="icon" href="../../images/DP1.png">
+      <link rel="icon" href="../../../images/DP1.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>model.py - WMBE</title>
+        <title>numerical/model.py - WMBE</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,11 +55,11 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../style.css">
+      <link rel="stylesheet" href="../../../style.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -108,9 +108,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="WMBE" class="md-header__button md-logo" aria-label="WMBE" data-md-component="logo">
+    <a href="../../.." title="WMBE" class="md-header__button md-logo" aria-label="WMBE" data-md-component="logo">
       
-  <img src="../../assets/DP5.png" alt="logo">
+  <img src="../../../assets/DP5.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -127,7 +127,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              model.py
+              numerical/model.py
             
           </span>
         </div>
@@ -255,7 +255,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -278,7 +278,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../channel1d/" class="md-tabs__link">
+        <a href="../../applications/channel1d/" class="md-tabs__link">
           
   
   
@@ -314,9 +314,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="WMBE" class="md-nav__button md-logo" aria-label="WMBE" data-md-component="logo">
+    <a href="../../.." title="WMBE" class="md-nav__button md-logo" aria-label="WMBE" data-md-component="logo">
       
-  <img src="../../assets/DP5.png" alt="logo">
+  <img src="../../../assets/DP5.png" alt="logo">
 
     </a>
     WMBE
@@ -343,7 +343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -373,6 +373,8 @@
   
     
     
+      
+        
       
         
       
@@ -451,14 +453,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../channel1d/" class="md-nav__link">
+      <a href="../../applications/channel1d/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    channel1d.py
+    applications/channel1d.py
   
 
     
@@ -479,14 +481,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../file/" class="md-nav__link">
+      <a href="../../misc/file/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    file.py
+    misc/file.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../misc/serialize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    misc/serialize.py
   
 
     
@@ -523,7 +553,7 @@
   <span class="md-ellipsis">
     
   
-    model.py
+    numerical/model.py
   
 
     
@@ -545,34 +575,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../serialize/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    serialize.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../solve1d/" class="md-nav__link">
         
   
@@ -580,35 +582,7 @@
   <span class="md-ellipsis">
     
   
-    solve1d.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../theory/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    theory.py
+    numerical/solve1d.py
   
 
     
@@ -636,7 +610,7 @@
   <span class="md-ellipsis">
     
   
-    utils.py
+    numerical/utils.py
   
 
     
@@ -657,14 +631,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../viz_base/" class="md-nav__link">
+      <a href="../../theory/equations/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    viz_base.py
+    theory/equations.py
   
 
     
@@ -685,14 +659,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../viz_data/" class="md-nav__link">
+      <a href="../../theory/symbols/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    viz_data.py
+    theory/symbols.py
   
 
     
@@ -713,14 +687,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../viz_simulations/" class="md-nav__link">
+      <a href="../../viz/base/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    viz_simulations.py
+    viz/base.py
   
 
     
@@ -741,14 +715,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../viz_applications/" class="md-nav__link">
+      <a href="../../viz/data/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    viz_applications.py
+    viz/data.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../viz/simulations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    viz/simulations.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../viz/applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    viz/applications.py
   
 
     
@@ -808,7 +838,7 @@
     
       
     
-    <a href="https://github.com/cstarkjp/WMBE/raw/main/web/docs/python-package/model.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/cstarkjp/WMBE/raw/main/web/docs/python-package/numerical/model.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
@@ -822,11 +852,11 @@
 
 
 
-<h1 id="wmbe.model.WeatheringMediatedWeakness" class="doc doc-heading">
+<h1 id="wmbe.numerical.model.WeatheringMediatedWeakness" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">WeatheringMediatedWeakness</span>
 
 
-<a href="#wmbe.model.WeatheringMediatedWeakness" class="headerlink" title="Permanent link">¶</a></h1>
+<a href="#wmbe.numerical.model.WeatheringMediatedWeakness" class="headerlink" title="Permanent link">¶</a></h1>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">WeatheringMediatedWeakness</span><span class="p">()</span>
 </span></code></pre></div>
 
@@ -848,37 +878,37 @@
   </span>
 
             <span class="doc doc-backlink-crumb">
-      <a href="../viz_data/#wmbe.viz_data.VizData"><code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;VizData</a>
+      <a href="../../viz/data/#wmbe.viz.data.VizData"><code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;VizData</a>
   </span>
 
             <ul class="doc doc-backlink-list">
       <li class="doc doc-backlink">
             <span class="doc doc-backlink-crumb last">
-      <a href="../viz_data/#wmbe.viz_data.VizData.inoue_w_wetdryN"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;inoue_w_wetdryN</a>
+      <a href="../../viz/data/#wmbe.viz.data.VizData.inoue_w_wetdryN"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;inoue_w_wetdryN</a>
   </span>
 
       </li>
       <li class="doc doc-backlink">
             <span class="doc doc-backlink-crumb last">
-      <a href="../viz_data/#wmbe.viz_data.VizData.li_w_P"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_P</a>
+      <a href="../../viz/data/#wmbe.viz.data.VizData.li_w_P"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_P</a>
   </span>
 
       </li>
       <li class="doc doc-backlink">
             <span class="doc doc-backlink-crumb last">
-      <a href="../viz_data/#wmbe.viz_data.VizData.li_w_normed_P"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_normed_P</a>
+      <a href="../../viz/data/#wmbe.viz.data.VizData.li_w_normed_P"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_normed_P</a>
   </span>
 
       </li>
       <li class="doc doc-backlink">
             <span class="doc doc-backlink-crumb last">
-      <a href="../viz_data/#wmbe.viz_data.VizData.li_w_wetdryN"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_wetdryN</a>
+      <a href="../../viz/data/#wmbe.viz.data.VizData.li_w_wetdryN"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_wetdryN</a>
   </span>
 
       </li>
       <li class="doc doc-backlink">
             <span class="doc doc-backlink-crumb last">
-      <a href="../viz_data/#wmbe.viz_data.VizData.li_w_wetdryN_P"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_wetdryN_P</a>
+      <a href="../../viz/data/#wmbe.viz.data.VizData.li_w_wetdryN_P"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;li_w_wetdryN_P</a>
   </span>
 
       </li>
@@ -903,14 +933,14 @@
 <p><span class="doc-section-title">Methods:</span></p>
     <ul>
           <li class="doc-section-item field-body">
-            <b><code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-method&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-function-name&quot;&gt;fit_weakness_vs_time_and_depth_model&lt;/span&gt; (&lt;code&gt;wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model&lt;/code&gt;)" href="#wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model">fit_weakness_vs_time_and_depth_model</a></code></b>
+            <b><code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-method&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-function-name&quot;&gt;fit_weakness_vs_time_and_depth_model&lt;/span&gt; (&lt;code&gt;wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model&lt;/code&gt;)" href="#wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model">fit_weakness_vs_time_and_depth_model</a></code></b>
             –
             <div class="doc-md-description">
               <p>Regress a 2d model against experimental data.</p>
             </div>
           </li>
           <li class="doc-section-item field-body">
-            <b><code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-method&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-function-name&quot;&gt;fit_weakness_vs_time_linear_model&lt;/span&gt; (&lt;code&gt;wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model&lt;/code&gt;)" href="#wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model">fit_weakness_vs_time_linear_model</a></code></b>
+            <b><code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-method&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-function-name&quot;&gt;fit_weakness_vs_time_linear_model&lt;/span&gt; (&lt;code&gt;wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model&lt;/code&gt;)" href="#wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model">fit_weakness_vs_time_linear_model</a></code></b>
             –
             <div class="doc-md-description">
               <p>Regress a 1d model against experimental data.</p>
@@ -922,7 +952,7 @@
 
   &lt;span class=&quot;doc doc-labels&quot;&gt;
       &lt;small class=&quot;doc doc-label doc-label-staticmethod&quot;&gt;&lt;code&gt;staticmethod&lt;/code&gt;&lt;/small&gt;
-  &lt;/span&gt; (&lt;code&gt;wmbe.model.WeatheringMediatedWeakness.weakening_model&lt;/code&gt;)" href="#wmbe.model.WeatheringMediatedWeakness.weakening_model">weakening_model</a></code></b>
+  &lt;/span&gt; (&lt;code&gt;wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model&lt;/code&gt;)" href="#wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model">weakening_model</a></code></b>
             –
             <div class="doc-md-description">
               <p>Shifted exponential decay weathering model: <span class="arithmatex">\(w = 1 + w_0(\tau+\tau_0)\exp(-k\chi)\)</span>.</p>
@@ -933,7 +963,7 @@
 
 
                   <details class="mkdocstrings-source">
-                    <summary>Source code in <code>wmbe/model.py</code></summary>
+                    <summary>Source code in <code>wmbe/numerical/model.py</code></summary>
                     <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-28">28</a></span>
 <span class="normal"><a href="#__codelineno-0-29">29</a></span>
 <span class="normal"><a href="#__codelineno-0-30">30</a></span>
@@ -962,12 +992,12 @@
 <div class="doc doc-object doc-function">
 
 
-<h2 id="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model" class="doc doc-heading">
+<h2 id="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fit_weakness_vs_time_and_depth_model</span>
 
 
-<a href="#wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model" class="headerlink" title="Permanent link">¶</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fit_weakness_vs_time_and_depth_model</span><span class="p">(</span><span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model(data)">data</span></span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model(select)">select</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+<a href="#wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model" class="headerlink" title="Permanent link">¶</a></h2>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fit_weakness_vs_time_and_depth_model</span><span class="p">(</span><span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model(data)">data</span></span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_and_depth_model(select)">select</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -977,7 +1007,7 @@
           </backlinks>
 
             <details class="mkdocstrings-source">
-              <summary>Source code in <code>wmbe/model.py</code></summary>
+              <summary>Source code in <code>wmbe/numerical/model.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-102">102</a></span>
 <span class="normal"><a href="#__codelineno-0-103">103</a></span>
 <span class="normal"><a href="#__codelineno-0-104">104</a></span>
@@ -1136,13 +1166,13 @@
 <div class="doc doc-object doc-function">
 
 
-<h2 id="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model" class="doc doc-heading">
+<h2 id="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fit_weakness_vs_time_linear_model</span>
 
 
-<a href="#wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model" class="headerlink" title="Permanent link">¶</a></h2>
+<a href="#wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model" class="headerlink" title="Permanent link">¶</a></h2>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fit_weakness_vs_time_linear_model</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(data)">data</span></span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(x_name)">x_name</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(y_name)">y_name</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(select)">select</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(data)">data</span></span><span class="p">:</span> <span class="n"><span title="pandas.DataFrame">DataFrame</span></span><span class="p">,</span> <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(x_name)">x_name</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(y_name)">y_name</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.fit_weakness_vs_time_linear_model(select)">select</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </span></code></pre></div>
 
@@ -1156,7 +1186,7 @@ as a linear function of the number of wetting and drying cycles.</p>
           </backlinks>
 
             <details class="mkdocstrings-source">
-              <summary>Source code in <code>wmbe/model.py</code></summary>
+              <summary>Source code in <code>wmbe/numerical/model.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
 <span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
 <span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
@@ -1253,7 +1283,7 @@ as a linear function of the number of wetting and drying cycles.</p>
 <div class="doc doc-object doc-function">
 
 
-<h2 id="wmbe.model.WeatheringMediatedWeakness.weakening_model" class="doc doc-heading">
+<h2 id="wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model" class="doc doc-heading">
 <code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">weakening_model</span>
 
 
@@ -1261,8 +1291,8 @@ as a linear function of the number of wetting and drying cycles.</p>
       <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
   </span>
 
-<a href="#wmbe.model.WeatheringMediatedWeakness.weakening_model" class="headerlink" title="Permanent link">¶</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">weakening_model</span><span class="p">(</span><span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.weakening_model(wetdryN_P)">wetdryN_P</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">,</span> <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.weakening_model(k)">k</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">,</span> <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.weakening_model(w0)">w0</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">,</span> <span class="n"><span title="wmbe.model.WeatheringMediatedWeakness.weakening_model(tau0)">tau0</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
+<a href="#wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model" class="headerlink" title="Permanent link">¶</a></h2>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">weakening_model</span><span class="p">(</span><span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model(wetdryN_P)">wetdryN_P</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">,</span> <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model(k)">k</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">,</span> <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model(w0)">w0</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">,</span> <span class="n"><span title="wmbe.numerical.model.WeatheringMediatedWeakness.weakening_model(tau0)">tau0</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1272,7 +1302,7 @@ as a linear function of the number of wetting and drying cycles.</p>
           </backlinks>
 
             <details class="mkdocstrings-source">
-              <summary>Source code in <code>wmbe/model.py</code></summary>
+              <summary>Source code in <code>wmbe/numerical/model.py</code></summary>
               <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-34">34</a></span>
 <span class="normal"><a href="#__codelineno-0-35">35</a></span>
 <span class="normal"><a href="#__codelineno-0-36">36</a></span>
@@ -1360,7 +1390,7 @@ as a linear function of the number of wetting and drying cycles.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../file/" class="md-footer__link md-footer__link--prev" aria-label="Previous: file.py">
+          <a href="../../misc/serialize/" class="md-footer__link md-footer__link--prev" aria-label="Previous: misc/serialize.py">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1370,20 +1400,20 @@ as a linear function of the number of wetting and drying cycles.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                file.py
+                misc/serialize.py
               </div>
             </div>
           </a>
         
         
           
-          <a href="../serialize/" class="md-footer__link md-footer__link--next" aria-label="Next: serialize.py">
+          <a href="../solve1d/" class="md-footer__link md-footer__link--next" aria-label="Next: numerical/solve1d.py">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                serialize.py
+                numerical/solve1d.py
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1440,18 +1470,18 @@ as a linear function of the number of wetting and drying cycles.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.view", "content.code.annotate", "content.code.copy", "content.code.select", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.action.view", "content.code.annotate", "content.code.copy", "content.code.select", "content.footnote.tooltips", "content.tabs.link", "content.tooltips", "navigation.footer", "navigation.indexes", "navigation.sections", "navigation.tabs", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../javascripts/mathjax.js"></script>
+        <script src="../../../javascripts/mathjax.js"></script>
       
         <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
-        <script src="../../javascripts/extra.js"></script>
+        <script src="../../../javascripts/extra.js"></script>
       
     
   </body>
