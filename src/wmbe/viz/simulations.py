@@ -10,7 +10,7 @@ from typing import Any
 from collections.abc import Sequence
 from numpy.typing import NDArray
 
-from wmbe.numerical.solve1d import eta_chi_tau, NumericalModel
+from wmbe.numerical.solve1d import weakness_chi_tau, NumericalModel
 from wmbe.theory.symbols import *
 from wmbe.theory.equations import Equations
 from wmbe.viz.base import VizBase
@@ -229,7 +229,7 @@ class VizSimulations(VizBase):
         tau_  = nm.tau_array[-1]
 
         eta_s_numerical  = nm.eta_array[j_, phi0_:]
-        eta_s_analytical = eta_chi_tau(chi_s_, tau_, nm.W)
+        eta_s_analytical = weakness_chi_tau(chi_s_, tau_, nm.W)
         
         chi_front = chi_s_[eta_s_numerical==0][-1]
         plt.plot(

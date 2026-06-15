@@ -17,27 +17,27 @@ warnings.filterwarnings("ignore")
 
 __all__ = [
     "erosionrate_steadystate_W",
-    "eta_chi_tau",
+    "weakness_chi_tau",
     "NumericalModel",
 ]
 
-def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
+def weakness_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
     """
     Weathering-driven weakness function.
     
-    Analytic solution for $\\eta(\\chi,\\tau)$ as a function of dimensionless 
+    Analytic solution for $\\omega(\\chi,\\tau)$ as a function of dimensionless 
     distance (depth into the rock) $\\chi$ and time $\\tau$, and parameterized
     by weathering number $W$, assuming an exponential-decay model for 
     weathering.
     """    
     # Args:
-    #     tau (float): dimensionless time $\\tau`
-    #     chi (float): dimensionless distance $\\chi`
-    #     W (float):   weathering number $W`
+    #     tau (float): dimensionless time $\\tau$
+    #     chi (float): dimensionless distance $\\chi$
+    #     W (float):   weathering number $W$
     
     # Returns:
     #     float: 
-    #         weakness $\\eta(\\chi,\\tau;W)`
+    #         weakness $\\omega(\\chi,\\tau;W)$
     return (
         (1+(W/erosionrate_steadystate_W(W))
             *np.exp(-(chi)))
@@ -46,7 +46,7 @@ def eta_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
 
 def erosionrate_steadystate_W(W: float) -> float|NDArray:
     """
-    Dimensionless steady-state speed of the erosion front $\\omega_s(W)$.
+    Dimensionless steady-state speed of the erosion front $\\nu_s(W)$.
     """    
     # Assumes: $\nu_s = \tfrac{1}{2}\left(1+\sqrt{1+4W}\right)$
     
@@ -60,11 +60,11 @@ def erosionrate_steadystate_W(W: float) -> float|NDArray:
 
 class NumericalModel:
     """
-    Numerical solution of $\\eta(\\chi,\\tau)$ and $\\phi(\\tau)$ evolution.
+    Numerical solution of $\\omega(\\chi,\\tau)$ and $\\phi(\\tau)$ evolution.
     
     Class that provides a finite-difference method for solving the 
-    $(\\chi,\\tau) evolution of a weakness profile $\\eta(\\chi,\\tau)$ and 
-    its eroding surface position $\\phi(\\tau)$ as 2d array $\\eta_i^j$ 
+    space-time evolution of a weakness profile $\\omega(\\chi,\\tau)$ and 
+    its eroding surface position $\\phi(\\tau)$ as 2d array $\\omega_i^j$ 
     and 1d vector $\\phi^j$ respectively, and that provides dictionaries 
     for the model and its numerical solution parameters.
     """
@@ -100,7 +100,7 @@ class NumericalModel:
             tau_array (:class:`numpy.ndarray`) : 
                 discrete times $\\tau^j$
             eta_array (:class:`numpy.ndarray`) : 
-                discretized weakness profile $\\eta_i^j$
+                discretized weakness profile $\\omega_i^j$
             phi_array (:class:`numpy.ndarray`) : 
                 discrete (in time) series of erosion front 
                 positions $\\phi^j$ (smoothly resolved as floats)
@@ -150,7 +150,8 @@ class NumericalModel:
     def solve(self) -> None:
         """
         Use an explicit finite-difference scheme to solve for evolution of a 
-        weakness profile $\\eta_i^j$ and its eroding surface position $\\phi^j$.
+        weakness profile $\\omega_i^j$ and its eroding surface position 
+        $\\phi^j$.
         """
         # Attributes:
         #     parameters (:obj:`dict`) : 
@@ -185,12 +186,12 @@ class NumericalModel:
             eta[j+1,f:-1] = (
                   eta[j,f:-1] 
                 + (Delta_phi_j*(eta[j,fp1:]-eta[j,f:-1]))/(Delta_chi)
-                +  Delta_tau*self.neg_exp_H(chi[f:-1]-phi[j],Delta_chi)
+                +  Delta_tau*self.neg_exp_Heaviside(chi[f:-1]-phi[j],Delta_chi)
                 )
             eta[j+1,-1] = (
                   eta[j,-1] 
                 + (Delta_phi_j*(eta[j,-1]-eta[j,-2]))/(Delta_chi)
-                +  Delta_tau*self.neg_exp_H(chi[-1]-phi[j],Delta_chi)
+                +  Delta_tau*self.neg_exp_Heaviside(chi[-1]-phi[j],Delta_chi)
             )
         self.nu_array[j+1] = (f_left*eta[j,f]+f_right*eta[j,fp1])
         di = self.nu_array.shape[0]//10
@@ -198,25 +199,27 @@ class NumericalModel:
         self.physical_parameters.update({nu_s_bar:self.nu_s_bar})
 
     @staticmethod
-    def neg_exp_H(chi: float|NDArray , dchi: float|NDArray,) -> float|NDArray:
+    def neg_exp_Heaviside(
+        chi: float|NDArray , dchi: float|NDArray,
+    ) -> float|NDArray:
         """
         Negate, exponentiate and Heaviside clip.
         
         Assumes the argument chi= $\\chi$ is the dimensionless distance from the 
         erosion front, and dchi= $\\Delta\\chi$  is the discrete spatial step size.
         Exponentiates $-\\chi H(\\chi+\\Delta\\chi)$ where H=Heaviside function.
-        When invoked in computing $d{\\eta}/d{\\chi}$,  adding ${\\Delta}{\\chi}$ means
+        When invoked in computing $d{\\omega}/d{\\chi}$,  adding ${\\Delta}{\\chi}$ means
         a non-clipped value is returned for the sample point just to the left 
-        (-ve $\\chi$). Thus the ${\\eta}$ gradient is estimated across the erosion 
+        (-ve $\\chi$). Thus the ${\\omega}$ gradient is estimated across the erosion 
         front, where sample points span the moving origin, as well as for all points
         $\\chi\\geq 0$.
         """
         # Args:
-        #     chi (float): distance $\chi` from the erosion front
-        #     dchi (float): discrete spacing $\Delta\chi` 
-        #         between sample points along $\chi`
+        #     chi (float): distance $\chi$ from the erosion front
+        #     dchi (float): discrete spacing $\Delta\chi$
+        #         between sample points along $\chi$
         
         # Returns:
         #     float:
-        #         $\exp(-\chi)` if $\chi+\Delta\chi \geq 0`, 1 otherwise
+        #         $\exp(-\chi)$ if $\chi+\Delta\chi \geq 0$, 1 otherwise
         return np.exp(-chi*np.heaviside(chi+dchi,0))
