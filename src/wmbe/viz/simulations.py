@@ -40,12 +40,13 @@ class VizSimulations(VizBase):
         These solutions are provided in the class instance 
         :class:`~.solve1d.ErosionWeathering`.
         Legend-label by weathering number for this instance.
-        """            
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     ew (:class:`~.solve1d.ErosionWeathering`): 
-        #             instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            nm: instance of 1d weathering-mediated erosion NumericalModel class
+            fig_size: tuple (x,y) in inches (!)
+        """
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -81,18 +82,18 @@ class VizSimulations(VizBase):
         This series of time slices shows the propagation and development of 
         a steady-state form of the weathering depth-profile as the rock surface
         is eroded. Quantities are all dimensionless.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            nm: instance of 1d weathering-mediated erosion NumericalModel class
+            tc (int): $\\tau^j$  slicing "rate"
+            nd (int): number of decimal places in $\\tau$ legend label
+            text_label: 
+                text annotation as tuple of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     ew (:class:`~.solve1d.ErosionWeathering`): 
-        #             instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
-        #     tc (int): 
-        #             $\\tau^j`  slicing "rate"
-        #     nd (int): 
-        #             number of decimal places in $\\tau`  legend label
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -183,11 +184,15 @@ class VizSimulations(VizBase):
         
         Check numerical stability of time-stepping by plotting a close-up of
         the erosion front speed over time.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            tau: time slices $\\tau^j$ of numerical solution
+            nu: speed of erosion front $\\nu^j$ at each 
+                        time slice $\\tau^j$
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     tau (numpy.ndarray): time slices $\\tau^j` of numerical solution 
-        #     nu (numpy.ndarray): speed of erosion front $\\nu^j` 
-        #                         at each time slice $\\tau^j` 
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -210,13 +215,13 @@ class VizSimulations(VizBase):
         for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function of 
         depth from the rock surface $\\chi_i$ for a given value of the 
         weathering number ${\\mathcal{W}}$.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            nm: instance of 1d weathering-mediated erosion NumericalModel class
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
-        #                                     figure 
-        #     ew (:class:`~.solve1d.ErosionWeathering`): 
-        #             instance of 1d weathering-mediated erosion model :mod:`~.solve1d` class
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -290,14 +295,16 @@ class VizSimulations(VizBase):
         model for weakness ${\\omega}_s(\\chi_i | {\\mathcal{W}})$ as a function
         of depth from the rock surface $\\chi_i$ for a set of weathering numbers
         ${\\mathcal{W}}$.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            numerical_models: 
+                sequence of instances of 1d weathering-mediated erosion 
+                NumericalModel class
+            chi_max: maximum $\\chi$ on x axis
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>`
-        #                                     figure 
-        #     ew_list (list): 
-        #             list of instances of 1d weathering-mediated erosion model 
-        #             :mod:`~.solve1d` class :class:`~.solve1d.ErosionWeathering`
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -390,18 +397,21 @@ class VizSimulations(VizBase):
         is plotted as a black curve; numerical solutions are plotted as black
         circles; asymptotic behavior for low and high ${\\mathcal{W}}$
         are shown as dashed lines. 
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            eqns: 
+                instance of 1d weathering-mediated erosion theory class
+            do_loglog: 
+                flag whether to use log scales on both axes
+            numerical_models: 
+                sequence of numerical solutions of $\\nu_s$
+            text_label: 
+                text annotation as tuple of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
-        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-        #     do_loglog (bool): 
-        #         flag whether to use log scales on both axes
-        #     nus_solns_list (list): 
-        #         set of numerical solutions of $\nu_s$
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -536,14 +546,17 @@ class VizSimulations(VizBase):
         Visualize the transitional behavior of the steady-state erosion rate 
         $\\nu_s$ at intermediate weathering numbers $W$ by plotting how 
         asymptotes at low and high $W$ deviate from the full model.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            eqns: 
+                instance of 1d weathering-mediated erosion theory class
+            text_label: 
+                text annotation as tuple of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
-        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -655,16 +668,15 @@ class VizSimulations(VizBase):
         ) -> None:
         """
         Plot baseline erosion rate versus baseline weathering rate.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            eqns: 
+                instance of 1d weathering-mediated erosion theory class
+            k: weathering-depth model $k$ value
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
-        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-        #     k_ (float): 
-        #         weathering-weakening rate profile reciprocal e-folding depth
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -694,14 +706,14 @@ class VizSimulations(VizBase):
         ) -> None:
         """
         Plot baseline erosion rate versus surface weakness at steady-state.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            eqns: 
+                instance of 1d weathering-mediated erosion theory class
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     em (:class:`~.theory.WeatheringMediatedErosion`): 
-        #             instance of 1d weathering-mediated erosion theory :mod:`~.theory` class
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})

@@ -40,15 +40,17 @@ class VizData(VizBase):
         `Inoue et al (2017)`_ data on tensile strength $\\sigma_T$
         (normalized by a reference tensile strength $\\sigma_\\mathrm{ref}$)
         after $N$ wetting and drying cycles.
-        """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-        #                                 containing data sets as :mod:`pandas` dataframes
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
 
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            data: experimental data as pandas DataFrame
+            model: instance of model class
+            text_label: 
+                text annotation as tuples of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
+        """
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -146,15 +148,17 @@ class VizData(VizBase):
         from `Li et al (2016)`_ data on compressive strength $\\sigma_C$
         (normalized by a reference compressive strength $\\sigma_\\mathrm{ref}$
         after $N$ wetting and drying cycles at a range of confining pressures $N$.
-        """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-        #                                 containing data sets as :mod:`pandas` dataframes
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
 
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            data: experimental data as pandas DataFrame
+            model: instance of model class
+            text_label: 
+                text annotation as tuples of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
+        """
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -239,14 +243,17 @@ class VizData(VizBase):
         Generate graph of rock weakness $w$ versus proxy depth inferred from 
         `Li et al (2016)`_ data on compressive strength $\\sigma_C$ at a range
         of confining pressures $P$ after $N$ wetting and drying cycles.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            data: experimental data as pandas DataFrame
+            model: instance of model class
+            text_label: 
+                text annotation as tuples of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-        #                                 containing data sets as :mod:`pandas` dataframes
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -333,15 +340,17 @@ class VizData(VizBase):
         Generate graph of rock weakness versus proxy depth inferred from 
         `Li et al (2016)`_ data on compressive strength $\\sigma_C$ at a range
         of confining pressures $P$ after $N$ wetting and drying cycles.
-        """        
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-        #                                 containing data sets as :mod:`pandas` dataframes
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
 
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            data: experimental data as pandas DataFrame
+            model: instance of model class
+            text_label: 
+                text annotation as tuples of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
+        """        
         _ = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -454,19 +463,16 @@ class VizData(VizBase):
         proxy depth inferred from `Li et al (2016)`_ data on compressive 
         strength $\\sigma_C$ at a range of confining pressures $P$ after $N$ 
         wetting and drying cycles.
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            data: experimental data as pandas DataFrame
+            model: instance of model class
+            surface: reference to regressed 2D function that models
+                    joint dependence of weakness on proxy depth and proxy time
+            fig_size: tuple (x,y) in inches (!)
         """        
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     ed (:class:`~.data.ExptData`): instance of experimental :mod:`~.data` class
-        #                                 containing data sets as :mod:`pandas` dataframes
-        #     model_surface (str): 
-        #             key to dict (stored in :attr:`ed`) reference in  to 
-        #             2D  function regressed in 
-        #             :meth:`~.data.ExptData.fit_weathering_model` that models
-        #             joint dependence of weakness on proxy depth and proxy time
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         fig = self.create_figure(name=name, size=fig_size,)
         if title is not None:
             plt.title(title, fontdict={"fontsize": 11.5})

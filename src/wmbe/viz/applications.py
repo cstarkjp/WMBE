@@ -103,10 +103,9 @@ class VizApplications(VizBase):
                 instance of model class that simulates channel cross-sectional 
                 geometry
             text_label: 
-                text annotation as tuples of form 
+                text annotation as tuple of form 
                 (x-y coordinate, string, font size)
             fig_size: tuple (x,y) in inches (!)
-
         """
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:

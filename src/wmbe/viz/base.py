@@ -21,20 +21,23 @@ __all__ = [
 class VizBase:
     """
     Provide a visualization class.
-    """
-    # Args:
-    #     dpi:
-    #         set resolution for rasterized images
-    #     font_size:
-    #         set mpl default font size
-    #     font_family:
-    #         set mpl default font family
 
-    # Attributes:
-    #     dpi (int):
-    #         rasterization resolution
-    #     fdict  (dict):
-    #         dictionary to which each figure is appended as it is generated
+    Args:
+        dpi:
+            set resolution for rasterized images
+        font_size:
+            set MatPlotLib default font size
+        font_family:
+            set MatPlotLib default font family
+
+    Attributes:
+        dpi (int):
+            rasterization resolution
+        fdict (dict):
+            dictionary to which each figure is appended as it is generated
+        markers (dict): 
+            selected markers for scatter plots
+    """
     dpi: int
     fdict: dict[Any, Any]
 
@@ -89,19 +92,18 @@ class VizBase:
         Initialize a Pyplot figure.
 
         Set its size and DPI. Append it to the figures dictionary.
+
+        Args:
+            name:
+                name of figure; used as key in figures dictionary
+            size:
+                optional width and height of figure in inches
+            dpi:
+                rasterization resolution
+
+        Returns:
+            reference to MatPlotLib/Pyplot figure
         """
-        # Args:
-        #     fig_name:
-        #         name of figure; used as key in figures dictionary
-        #     fig_size:
-        #         optional width and height of figure in inches
-        #     dpi:
-        #         rasterization resolution
-
-        # Returns:
-        #     figure:
-        #         reference to MatPlotLib/Pyplot figure
-
         fig_size_: tuple[float, float] = (
             (6, 4,) if size is None else size
         )
