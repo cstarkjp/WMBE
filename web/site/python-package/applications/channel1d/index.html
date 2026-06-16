@@ -1252,7 +1252,7 @@
 
 
 <a href="#wmbe.applications.channel1d.ChannelWall" class="headerlink" title="Permanent link">¶</a></h1>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">ChannelWall</span><span class="p">(</span><span class="n"><span title="wmbe.applications.channel1d.ChannelWall(eqns)">eqns</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-class&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;Equations&lt;/span&gt; (&lt;code&gt;wmbe.theory.equations.Equations&lt;/code&gt;)" href="../../theory/equations/#wmbe.theory.equations.Equations">Equations</a></span><span class="p">,</span> <span class="n"><span title="wmbe.applications.channel1d.ChannelWall(physical_parameters)">physical_parameters</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">ChannelWall</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="&lt;b&gt;&lt;code&gt;eqns&lt;/code&gt;&lt;/b&gt; (&lt;code&gt;wmbe.applications.channel1d.ChannelWall(eqns)&lt;/code&gt;)" href="#wmbe.applications.channel1d.ChannelWall(eqns)">eqns</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-class&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;Equations&lt;/span&gt; (&lt;code&gt;wmbe.theory.equations.Equations&lt;/code&gt;)" href="../../theory/equations/#wmbe.theory.equations.Equations">Equations</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="&lt;b&gt;&lt;code&gt;physical_parameters&lt;/code&gt;&lt;/b&gt; (&lt;code&gt;wmbe.applications.channel1d.ChannelWall(physical_parameters)&lt;/code&gt;)" href="#wmbe.applications.channel1d.ChannelWall(physical_parameters)">physical_parameters</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents first">
@@ -1265,7 +1265,122 @@
 weathering-mediated erosion and 1+1d bedrock channel cross-section 
 (at the channel wall).</p>
 
-          </backlinks>
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h2 id="wmbe.applications.channel1d.ChannelWall(eqns)" class="doc doc-heading doc-heading-parameter">              <b><code>eqns</code></b>
+<a href="#wmbe.applications.channel1d.ChannelWall(eqns)" class="headerlink" title="Permanent link">¶</a></h2>              (<code><a class="autorefs autorefs-internal" title="&lt;code class=&quot;doc-symbol doc-symbol-heading doc-symbol-class&quot;&gt;&lt;/code&gt;            &lt;span class=&quot;doc doc-object-name doc-class-name&quot;&gt;Equations&lt;/span&gt; (&lt;code&gt;wmbe.theory.equations.Equations&lt;/code&gt;)" href="../../theory/equations/#wmbe.theory.equations.Equations">Equations</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>instance of 1d weathering-mediated erosion theory class</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h2 id="wmbe.applications.channel1d.ChannelWall(physical_parameters)" class="doc doc-heading doc-heading-parameter">              <b><code>physical_parameters</code></b>
+<a href="#wmbe.applications.channel1d.ChannelWall(physical_parameters)" class="headerlink" title="Permanent link">¶</a></h2>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>physical parameters dictionary</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.__init__.physical_parameters">physical_parameters</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>physical parameters dictionary</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.__init__.w0_eqn_z_calibrated">w0_eqn_z_calibrated</span></code></b>
+              (<code><span title="sympy.Eq">Eq</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>surface weakness calibrated using model parameters: 
+<span class="arithmatex">\(w_0 =  w_r H_s[z,z_\mathrm{wc},k_\mathrm{w}]\)</span>
+where 
+<span class="arithmatex">\(H_s = \dfrac{1}{2}\left(1 + \tanh{[\kappa_w(z-z_\mathrm{wc}]}\right)\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.__init__.v0_eqn_z_calibrated">v0_eqn_z_calibrated</span></code></b>
+              (<code><span title="sympy.Eq">Eq</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>erosion rate calibrated using model parameters: 
+<span class="arithmatex">\(v_0 =  v_r \left\{ (h-H_s[z,z_\mathrm{vc},k_\mathrm{v}])(1-v_b)+v_b \right\}\)</span>
+where 
+<span class="arithmatex">\(H_s = \dfrac{1}{2}\left(1 + \tanh{[\kappa_v(z-z_\mathrm{vc}]}\right)\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.__init__.vs_eqn">vs_eqn</span></code></b>
+              (<code><span title="sympy.Eq">Eq</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>surface-normal erosion rate (uncalibrated)
+<span class="arithmatex">\(v_0 =  v_r \left\{ (h-H_s[z,z_\mathrm{vc},k_\mathrm{v}])(1-v_b)+v_b \right\}\)</span>
+where 
+<span class="arithmatex">\(H_s = \dfrac{1}{2}\left(1 + \tanh{[\kappa_v(z-z_\mathrm{vc}]}\right)\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.__init__.W_eqn_z_calibrated">W_eqn_z_calibrated</span></code></b>
+              (<code><span title="sympy.Eq">Eq</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>weathering number calibrated using model parameters: 
+<span class="arithmatex">\(W = \dfrac{w_0}{k v_0}\)</span></p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.__init__.vs_eqn_z_calibrated">vs_eqn_z_calibrated</span></code></b>
+              (<code><span title="sympy.Eq">Eq</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>surface-normal erosion rate calibrated using model parameters: 
+<span class="arithmatex">\(v_0 =  v_r \left\{ (h-H_s[z,z_\mathrm{vc},k_\mathrm{v}])(1-v_b)+v_b \right\}\)</span>
+where 
+<span class="arithmatex">\(H_s = \dfrac{1}{2}\left(1 + \tanh{[\kappa_v(z-z_\mathrm{vc}]}\right)\)</span></p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+
+  <div class="doc doc-backlinks">
+        <b class="doc doc-backlink-type">Used by:</b>
+          <ul class="doc doc-backlink-list">
+      <li class="doc doc-backlink">
+            <span class="doc doc-backlink-crumb">
+      <span>Python package</span>
+  </span>
+
+            <span class="doc doc-backlink-crumb">
+      <span>viz</span>
+  </span>
+
+            <span class="doc doc-backlink-crumb">
+      <a href="../../viz/applications/#wmbe.viz.applications.VizApplications"><code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;VizApplications</a>
+  </span>
+
+            <span class="doc doc-backlink-crumb last">
+      <a href="../../viz/applications/#wmbe.viz.applications.VizApplications.channel_ref_weathering_rate_ref_erosion_rate_W"><code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;channel_ref_weathering_rate_ref_erosion_rate_W</a>
+  </span>
+
+      </li>
+  </ul>
+
+  </div>
+</backlinks>
 
 
 
@@ -1345,33 +1460,33 @@ weathering-mediated erosion and 1+1d bedrock channel cross-section
 <span class="normal"><a href="#__codelineno-0-73">73</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eqns</span><span class="p">:</span> <span class="n">Equations</span><span class="p">,</span> <span class="n">physical_parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    Initialize class instance.</span>
-</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    """</span>
-</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a>    <span class="c1"># Attributes:</span>
-</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a>    <span class="c1">#     physical_parameters (:obj:`dict`) : </span>
-</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a>    <span class="c1">#         model parameters dictionary</span>
-</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a>        <span class="c1"># w0_eqn_z_calibrated (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) : </span>
-</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a>        <span class="c1">#     surface weakness calibrated using model parameters: </span>
-</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a>        <span class="c1">#     :math:`w_0 =  w_r H_s[z,z_\\mathrm{wc},k_\\mathrm{w}]`         </span>
-</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a>        <span class="c1">#     where </span>
-</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a>        <span class="c1">#     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_w(z-z_\\mathrm{wc}]}\\right)`</span>
-</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="c1"># v0_eqn_z_calibrated (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) : </span>
-</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a>        <span class="c1">#     erosion rate calibrated using model parameters: </span>
-</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a>        <span class="c1">#     :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`</span>
-</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a>        <span class="c1">#     where </span>
-</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a>        <span class="c1">#     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`</span>
-</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a>        <span class="c1"># vs_eqn (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) : </span>
-</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a>        <span class="c1">#     surface-normal erosion rate (uncalibrated)</span>
-</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a>        <span class="c1">#     :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`</span>
-</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a>        <span class="c1">#     where </span>
-</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a>        <span class="c1">#     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`</span>
-</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a>        <span class="c1"># W_eqn_z_calibrated  (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) : </span>
-</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a>        <span class="c1">#     weathering number calibrated using model parameters: </span>
-</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a>        <span class="c1">#     :math:`W = \\dfrac{w_0}{k v_0}`</span>
-</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="c1"># vs_eqn_z_calibrated (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) : </span>
-</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a>        <span class="c1">#     surface-normal erosion rate calibrated using model parameters: </span>
-</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a>        <span class="c1">#     :math:`v_0 =  v_r \\left\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\}`</span>
-</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a>        <span class="c1">#     where </span>
-</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="c1">#     :math:`H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)`</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    Attributes:</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        physical_parameters (dict): physical parameters dictionary</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        w0_eqn_z_calibrated (sympy.Eq):</span>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">            surface weakness calibrated using model parameters: </span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">            $w_0 =  w_r H_s[z,z_\\mathrm{wc},k_\\mathrm{w}]$</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">            where </span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">            $H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_w(z-z_\\mathrm{wc}]}\\right)$</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        v0_eqn_z_calibrated (sympy.Eq):</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">            erosion rate calibrated using model parameters: </span>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">            $v_0 =  v_r \\left\\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\\}$</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">            where </span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            $H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)$</span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        vs_eqn (sympy.Eq):</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">            surface-normal erosion rate (uncalibrated)</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">            $v_0 =  v_r \\left\\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\\}$</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">            where </span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">            $H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)$</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        W_eqn_z_calibrated (sympy.Eq):</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            weathering number calibrated using model parameters: </span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">            $W = \\dfrac{w_0}{k v_0}$</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        vs_eqn_z_calibrated (sympy.Eq):</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            surface-normal erosion rate calibrated using model parameters: </span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            $v_0 =  v_r \\left\\{ (h-H_s[z,z_\\mathrm{vc},k_\\mathrm{v}])(1-v_b)+v_b \\right\\}$</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">            where </span>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">            $H_s = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa_v(z-z_\\mathrm{vc}]}\\right)$</span>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    """</span>
 </span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">physical_parameters</span> <span class="o">=</span> <span class="n">physical_parameters</span>
 </span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">w0_eqn_z_calibrated</span> \
 </span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a>        <span class="o">=</span> <span class="n">eqns</span><span class="o">.</span><span class="n">w0_eqn_wr_z</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">physical_parameters</span><span class="p">)</span>
@@ -1417,6 +1532,53 @@ weathering-mediated erosion and 1+1d bedrock channel cross-section
 
         <p>Compute dependence of various properties with height above channel base.</p>
 
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_cross_section.vs_array">vs_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>weathering-mediated surface-normal erosion rate along vertical 
+profile (at steady state)                </p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_cross_section.dzdy_array">dzdy_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>weathering-mediated vertical erosion rate along vertical profile 
+(at steady state)</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_cross_section.y_array">y_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>horizontal positions of sample points along vertica profile</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_cross_section.ch_y_array">ch_y_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>horizontal positions of sample points along channel boundary</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_cross_section.ch_z_array">ch_z_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>vertical positions of sample points along channel boundary</p>
+          </div>
+        </li>
+    </ul>
+
           </backlinks>
 
             <details class="mkdocstrings-source">
@@ -1456,42 +1618,44 @@ weathering-mediated erosion and 1+1d bedrock channel cross-section
 <span class="normal"><a href="#__codelineno-0-160">160</a></span>
 <span class="normal"><a href="#__codelineno-0-161">161</a></span>
 <span class="normal"><a href="#__codelineno-0-162">162</a></span>
-<span class="normal"><a href="#__codelineno-0-163">163</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-128"><a id="__codelineno-0-128" name="__codelineno-0-128"></a><span class="k">def</span><span class="w"> </span><span class="nf">compute_cross_section</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-163">163</a></span>
+<span class="normal"><a href="#__codelineno-0-164">164</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-128"><a id="__codelineno-0-128" name="__codelineno-0-128"></a><span class="k">def</span><span class="w"> </span><span class="nf">compute_cross_section</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-0-129"><a id="__codelineno-0-129" name="__codelineno-0-129"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-0-130"><a id="__codelineno-0-130" name="__codelineno-0-130"></a><span class="sd">    Compute dependence of various properties with height above channel base.</span>
-</span><span id="__span-0-131"><a id="__codelineno-0-131" name="__codelineno-0-131"></a><span class="sd">    """</span>
-</span><span id="__span-0-132"><a id="__codelineno-0-132" name="__codelineno-0-132"></a>    <span class="c1"># Attributes:</span>
-</span><span id="__span-0-133"><a id="__codelineno-0-133" name="__codelineno-0-133"></a>    <span class="c1">#     vs_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-134"><a id="__codelineno-0-134" name="__codelineno-0-134"></a>    <span class="c1">#         weathering-mediated surface-normal erosion rate along vertical profile </span>
-</span><span id="__span-0-135"><a id="__codelineno-0-135" name="__codelineno-0-135"></a>    <span class="c1">#         (at steady state)                </span>
-</span><span id="__span-0-136"><a id="__codelineno-0-136" name="__codelineno-0-136"></a>    <span class="c1">#     dzdy_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-137"><a id="__codelineno-0-137" name="__codelineno-0-137"></a>    <span class="c1">#         weathering-mediated vertical erosion rate along vertical profile </span>
-</span><span id="__span-0-138"><a id="__codelineno-0-138" name="__codelineno-0-138"></a>    <span class="c1">#         (at steady state)</span>
-</span><span id="__span-0-139"><a id="__codelineno-0-139" name="__codelineno-0-139"></a>    <span class="c1">#     y_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-140"><a id="__codelineno-0-140" name="__codelineno-0-140"></a>    <span class="c1">#         horizontal positions of sample points along vertica profile</span>
-</span><span id="__span-0-141"><a id="__codelineno-0-141" name="__codelineno-0-141"></a>    <span class="c1">#     ch_y_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-142"><a id="__codelineno-0-142" name="__codelineno-0-142"></a>    <span class="c1">#         horizontal positions of sample points along channel boundary</span>
-</span><span id="__span-0-143"><a id="__codelineno-0-143" name="__codelineno-0-143"></a>    <span class="c1">#     ch_z_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-144"><a id="__codelineno-0-144" name="__codelineno-0-144"></a>    <span class="c1">#         vertical positions of sample points along channel boundary</span>
-</span><span id="__span-0-145"><a id="__codelineno-0-145" name="__codelineno-0-145"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">vs_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-</span><span id="__span-0-146"><a id="__codelineno-0-146" name="__codelineno-0-146"></a>        <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vs_eqn_z_calibrated</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">z__</span><span class="p">))</span> 
-</span><span id="__span-0-147"><a id="__codelineno-0-147" name="__codelineno-0-147"></a>        <span class="k">for</span> <span class="n">z__</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_array</span>
-</span><span id="__span-0-148"><a id="__codelineno-0-148" name="__codelineno-0-148"></a>    <span class="p">])</span>
-</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">dzdy_array</span> \
-</span><span id="__span-0-150"><a id="__codelineno-0-150" name="__codelineno-0-150"></a>        <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vs_array</span><span class="p">)</span><span class="o">+</span><span class="mf">0.01</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">vs_array</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-0-151"><a id="__codelineno-0-151" name="__codelineno-0-151"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">y_array</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">cumulative_trapezoid</span><span class="p">(</span>
-</span><span id="__span-0-152"><a id="__codelineno-0-152" name="__codelineno-0-152"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dzdy_array</span><span class="p">,</span>
-</span><span id="__span-0-153"><a id="__codelineno-0-153" name="__codelineno-0-153"></a>        <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">z_array</span><span class="p">,</span> 
-</span><span id="__span-0-154"><a id="__codelineno-0-154" name="__codelineno-0-154"></a>        <span class="n">initial</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-</span><span id="__span-0-155"><a id="__codelineno-0-155" name="__codelineno-0-155"></a>    <span class="p">)</span>
-</span><span id="__span-0-156"><a id="__codelineno-0-156" name="__codelineno-0-156"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">ch_y_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
-</span><span id="__span-0-157"><a id="__codelineno-0-157" name="__codelineno-0-157"></a>        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_array</span><span class="p">)</span><span class="o">*</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-</span><span id="__span-0-158"><a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">y_array</span><span class="p">,</span>
-</span><span id="__span-0-159"><a id="__codelineno-0-159" name="__codelineno-0-159"></a>    <span class="p">))</span>
-</span><span id="__span-0-160"><a id="__codelineno-0-160" name="__codelineno-0-160"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">ch_z_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
-</span><span id="__span-0-161"><a id="__codelineno-0-161" name="__codelineno-0-161"></a>        <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-</span><span id="__span-0-162"><a id="__codelineno-0-162" name="__codelineno-0-162"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">z_array</span> 
-</span><span id="__span-0-163"><a id="__codelineno-0-163" name="__codelineno-0-163"></a>    <span class="p">))</span>
+</span><span id="__span-0-131"><a id="__codelineno-0-131" name="__codelineno-0-131"></a>
+</span><span id="__span-0-132"><a id="__codelineno-0-132" name="__codelineno-0-132"></a><span class="sd">    Attributes:</span>
+</span><span id="__span-0-133"><a id="__codelineno-0-133" name="__codelineno-0-133"></a><span class="sd">        vs_array (NDArray):</span>
+</span><span id="__span-0-134"><a id="__codelineno-0-134" name="__codelineno-0-134"></a><span class="sd">            weathering-mediated surface-normal erosion rate along vertical </span>
+</span><span id="__span-0-135"><a id="__codelineno-0-135" name="__codelineno-0-135"></a><span class="sd">            profile (at steady state)                </span>
+</span><span id="__span-0-136"><a id="__codelineno-0-136" name="__codelineno-0-136"></a><span class="sd">        dzdy_array (NDArray):</span>
+</span><span id="__span-0-137"><a id="__codelineno-0-137" name="__codelineno-0-137"></a><span class="sd">            weathering-mediated vertical erosion rate along vertical profile </span>
+</span><span id="__span-0-138"><a id="__codelineno-0-138" name="__codelineno-0-138"></a><span class="sd">            (at steady state)</span>
+</span><span id="__span-0-139"><a id="__codelineno-0-139" name="__codelineno-0-139"></a><span class="sd">        y_array (NDArray):</span>
+</span><span id="__span-0-140"><a id="__codelineno-0-140" name="__codelineno-0-140"></a><span class="sd">            horizontal positions of sample points along vertica profile</span>
+</span><span id="__span-0-141"><a id="__codelineno-0-141" name="__codelineno-0-141"></a><span class="sd">        ch_y_array (NDArray):</span>
+</span><span id="__span-0-142"><a id="__codelineno-0-142" name="__codelineno-0-142"></a><span class="sd">            horizontal positions of sample points along channel boundary</span>
+</span><span id="__span-0-143"><a id="__codelineno-0-143" name="__codelineno-0-143"></a><span class="sd">        ch_z_array (NDArray):</span>
+</span><span id="__span-0-144"><a id="__codelineno-0-144" name="__codelineno-0-144"></a><span class="sd">            vertical positions of sample points along channel boundary</span>
+</span><span id="__span-0-145"><a id="__codelineno-0-145" name="__codelineno-0-145"></a><span class="sd">    """</span>
+</span><span id="__span-0-146"><a id="__codelineno-0-146" name="__codelineno-0-146"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">vs_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+</span><span id="__span-0-147"><a id="__codelineno-0-147" name="__codelineno-0-147"></a>        <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vs_eqn_z_calibrated</span><span class="o">.</span><span class="n">rhs</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">z__</span><span class="p">))</span> 
+</span><span id="__span-0-148"><a id="__codelineno-0-148" name="__codelineno-0-148"></a>        <span class="k">for</span> <span class="n">z__</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_array</span>
+</span><span id="__span-0-149"><a id="__codelineno-0-149" name="__codelineno-0-149"></a>    <span class="p">])</span>
+</span><span id="__span-0-150"><a id="__codelineno-0-150" name="__codelineno-0-150"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">dzdy_array</span> \
+</span><span id="__span-0-151"><a id="__codelineno-0-151" name="__codelineno-0-151"></a>        <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vs_array</span><span class="p">)</span><span class="o">+</span><span class="mf">0.01</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">vs_array</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-0-152"><a id="__codelineno-0-152" name="__codelineno-0-152"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">y_array</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">cumulative_trapezoid</span><span class="p">(</span>
+</span><span id="__span-0-153"><a id="__codelineno-0-153" name="__codelineno-0-153"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">dzdy_array</span><span class="p">,</span>
+</span><span id="__span-0-154"><a id="__codelineno-0-154" name="__codelineno-0-154"></a>        <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">z_array</span><span class="p">,</span> 
+</span><span id="__span-0-155"><a id="__codelineno-0-155" name="__codelineno-0-155"></a>        <span class="n">initial</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-0-156"><a id="__codelineno-0-156" name="__codelineno-0-156"></a>    <span class="p">)</span>
+</span><span id="__span-0-157"><a id="__codelineno-0-157" name="__codelineno-0-157"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">ch_y_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
+</span><span id="__span-0-158"><a id="__codelineno-0-158" name="__codelineno-0-158"></a>        <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z_array</span><span class="p">)</span><span class="o">*</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+</span><span id="__span-0-159"><a id="__codelineno-0-159" name="__codelineno-0-159"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">y_array</span><span class="p">,</span>
+</span><span id="__span-0-160"><a id="__codelineno-0-160" name="__codelineno-0-160"></a>    <span class="p">))</span>
+</span><span id="__span-0-161"><a id="__codelineno-0-161" name="__codelineno-0-161"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">ch_z_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
+</span><span id="__span-0-162"><a id="__codelineno-0-162" name="__codelineno-0-162"></a>        <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+</span><span id="__span-0-163"><a id="__codelineno-0-163" name="__codelineno-0-163"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">z_array</span> 
+</span><span id="__span-0-164"><a id="__codelineno-0-164" name="__codelineno-0-164"></a>    <span class="p">))</span>
 </span></code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1506,12 +1670,99 @@ weathering-mediated erosion and 1+1d bedrock channel cross-section
 
 
 <a href="#wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles" class="headerlink" title="Permanent link">¶</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">compute_vertical_profiles</span><span class="p">(</span><span class="n"><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles(n_pts)">n_pts</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">compute_vertical_profiles</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="&lt;b&gt;&lt;code&gt;n_pts&lt;/code&gt;&lt;/b&gt; (&lt;code&gt;wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles(n_pts)&lt;/code&gt;)" href="#wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles(n_pts)">n_pts</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
 
         <p>Compute dependence of various properties with height above channel base.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h3 id="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles(n_pts)" class="doc doc-heading doc-heading-parameter">              <b><code>n_pts</code></b>
+<a href="#wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles(n_pts)" class="headerlink" title="Permanent link">¶</a></h3>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+                  <code>100</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>number of sampling points along vertical profile  </p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.n_pts">n_pts</span></code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>record of number of sampling points</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.z_array">z_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>sample points along vertical profile </p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.vs_eqn_z_calibrated">vs_eqn_z_calibrated</span></code></b>
+              (<code><span title="sympy.Eq">Eq</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>weathering-mediated surface-normal erosion rate at steady state
+calibrated by model parameters supplied in dict</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.w0_array">w0_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>surface weakness along vertical profile (at steady state)</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.v0_array">v0_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>baseline (absent weathering-driven weakening) surface-normal 
+erosion rate along vertical profile  (at steady state)</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.vs_array">vs_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>weathering-mediated surface-normal erosion rate along vertical 
+profile (at steady state)</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.eta0_array">eta0_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>surface weakness along vertical profile (at steady state)</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+          <b><code><span title="wmbe.applications.channel1d.ChannelWall.compute_vertical_profiles.W_array">W_array</span></code></b>
+              (<code><span title="NDArray">NDArray</span></code>)
+          –
+          <div class="doc-md-description">
+            <p>weathering number along vertical profile</p>
+          </div>
+        </li>
+    </ul>
 
           </backlinks>
 
@@ -1571,31 +1822,31 @@ weathering-mediated erosion and 1+1d bedrock channel cross-section
 <span class="normal"><a href="#__codelineno-0-126">126</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="k">def</span><span class="w"> </span><span class="nf">compute_vertical_profiles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_pts</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">100</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="w">    </span><span class="sd">"""</span>
 </span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    Compute dependence of various properties with height above channel base.</span>
-</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    """</span>
-</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="c1"># Args:</span>
-</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="c1">#     n_pts (int): </span>
-</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="c1">#         number of sampling points along vertical profile  </span>
-</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a>
-</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="c1"># Attributes:</span>
-</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="c1">#     n_pts (:obj:`int`): </span>
-</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="c1">#         record of number of sampling points</span>
-</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="c1">#     z_array  (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="c1">#         sample points along vertical profile </span>
-</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="c1">#     vs_eqn_z_calibrated (:class:`sympy.Eq &lt;sympy.core.relational.Equality&gt;`) : </span>
-</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="c1">#         weathering-mediated surface-normal erosion rate at steady state</span>
-</span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="c1">#         calibrated by model parameters supplied in :attr:`wme.pdict`</span>
-</span><span id="__span-0-91"><a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="c1">#     w0_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-92"><a id="__codelineno-0-92" name="__codelineno-0-92"></a>    <span class="c1">#         surface weakness along vertical profile (at steady state)</span>
-</span><span id="__span-0-93"><a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="c1">#     v0_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-94"><a id="__codelineno-0-94" name="__codelineno-0-94"></a>    <span class="c1">#         baseline (absent weathering-driven weakening) surface-normal erosion rate </span>
-</span><span id="__span-0-95"><a id="__codelineno-0-95" name="__codelineno-0-95"></a>    <span class="c1">#         along vertical profile  (at steady state)</span>
-</span><span id="__span-0-96"><a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="c1">#     vs_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-97"><a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="c1">#         weathering-mediated surface-normal erosion rate along vertical profile </span>
-</span><span id="__span-0-98"><a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="c1">#         (at steady state)</span>
-</span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1">#     eta0_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="c1">#         surface weakness along vertical profile (at steady state)</span>
-</span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="c1">#     W_array (:class:`numpy.ndarray`) :</span>
-</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="c1">#         weathering number along vertical profile</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    Args:</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        n_pts: number of sampling points along vertical profile  </span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    Attributes:</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        n_pts (int): </span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">            record of number of sampling points</span>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        z_array (NDArray):</span>
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">            sample points along vertical profile </span>
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        vs_eqn_z_calibrated (sympy.Eq): </span>
+</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">            weathering-mediated surface-normal erosion rate at steady state</span>
+</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">            calibrated by model parameters supplied in dict</span>
+</span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        w0_array (NDArray):</span>
+</span><span id="__span-0-91"><a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">            surface weakness along vertical profile (at steady state)</span>
+</span><span id="__span-0-92"><a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        v0_array (NDArray):</span>
+</span><span id="__span-0-93"><a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">            baseline (absent weathering-driven weakening) surface-normal </span>
+</span><span id="__span-0-94"><a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">            erosion rate along vertical profile  (at steady state)</span>
+</span><span id="__span-0-95"><a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        vs_array (NDArray):</span>
+</span><span id="__span-0-96"><a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">            weathering-mediated surface-normal erosion rate along vertical </span>
+</span><span id="__span-0-97"><a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">            profile (at steady state)</span>
+</span><span id="__span-0-98"><a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        eta0_array (NDArray):</span>
+</span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">            surface weakness along vertical profile (at steady state)</span>
+</span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        W_array (NDArray):</span>
+</span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">            weathering number along vertical profile</span>
+</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    """</span>
 </span><span id="__span-0-103"><a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">n_pts</span> <span class="o">=</span> <span class="n">n_pts</span>
 </span><span id="__span-0-104"><a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">z_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">n_pts</span><span class="p">)</span>
 </span><span id="__span-0-105"><a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">w0_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
