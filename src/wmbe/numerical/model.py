@@ -50,7 +50,7 @@ class WeatheringMediatedWeakness:
             tau0: time offset $\\tau_0$
 
         Returns:
-            w
+            weakness $w$
         """    
         tau = wetdryN_P[0]
         chi = wetdryN_P[1]
@@ -72,7 +72,7 @@ class WeatheringMediatedWeakness:
         as a linear function of the number of wetting and drying cycles.
 
         Args:
-            data_set: which experimental dataset as key to pandas DataFrame
+            data: which experimental dataset as key to pandas DataFrame
             x_name: abscissa $x$
             y_name: ordinate $y$
             select: which computation of weakness from rock strength
@@ -110,7 +110,7 @@ class WeatheringMediatedWeakness:
         Regress a 2d model against experimental data.
 
         Args:
-            data_set: which experimental dataset as key to pandas DataFrame
+            data: which experimental dataset as key to pandas DataFrame
             select: which computation of weakness from rock strength
 
         Attributes:

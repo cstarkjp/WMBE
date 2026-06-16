@@ -2,7 +2,7 @@
 Module for Sympy exposition of weathering-mediated erosion theory.
 """
 import warnings
-from sympy import Eq, solve, sqrt, tanh
+from sympy import Eq, solve, sqrt, tanh, Symbol
 
 from wmbe.theory.symbols import *
 
@@ -21,41 +21,41 @@ class Equations:
         Initialize class instance.
 
         Attributes:
-            W_eqn           (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                weathering number: 
+            W_eqn (sympy.Eq):
+                weathering number
                 $W = \\dfrac{w_0}{k v_0}$
-            nus_eqn_W       (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                dimensionless steady-state erosion rate: 
+            nus_eqn_W (sympy.Eq):
+                dimensionless steady-state erosion rate
                 $\\nu_s = \\dfrac{1}{2}(1+\\sqrt{1+4W})$
-            nus_eqn_w0_v0   (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                dimensionless steady-state erosion rate:
+            nus_eqn_w0_v0 (sympy.Eq):
+                dimensionless steady-state erosion rate
                 $\\nu_s = \\frac{\\sqrt{1 + \\frac{4 w_{0}}{k v_{0}}}}{2} + \\frac{1}{2}$
-            etas0_eqn_W     (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                steady-state surface weakness:
+            etas0_eqn_W (sympy.Eq):
+                steady-state surface weakness
                 $\\eta_{s0} = \\dfrac{\\sqrt{4 W + 1}}{2} + \\frac{1}{2}$
-            etas0_eqn_w0_v0 (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                steady-state surface weakness:
+            etas0_eqn_w0_v0 (sympy.Eq):
+                steady-state surface weakness
                 $\\eta_{s0} = \\dfrac{\\sqrt{1 + \\frac{4 w_{0}}{k v_{0}}}}{2} + \\frac{1}{2}$
-            nus_eqn_etas0   (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                dimensionless steady-state erosion rate:
+            nus_eqn_etas0 (sympy.Eq):
+                dimensionless steady-state erosion rate
                 $\\nu_s =  \\eta_{s}(0)$
-            vs_eqn_etas0_v0 (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                steady-state erosion rate:
+            vs_eqn_etas0_v0 (sympy.Eq):
+                steady-state erosion rate
                 $v_{s} = \\eta_{s}(0) v_{0}$
-            v0_eqn_etas0_vs (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                erosion rate:
+            v0_eqn_etas0_vs (sympy.Eq):
+                erosion rate
                 $v_{0} = \\dfrac{k v_{s}^{2}}{k v_{s} + w_{0}}$
-            vs_eqn_w0_v0    (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                steady-state erosion rate:
+            vs_eqn_w0_v0 (sympy.Eq):
+                steady-state erosion rate
                 $v_{s} = \\eta_{s}(0) v_{0}$
-            v0_eqn_vs_w0    (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                erosion rate:
+            v0_eqn_vs_w0 (sympy.Eq):
+                erosion rate
                 $v_{0} = \\dfrac{k v_{s}^{2}}{k v_{s} + w_{0}}$
-            v0_eqn_vr_h_z   (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                erosion rate: 
+            v0_eqn_vr_h_z (sympy.Eq):
+                erosion rate
                 $v_0 =  v_r \\left\\{ (h-H_s[z,z_\\mathrm{vc},\\kappa_\\mathrm{v}])(1-v_b)+v_b \\right\\}$
-            w0_eqn_wr_z     (:class:`sympy.Eq <sympy.core.relational.Equality>`) : 
-                surface weakness:
+            w0_eqn_wr_z (sympy.Eq):
+                surface weakness
                 $w_0 =  w_r H_s[z,z_\\mathrm{wc},\\kappa_w]$
             
         """
@@ -77,17 +77,18 @@ class Equations:
 
 
     @staticmethod
-    def step(z, z0, kappa,):
+    def step(z: Symbol, z0: Symbol, kappa: Symbol,) -> Symbol:
         """
         Step function at $z=z_0$ and sharpness $k$.
         
         $H_s(z,z_0,\\kappa) = \\dfrac{1}{2}\\left(1 + \\tanh{[\\kappa(z-z_0)]}\\right)$
-        """
-        # Attributes:
-        #     z (sympy.float)  : abscissa $z$
-        #     z0 (float) : offset $z_0$
-        #     kappa (float)  : step sharpness $\\kappa$
+
+        Args:
+            z: abscissa $z$
+            z0: offset $z_0$
+            kappa: step sharpness $\\kappa$
             
-        # Returns:
-        #     float: step function $H_s$
+        Returns:
+            step function $H_s$
+        """
         return (1 + tanh((z-z0)*kappa))/2

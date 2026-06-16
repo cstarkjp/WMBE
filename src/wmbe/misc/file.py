@@ -34,29 +34,30 @@ __all__ = [
 ]
 
 def read_excel(
-        dir_name=("..", "data",), 
-        file_name="Inoue_wetdryN_sigmaT",
-        header=0, 
-        skiprows=[1],
+        path: Sequence[str]=("..", "data",), 
+        file_name: str="Inoue_wetdryN_sigmaT",
+        header: int=0, 
+        skiprows: int|Sequence[int]=[1],
     ) -> DataFrame:
     """
-    Read data from an Excel file into a :mod:`pandas` dataframe
+    Read data from an Excel file into a pandas dataframe.
     
-    Attributes:
-        data_set  (:obj:`str`)  : name of dataset in data dictionary
-        dir_name  (:obj:`list`) : data source directory as platform-indepedent list
-        file_name (:obj:`str`)  : data source filename
-        header    (:obj:`int`)  : number of header (column title etc) rows
-        skiprows  (:obj:`int`)  : number of rows to skip when creating dataframe
-
+    Args:
+        path: path to data source directory
+        file_name: data source filename
+        header: number of header (column title etc) rows
+        skiprows: number of rows to skip when creating dataframe
+    
+    Returns:
+        data frame
     """
-    dir_name = join(*dir_name)
-    if not exists(dir_name):
+    path = join(*path)
+    if not exists(path):
         print("Cannot find data directory")
         raise
     try:
         df = pd.read_excel(
-            join(dir_name, file_name+".xlsx",),
+            join(path, file_name+".xlsx",),
             header=header, 
             skiprows=skiprows,
         )
@@ -68,24 +69,24 @@ def read_excel(
     return df
 
 def create_directories(
-        results_path: Sequence = ("..", "experiments",), 
-        results_dir: str = "Demo",
+        path: Sequence = ("..", "experiments",), 
+        dir_name: str = "Demo",
         do_clean: bool=False,
     ) -> str:
     """
     Create results parent and target directory.
 
     Args:
-        results_path: path to parent results directory
+        path: path to parent results directory
             (to be created if necessary)
-        results_dir: target results directory (to be created)
+        dir_name: target results directory (to be created)
 
     Returns:
         path to target results directory.
     """
-    results_path_ = ["."] + list(results_path)
+    results_path_ = ["."] + list(path)
     create_dir(join(*results_path_))
-    results_dir_ = results_path_ + [results_dir]
+    results_dir_ = results_path_ + [dir_name]
     if do_clean and exists(join(*results_dir_)):
         rmtree(join(*results_dir_))
     return create_dir(join(*results_dir_))
@@ -98,11 +99,10 @@ def create_dir(dir: str) -> str:
     Returns quietly if the directory already exists.
 
     Args:
-        dir: 
-            name of directory
+        dir: name of directory
 
     Returns:
-        path to directory.
+        path to directory
     """
     try:
         if not exists(dir):
@@ -128,10 +128,11 @@ def import_info(
 
     Args:
         info_dir: parent folder of JSON file
-        file_name:  JSON file name.
+        file_name:  JSON file name
         module: dplvn or other class module
 
-    Returns: info as dictionary.
+    Returns: 
+        info as dictionary.
     """
     file: TextIOWrapper
     raw_info: dict
@@ -153,8 +154,8 @@ def export_info(
         file_name: str, 
         source_dict: dict, 
         module: Any,
-        suffix: str | None = None,
-        encoding: str = "utf-8", #"latin-1"
+        suffix: str | None=None,
+        encoding: str="utf-8", #"latin-1"
     ) -> tuple[dict, str]:
     """
     Export results dictionary to JSON file.
@@ -171,6 +172,7 @@ def export_info(
             from latex form such that serialization into a JSON file
             is possible
         suffix: to append to filename prior to addition of '.json' extension
+        encoding: by default, UTF-8
     
     Returns:
         serialized dictionary and the file path string
@@ -222,9 +224,9 @@ def read_info(
 def export_plots(
         fig_dict: dict,
         results_dir: str,
-        file_types: list[str] | tuple[str] | str = "png",
-        suffix: str = "",
-        dpi: int = 150,
+        file_types: list[str] | tuple[str] | str="png",
+        suffix: str="",
+        dpi: int=150,
         do_verbose: bool=False,
     ) -> str:
     """

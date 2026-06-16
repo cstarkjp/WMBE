@@ -9,6 +9,7 @@ from collections.abc import Sequence
 
 from wmbe.theory.symbols import *
 from wmbe.viz.base import VizBase
+from wmbe.applications.channel1d import ChannelWall
 
 warnings.filterwarnings("ignore")
 
@@ -25,23 +26,26 @@ class VizApplications(VizBase):
             name: str,
             title: str|None=None,
             zys: Sequence|None=None, 
-            do_equal_aspect=False,
+            do_equal_aspect: bool=False,
             text_labels: Sequence|None=None,
             fig_size: tuple[float,float]=(6, 4,),
         ) -> None:            
         """
         Plot numerical solutions applied to channel cross-section model 
         (vertical profiles).
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            zys: 
+                numerical solutions to plot
+            do_equal_aspect: 
+                flag whether to force equal sizing of x and y axis scales
+            text_labels: 
+                text annotations as sequence of tuples of form 
+                [(x-y coordinate, string, font size)]
+            fig_size: tuple (x,y) in inches (!)
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure
-        #     zy_list (list): 
-        #         set of numerical solutions to plot
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
-        #     do_equal_aspect (bool): 
-        #         flag whether to use force equal sizing of x and y axis scales
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
@@ -84,21 +88,26 @@ class VizApplications(VizBase):
             self, 
             name: str,
             title: str|None=None,
-            model: Any|None=None, 
+            model: ChannelWall|None=None, 
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:   
         """
         Plot numerical solutions applied to channel cross-section model 
         (vertical profiles).
+
+        Args:
+            name: key for figure dictionary
+            title: optional title for figure
+            model: 
+                instance of model class that simulates channel cross-sectional 
+                geometry
+            text_label: 
+                text annotation as tuples of form 
+                (x-y coordinate, string, font size)
+            fig_size: tuple (x,y) in inches (!)
+
         """
-        # Args:
-        #     fig (:obj:`Matplotlib figure <matplotlib.figure.Figure>`): 
-        #         reference to :mod:`MatPlotLib/Pyplot <matplotlib.pyplot>` figure 
-        #     cw (:class:`~.solve1p1d.ChannelWall`): instance of :mod:`~.solve1p1d` model 
-        #                         class that simulates channel cross-sectional geometry
-        #     text_label (list): text annotation as list of form (x-y coordinate, string, 
-        #                     font size)
         _ = self.create_figure(name=name, size=fig_size,)
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
