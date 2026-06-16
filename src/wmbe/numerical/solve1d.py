@@ -8,9 +8,7 @@ resolution. Upwind differencing and explicit Euler methods are employed.
 """
 import warnings
 import numpy as np
-
 from numpy.typing import NDArray
-
 from wmbe.theory.symbols import *
 
 warnings.filterwarnings("ignore")
@@ -29,15 +27,15 @@ def weakness_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
     distance (depth into the rock) $\\chi$ and time $\\tau$, and parameterized
     by weathering number $W$, assuming an exponential-decay model for 
     weathering.
+
+    Args:
+        chi: dimensionless distance $\\chi$
+        tau: dimensionless time $\\tau$
+        W:   weathering number $W$
+
+    Returns:
+        weakness $\\omega(\\chi,\\tau; W)$
     """    
-    # Args:
-    #     tau (float): dimensionless time $\\tau$
-    #     chi (float): dimensionless distance $\\chi$
-    #     W (float):   weathering number $W$
-    
-    # Returns:
-    #     float: 
-    #         weakness $\\omega(\\chi,\\tau;W)$
     return (
         (1+(W/erosionrate_steadystate_W(W))
             *np.exp(-(chi)))
@@ -47,14 +45,15 @@ def weakness_chi_tau(chi: NDArray, tau: NDArray, W: float,) -> float|NDArray:
 def erosionrate_steadystate_W(W: float) -> float|NDArray:
     """
     Dimensionless steady-state speed of the erosion front $\\nu_s(W)$.
+
+    Assumes: $\\nu_s = \\tfrac{1}{2}\\left(1+\\sqrt{1+4W}\\right)$.
+    
+    Args:
+        W: weathering number $W$
+    
+    Returns:
+        dimensionless erosion rate $\\omega_s$
     """    
-    # Assumes: $\nu_s = \tfrac{1}{2}\left(1+\sqrt{1+4W}\right)$
-    
-    # Args:
-    #     W (float): weathering number $W$
-    
-    # Returns:
-    #     float: dimensionless erosion rate $\omega_s$
     return 0.5*(1+np.sqrt(1+4*W))
 
 
@@ -67,56 +66,62 @@ class NumericalModel:
     its eroding surface position $\\phi(\\tau)$ as 2d array $\\omega_i^j$ 
     and 1d vector $\\phi^j$ respectively, and that provides dictionaries 
     for the model and its numerical solution parameters.
+
+    Args:
+        physical_parameters: model parameters dictionary
+        model_parameters: numerical method parameters dictionary
+
     """
-    # Args:
-    #     physical_parameters (dict): model parameters dictionary
-    #     model_parameters (dict): numerical method parameters dictionary
-    def __init__(self, physical_parameters, model_parameters) -> None:
+    def __init__(
+            self, 
+            physical_parameters: dict, 
+            model_parameters: dict,
+        ) -> None:
         """
         Initialize class instance.
         
         Attributes:
-            parameters (:obj:`dict`) : 
+            parameters (dict): 
                 model parameters dictionary, extended during & after instantiation
-            model_parameters (:obj:`dict`) : 
+            model_parameters (dict): 
                 numerical method parameters dictionary
             
-            chi_domain_size (:obj:`float`):  
+            chi_domain_size (float):  
                 length of chi solution domain (extracted from model_parameters)
-            Delta_chi (:obj:`float`):        
+            Delta_chi (float):        
                 spacing between discrete chi solution points (extracted from model_parameters)
-            n_chi_domain (:obj:`int`):       
+            n_chi_domain (int):       
                 number of solution points in distance chi (extracted from model_parameters)
-            tau_domain_size (:obj:`float`):  
+            tau_domain_size (float):  
                 maximum duration of solution (truncated if/when front 
                 exits chi domain) (extracted from model_parameters)
-            tau_n_steps (:obj:`int`):        
+            tau_n_steps (int):        
                 number of solution points in time $\\tau$
-            Delta_tau (:obj:`float`):        
+            Delta_tau (float):        
                 spacing between discrete tau solution points
     
-            chi_array (:class:`numpy.ndarray`) : 
+            chi_array (NDArray): 
                 discrete distances $\\chi_i$ 
-            tau_array (:class:`numpy.ndarray`) : 
+            tau_array (NDArray): 
                 discrete times $\\tau^j$
-            eta_array (:class:`numpy.ndarray`) : 
+            eta_array (NDArray): 
                 discretized weakness profile $\\omega_i^j$
-            phi_array (:class:`numpy.ndarray`) : 
+            phi_array (NDArray): 
                 discrete (in time) series of erosion front 
                 positions $\\phi^j$ (smoothly resolved as floats)
-            nu_array  (:class:`numpy.ndarray`) :  
+            nu_array (NDArray):  
                 discrete (in time) series of 
                 dimensionless erosion rates $\\nu^j$
             
-            j (:obj:`int`) :  
+            j (int):  
                 final time step index $j$
     
-            W (:obj:`float`)    : 
+            W (float): 
                 weathering number $W$
-            nu_s (:obj:`float`) : 
+            nu_s (float): 
                 predicted (by analytical solution) dimensionless 
                 steady-state erosion rate $\\nu_s$
-            v_s (:obj:`float`)  : 
+            v_s (float): 
                 predicted (by analytical solution) steady-state erosion rate $v_s$    
         """
         self.physical_parameters = physical_parameters
@@ -154,13 +159,13 @@ class NumericalModel:
         $\\phi^j$.
         """
         # Attributes:
-        #     parameters (:obj:`dict`) : 
+        #     parameters (dict) : 
         #         model parameters dictionary, extended during & after instantiation
-        #     nu_array  (:class:`numpy.ndarray`) :  discrete (in time) series of 
+        #     nu_array  (NDArray) :  discrete (in time) series of 
         #                                 dimensionless erosion rates $\\nu^j` 
             
         #     j (int) :  final time step index $j`
-        #     nu_s_bar (:obj:`float`) : 
+        #     nu_s_bar (float) : 
         #         post-hoc estimate (from averaging portion of solutions) of
         #                        dimensionless steady-state erosion rate 
         #                        $\\overline{\\nu}_s`

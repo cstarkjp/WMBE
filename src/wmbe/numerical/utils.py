@@ -23,14 +23,15 @@ def linear_model(
     ) -> float|NDArray:
     """
     Simple linear model of form: $y = m x + c$.
-    """    
-    # Args:
-    #     x (float or NDArray) : coordinate
-    #     m (float) : gradient
-    #     c (float) : intercept
 
-    # Returns:
-    #     float or NDArray: y
+    Args:
+        x: coordinate
+        m: gradient
+        c: intercept
+
+    Returns:
+        y
+    """    
     return m*x+c
 
 def exponential_decay_model(
@@ -40,12 +41,13 @@ def exponential_decay_model(
     ) -> float|NDArray:
     """
     Shifted exponential decay model of form: $y = 1 + c \\exp(-x/m)$.
-    """    
-    # Args:
-    #     x (float or NDArray) : coordinate
-    #     m (float) : e-folding scale
-    #     c (float) : magnitude
 
-    # Returns:
-    #     float or NDArray: y
+    Args:
+        x: coordinate
+        m: e-folding scale
+        c: magnitude
+
+    Returns:
+        y
+    """    
     return 1 + c*np.exp(-x/m)

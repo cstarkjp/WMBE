@@ -8,8 +8,9 @@ import warnings
 import numpy as np
 import pandas as pd
 from scipy.optimize import curve_fit
-
 from pandas import DataFrame
+from collections.abc import Sequence
+from numpy.typing import NDArray
 
 from wmbe.numerical.utils import (
     linear_model, exponential_decay_model,
@@ -33,22 +34,24 @@ class WeatheringMediatedWeakness:
 
     @staticmethod
     def weakening_model(
-            wetdryN_P: float, 
+            wetdryN_P: Sequence|NDArray, 
             k: float, 
             w0: float, 
             tau0: float,
         ) -> float:
         """
-        Shifted exponential decay weathering model: $w = 1 + w_0(\\tau+\\tau_0)\\exp(-k\\chi)$.
-        """    
-        # Args:
-        #     wetdryN_P (numpy.ndarray) : pair $(\\tau,\chi)$
-        #     k (float) : reciprocal e-folding scale $k$
-        #     w0 (float) : magnitude $w_0$
-        #     tau0 (float) : time offset $\\tau_0$
+        Shifted exponential decay weathering model: 
+        $w = 1 + w_0(\\tau+\\tau_0)\\exp(-k\\chi)$.
 
-        # Returns:
-        #     float: y
+        Args:
+            wetdryN_P: pair $(\\tau,\\chi)$
+            k: reciprocal e-folding scale $k$
+            w0: magnitude $w_0$
+            tau0: time offset $\\tau_0$
+
+        Returns:
+            w
+        """    
         tau = wetdryN_P[0]
         chi = wetdryN_P[1]
         return 1 + w0*(tau+tau0)*np.exp(-k*chi)
@@ -67,22 +70,21 @@ class WeatheringMediatedWeakness:
         Perform a linear regression fit of a linear model to the given
         experimental data, such as modeling the degree of rock weakness
         as a linear function of the number of wetting and drying cycles.
-        """
-        
-        # Args:
-        #     data_set (str) : which experimental dataset,
-        #         as key to ddict element :class:`pandas.DataFrame`
-        #     x_name (str) : abscissa :math:`x`
-        #     y_name (str) : ordinate :math:`y`
-        #     select (str) : which computation of weakness from rock strength
+
+        Args:
+            data_set: which experimental dataset as key to pandas DataFrame
+            x_name: abscissa $x$
+            y_name: ordinate $y$
+            select: which computation of weakness from rock strength
     
-        # Attributes:
-        #     fdict[data_set] or fdict[selection_name]  (:obj:`dict` element) : 
-        #         model fit 
-        #     w_s2_means (:class:`numpy.ndarray`) :
-        #         mean values of weakness :math:`w`
-        #     w_s2_stds (:class:`numpy.ndarray`) :
-        #         standard deviations of weakness :math:`w`
+        Attributes:
+            fdict[data_set] or fdict[selection_name]: 
+                model fit 
+            w_s2_means (NDArray):
+                mean values of weakness $w$
+            w_s2_stds (NDArray):
+                standard deviations of weakness $w$
+        """
         if select is not None:
             for selection in np.unique(data[select]):
                 selection_name = f"{select}_{selection}"
@@ -106,25 +108,23 @@ class WeatheringMediatedWeakness:
         ) -> None:
         """
         Regress a 2d model against experimental data.
-        """
-        # Args:
-        #     data_set (:obj:`str`) : which experimental dataset,
-        #         as key to ddict element :class:`pandas.DataFrame`
-        #     select (:obj:`str`) : which computation of weakness from rock strength
 
-        # Attributes:
-        #     fdict[data_set] (:obj:`list`) : model surface fit as
-        #         meshgrid X=wet/dry :math:`N`, Y=confining pressure :math:`P`
-        #         and corresponding surface Z[X,Y] as list (X,Y,Z)
-        #     sdict[data_set] (:obj:`list`) : model surface estimates at experimental values as
-        #         meshgrid X=wet/dry :math:`N`, Y=confining pressure :math:`P`
-        #         and corresponding surface Z[X,Y] as list (X,Y,Z)
-        #     w_s2normed_means (:class:`numpy.ndarray`) : 
-        #         mean values of model-normed weakness :math:`w`
-        #     w_s2normed_stds (:class:`numpy.ndarray`) : 
-        #         standard deviations of :math:`w`
-    
-        
+        Args:
+            data_set: which experimental dataset as key to pandas DataFrame
+            select: which computation of weakness from rock strength
+
+        Attributes:
+            fdict[data_set]: model surface fit as
+                meshgrid X=wet/dry $N$, Y=confining pressure $P$
+                and corresponding surface Z[X,Y] as list (X,Y,Z)
+            sdict[data_set]: model surface estimates at experimental values as
+                meshgrid X=wet/dry $N$, Y=confining pressure $P$
+                and corresponding surface Z[X,Y] as list (X,Y,Z)
+            w_s2normed_means: 
+                mean values of model-normed weakness $w$
+            w_s2normed_stds: 
+                standard deviations of $w$
+        """        
         wdN_vec  = data.wetdryN
         P_vec    = data.P
         sig_vec  = data.sigmaC/180
