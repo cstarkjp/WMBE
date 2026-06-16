@@ -113,7 +113,15 @@ extra:
 nav:
     - Home: index.md
     # - Navigation: navigation.md
-    - Jupyter notebooks: notebooks/index.md
+    # - Jupyter notebooks: notebooks/index.md
+    - Jupyter notebooks: 
+      - Data: https://github.com/cstarkjp/WMBE/tree/main/notebooks/Data.ipynb
+      - Simulation: https://github.com/cstarkjp/WMBE/tree/main/notebooks/Simulation.ipynb
+      - Application: https://github.com/cstarkjp/WMBE/tree/main/notebooks/ChannelWall.ipynb
+    #   # - Theory: notebooks/Theory.ipynb
+    #   - Data: notebooks/Data.ipynb
+    #   - Simulation: notebooks/Simulation.ipynb
+    #   - Application: notebooks/ChannelWall.ipynb
     - Python package: 
         # - python-package/index.md
         - applications:
@@ -208,6 +216,9 @@ plugins:
 - search
 - autorefs  
 - caption
+# - mkdocs-jupyter:
+#     ## execute: true         # Execute notebook to update cell outputs before building
+#     include_source: true   # Show button to let users download the raw .ipynb file
 - mkdocstrings:
     handlers:
       python:
@@ -309,24 +320,3 @@ plugins:
           show_bases: false
           show_inheritance_diagram: true  # Sponsors only!
 
-# - mkdoxy:
-#     projects:
-#       WMBE: # name of project must be alphanumeric + numbers (without spaces)
-#         src-dirs: cplusplus # path to source code (support multiple paths separated by space) => INPUT
-#         full-doc: True # if you want to generate full documentation
-#         # doxy-cfg-file: Doxyfile 
-#         doxy-cfg: # standard doxygen configuration (key: value)
-#           FILE_PATTERNS: "*.cpp *.h*" # specify file patterns to filter out
-#           RECURSIVE: True # recursive search in source directories
-#           DOXYFILE_ENCODING: UTF-8
-#           PROJECT_NUMBER:
-#           PROJECT_BRIEF:
-#           PROJECT_LOGO:
-#           PROJECT_ICON:
-#           OUTPUT_DIRECTORY:
-#           CREATE_SUBDIRS: NO
-#           CREATE_SUBDIRS_LEVEL: 8
-#           ALLOW_UNICODE_NAMES: NO
-#           OUTPUT_LANGUAGE: English
-#           BRIEF_MEMBER_DESC: YES
-#           REPEAT_BRIEF: YES
