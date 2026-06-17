@@ -4,7 +4,9 @@
 [![](https://github.com/cstarkjp/WMBE/actions/workflows/pypi-publish.yml/badge.svg?style=cache-control=no-cache)](https://github.com/cstarkjp/WMBE/actions/workflows/pypi-publish.yml)
 
 
-**Summary:**    Tools for modeling the weathering-mediated erosion of bedrock. The focus is on environments with no soil or talus accumulation: for example, on steep bedrock channel walls. The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock.
+**Summary:**    Tools for modeling the weathering-mediated erosion of bedrock. The focus is on environments with no soil or talus accumulation: for example, on steep bedrock channel walls.
+
+<!-- The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock. -->
 
 
 
@@ -17,18 +19,18 @@
 
 ### Abstract
 
-Weathering is important not only on hillslopes, but also in bedrock river channels, where it weakens exposed rock and makes it more susceptible to mechanical erosion. Removal of surface rock modifies the weathering depth profile, which in turn modifies the rate of weathering.
+Weathering is important in bedrock river channels, not just on hillslopes. It weakens rock exposed by stage variation and makes it more susceptible to mechanical erosion. Such erosion modifies the depth-profile of rock weakness, which in turn modifies the overall rate of weathering.
 Here we study how this interaction acts to set a steady-state erosion rate.
 
-We define rock weakness to be its propensity to erosion by flow-driven particle impact wear. Experiments indicate such weakness is inversely proportional to tensile strength squared, and that weakening takes place through wetting/drying, freeze/thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth. Therefore here we equate weakening explicitly with weathering.
+We define rock weakness to be its propensity to erosion by flow-driven particle-impact wear. Experiments indicate such weakness is inversely proportional to tensile strength squared, and that weakening takes place through wetting/drying, freeze/thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth. Therefore here we equate weakening explicitly with weathering.
 
-Two speeds control the erosion rate: (i) the speed that weathering propagates into the rock ${\lambda} {\eta_0}$, where  ${\eta_0}$ is the weathering rate of fresh rock and ${\lambda}$ is the e-folding depth; (ii) the baseline speed of erosion of fresh rock ${u}_0$. 
-Model behavior is parameterized by the ratio of these two speeds at steady-state, and is defined here as the dimensionless weathering number ${\mathcal{W}}$.
+Two speeds control the erosion rate: (i) the speed that weathering propagates into the rock ${\lambda} {\eta_0}$, where  ${\eta_0}$ is the weathering rate of fresh rock and ${\lambda}$ is the e-folding depth; (ii) the raw speed of erosion of fresh rock ${u}_0$. 
+Model behavior is parameterized by a dimensionless number equal to the ratio of these two speeds, which we call the weathering number ${\mathcal{W}}$.
 
-For slow weathering-driven weakening relative to erosion, ${\mathcal{W}}<0.25$, they simply add and the erosion rate is ${\lambda}{\eta_0} + {u_0}$.
-However, for relatively fast weathering, ${\mathcal{W}}>2.5$, the predicted behavior is counter-intuitive: the erosion rate is half the baseline rate ${u_0}/2$ plus the geometric mean of the two speeds $\sqrt{ {\lambda} {\eta_0} {u_0} }$; for very fast weathering, the multiplicative average dominates. 
+For small weathering number ${\mathcal{W}}<0.25$, and slow weathering-driven weakening relative to erosion, the two speeds simply add and the erosion rate is approximately ${\lambda}{\eta_0} + {u_0}$.
+However, for large weathering number ${\mathcal{W}} \gg 2.5$ and relatively fast weathering-driven weakening, the predicted behavior is counter-intuitive: the erosion rate is asymptotically the geometric mean of the two speeds $\sqrt{ {\lambda} {\eta_0} {u_0} }$.
 
-The weathering rate alone never limits the rate of erosion, so the concept of weathering limitation does not apply in the traditional sense.
+The rate of weathering alone never limits the rate of erosion, and so the concept of weathering limitation does not apply in the traditional sense.
 
 ### Code
 
