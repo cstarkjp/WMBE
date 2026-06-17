@@ -19,19 +19,18 @@
 
 ### Abstract
 
-Weathering is important in bedrock river channels, not just on hillslopes. It weakens rock exposed by stage variation and makes it more susceptible to mechanical erosion. Such erosion modifies the depth-profile of rock weakness, which in turn modifies the overall rate of weathering.
+Sub-aerial weathering in bedrock river channels is important, just as on rockslopes and soil-mantled hillslopes, but little studied. It weakens rock exposed during stage variation and makes it more susceptible to mechanical erosion. Such erosion modifies the depth-profile of rock weakness, which in turn modifies the overall rate of weathering.
 Here we study how this interaction acts to set a steady-state erosion rate.
 
 We define rock weakness to be its propensity to erosion by flow-driven particle-impact wear. Experiments indicate such weakness is inversely proportional to tensile strength squared, and that weakening takes place through wetting/drying, freeze/thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth. Therefore here we equate weakening explicitly with weathering.
 
-Two speeds control the erosion rate: (i) the speed that weathering propagates into the rock ${\lambda} {\eta_0}$, where  ${\eta_0}$ is the weathering rate of fresh rock and ${\lambda}$ is the e-folding depth; (ii) the raw speed of erosion of fresh rock ${u}_0$. 
+Two speeds control the erosion rate: (i) the speed  ${\lambda} {\eta_0}$ that weathering-driven weakening propagates into the rock, where  ${\eta_0}$ is the weathering rate of fresh rock and ${\lambda}$ is the e-folding depth; (ii) the raw speed of erosion of fresh rock ${u}_0$. 
 Model behavior is parameterized by a dimensionless number equal to the ratio of these two speeds, which we call the weathering number ${\mathcal{W}}$.
 
-For small weathering number ${\mathcal{W}}<0.25$, and slow weathering-driven weakening relative to erosion, the two speeds simply add and the erosion rate is approximately ${\lambda}{\eta_0} + {u_0}$.
-However, for large weathering number ${\mathcal{W}} \gg 2.5$ and relatively fast weathering-driven weakening, the predicted behavior is counter-intuitive: the erosion rate is asymptotically the geometric mean of the two speeds $\sqrt{ {\lambda} {\eta_0} {u_0} }$.
+For small ${\mathcal{W}}<0.25$ and slow weathering relative to erosion, the two speeds simply add and the erosion rate is approximately ${\lambda}{\eta_0} + {u_0}$.
+However, for  ${\mathcal{W}} \gg 2.5$ and relatively fast weathering, the predicted behavior is counter-intuitive: the erosion rate is asymptotically the geometric mean of the two speeds $\sqrt{ {\lambda} {\eta_0} {u_0} }$.
 
 The rate of weathering alone never limits the rate of erosion, and so the concept of weathering limitation does not apply in the traditional sense.
-
 ### Code
 
 The code is provided as a [Python package](https://pypi.org/project/wmbe/) and [Jupyter notebooks](https://github.com/cstarkjp/WMBE/tree/main/notebooks).
