@@ -417,7 +417,7 @@ class VizSimulations(VizBase):
             plt.title(title, fontdict={"fontsize": 11.5})
         
         n_W_pts = 200
-        W_array   = np.exp(np.linspace(np.log(0.01), np.log(50), n_W_pts,))
+        W_array = np.exp(np.linspace(np.log(0.01), np.log(50), n_W_pts,))
         nus_array = np.array([
             eqns.nus_eqn_W.rhs.subs({W: W_}) 
             for W_ in W_array
@@ -425,27 +425,52 @@ class VizSimulations(VizBase):
         y_limits = (nus_array[0]*0.95, nus_array[-1],)
     
         plt.plot(W_array, nus_array, color="k", lw=1.5, label="analytical",)
-        plt.autoscale(enable=True, tight=True)
         axes = plt.gca()
+        axes.autoscale(enable=True, tight=True)
         if do_loglog:
             axes.set_xscale("log",)
             axes.set_yscale("log",)
             axes.yaxis.set_major_formatter(ticker.FormatStrFormatter("%0.0f"))
             axes.yaxis.set_minor_formatter(ticker.FormatStrFormatter("%0.0f"))
+            # transition line lower W
             plt.plot(
                 (0.25, 0.25,), 
-                (y_limits[0], y_limits[1]/3,), 
-                color="gray", 
+                (y_limits[0], y_limits[1]/5,), 
+                lw=2,
+                color="dimgrey", 
                 ls=":",
+                # alpha=0.7,
             )
+            # plt.plot(
+            #     # (1e-2, 2e-1,), 
+            #     (1.5e-1, 5e1,), 
+            #     (eqns.nus_eqn_W.rhs.subs({W: 0.25}), 
+            #      eqns.nus_eqn_W.rhs.subs({W: 0.25}),),
+            #     lw=2,
+            #     color="dimgrey", 
+            #     ls=":",
+            #     alpha=0.7,
+            # )
+            # transition line higher W
             plt.plot(
-                (2.63, 2.63,), 
-                (y_limits[0], y_limits[1],), 
-                color="gray", 
+                (2.5, 2.5,), 
+                (y_limits[0], y_limits[1]/2.9,), 
+                lw=2,
+                color="dimgrey", 
                 ls=":",
+                # alpha=0.7,
             )
+            # plt.plot(
+            #     (1.5e0, 5e1,), 
+            #     (eqns.nus_eqn_W.rhs.subs({W: 2.5}), 
+            #      eqns.nus_eqn_W.rhs.subs({W: 2.5}),),
+            #     lw=2,
+            #     color="dimgrey", 
+            #     ls=":",
+            #     alpha=0.7,
+            # )
             plt.text(
-                0.2, 
+                0.18, 
                 0.23, 
                 r"low ${\mathcal{W}}$", 
                 color="brown",
@@ -454,7 +479,7 @@ class VizSimulations(VizBase):
                 transform=axes.transAxes,
             )
             plt.text(
-                0.2, 
+                0.18, 
                 0.13, 
                 r"$\nu_\mathsf{{s}} \approx 1 + {\mathcal{W}}$", 
                 color="brown",
@@ -463,10 +488,19 @@ class VizSimulations(VizBase):
                 transform=axes.transAxes,
             )
             plt.text(
-                0.52, 
-                0.43, 
-                r"transitional ${\mathcal{W}}$", 
-                color="gray",
+                0.51, 
+                0.39, 
+                r"transitional", 
+                color="dimgrey",
+                verticalalignment="center", 
+                horizontalalignment="center",
+                transform=axes.transAxes,
+            )
+            plt.text(
+                0.51, 
+                0.3, 
+                r"${\mathcal{W}}$", 
+                color="dimgrey",
                 verticalalignment="center", 
                 horizontalalignment="center",
                 transform=axes.transAxes,
@@ -501,18 +535,18 @@ class VizSimulations(VizBase):
                 )
         
         plt.plot(
-            W_array[W_array<0.7],
-            1+W_array[W_array<0.7], 
-            label=r"low ${\mathcal{W}}$ approx",  
-            ls="--",
-            c="brown",
-        )
-        plt.plot(
-            W_array[W_array>1],
-            0.5+np.sqrt(W_array[W_array>1]), 
+            W_array[W_array>1.5],
+            0.5+np.sqrt(W_array[W_array>1.5]), 
             label=r"high ${\mathcal{W}}$ approx", 
             ls="--",
             c="blue",
+        )
+        plt.plot(
+            W_array[W_array<0.45],
+            1+W_array[W_array<0.45], 
+            label=r"low ${\mathcal{W}}$ approx",  
+            ls="--",
+            c="brown",
         )
         if text_label is not None:
             plt.text(
@@ -525,11 +559,21 @@ class VizSimulations(VizBase):
                 horizontalalignment="center",
                 transform=axes.transAxes,
             )
-        
+        axes.set_ylim(0.98, 7.5,)
         plt.legend(loc="upper left", fontsize=10,)
         plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
-        plt.ylabel(r"Dimensionless erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
-        # plt.grid(ls=":")
+        axes.set_ylabel(r"Dimensionless erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
+        plt.grid(which="major", lw=1, ls="-", alpha=0.3,)
+        plt.grid(which="minor", lw=1, ls="-", alpha=0.3,)
+
+        alt_axes = axes.twinx()  
+        alt_axes.autoscale(enable=True, tight=True)
+        if do_loglog:
+            alt_axes.set_yscale("log",)
+            alt_axes.yaxis.set_major_formatter(ticker.FormatStrFormatter(""))
+            alt_axes.yaxis.set_minor_formatter(ticker.FormatStrFormatter(""))
+            alt_axes.set_ylim(0.98, 7.5,)
+
 
     def erosion_rate_steadystate_W_transition(
             self, 
@@ -571,20 +615,20 @@ class VizSimulations(VizBase):
         )
         axes = plt.gca()
         plt.plot(
-            W_array[W_array<0.48], 
-            nus_array[W_array<0.48]/(1+(W_array[W_array<0.48])),
-            color="brown", 
-            ls="-", 
-            lw=1.5, 
-            label=r"low ${\mathcal{W}}$ approx",
-        )
-        plt.plot(
             W_array[W_array>1], 
             nus_array[W_array>1]/(0.5+np.sqrt(W_array[W_array>1])),
             color="b", 
             ls="-", 
             lw=1.5, 
             label=r"high ${\mathcal{W}}$ approx",
+        )
+        plt.plot(
+            W_array[W_array<0.48], 
+            nus_array[W_array<0.48]/(1+(W_array[W_array<0.48])),
+            color="brown", 
+            ls="-", 
+            lw=1.5, 
+            label=r"low ${\mathcal{W}}$ approx",
         )
         plt.text(
             0.18,
