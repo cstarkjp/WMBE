@@ -8,15 +8,15 @@
 
 <!-- The current treatment is 1d only, and it assumes an exponentially decaying weakening profile with depth into the rock. -->
 
-![Graph of erosion rate vs weathering number](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/erosionrate_steadystate.png
-)
+![Non-dimensionalized bedrock erosion rate at steady-state $\nu_{\mathrm{s}}$ vs dimensionless weathering number $\mathcal{W}$](https://raw.githubusercontent.com/cstarkjp/WMBE/main/images/erosionrate_steadystate.png)
+
 
 ### Abstract
 
-Weathering in bedrock river channels is important, just as on rockslopes and soil-mantled hillslopes, but relatively little studied. Sub-aerial weathering in particular weakens rock exposed during stage variation and makes it more susceptible to mechanical erosion. Such erosion modifies the depth-profile of rock weathering, which in turn modifies the process of weakening.
+Weathering is an important process in bedrock river channels, but it receives less attention than on rockslopes and soil-mantled hillslopes. Sub-aerial weathering in particular weakens channel rock exposed during stage variation and makes it more susceptible to mechanical erosion. Such erosion modifies the depth-profile of rock weathering, which in turn modifies the process of weakening.
 Here we study how these interactions lead to a steady-state erosion rate.
 
-We define rock weakness to be its propensity to erosion by flow-driven particle-impact wear. Experiments indicate such weakness is inversely proportional to tensile strength squared, and that weakening takes place through wetting/drying, freeze/thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth. Therefore here we equate weakening explicitly with weathering.
+Rock weakness is defined to be its propensity to erosion by flow-driven particle-impact wear. Experiments indicate such weakness is inversely proportional to tensile strength squared, and that weathering-driven weakening takes place through wetting/drying, freeze/thaw and thermal cycling at rates that diminish in a roughly exponential fashion with depth. 
 
 Two speeds control the erosion rate: (i) the speed  ${\lambda} {\eta_0}$ that weathering-driven weakening propagates into the rock, where  ${\eta_0}$ is the weathering rate of fresh rock and ${\lambda}$ is the e-folding depth; (ii) the raw speed of erosion of fresh rock ${u}_0$. 
 Model behavior is parameterized by a dimensionless number equal to the ratio of these two speeds, which we call the weathering number ${\mathcal{W}}$.
@@ -25,6 +25,8 @@ For small ${\mathcal{W}}<0.25$ and slow weathering relative to erosion, the two 
 However, for  ${\mathcal{W}} \gg 2.5$ and relatively fast weathering, the predicted behavior is counter-intuitive: the erosion rate is asymptotically the geometric mean of the two speeds $\sqrt{ {\lambda} {\eta_0} {u_0} }$.
 
 The rate of weathering alone never limits the rate of erosion, and so the concept of weathering limitation does not apply in the traditional sense.
+
+
 
 ### Code
 
