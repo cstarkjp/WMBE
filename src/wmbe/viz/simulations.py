@@ -29,7 +29,7 @@ class VizSimulations(VizBase):
             self, 
             name: str,
             title: str|None=None,
-            nm: NumericalModel|None=None, 
+            numerical_model: NumericalModel|None=None, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
@@ -38,7 +38,7 @@ class VizSimulations(VizBase):
         Generate graph of numerical solutions $j$ of dimensionless rock-surface 
         erosion rate $\\nu_i^j$ over dimensionless time $\\tau^j$. 
         These solutions are provided in the class instance 
-        :class:`~.solve1d.ErosionWeathering`.
+        `ErosionWeathering`.
         Legend-label by weathering number for this instance.
 
         Args:
@@ -52,11 +52,11 @@ class VizSimulations(VizBase):
             plt.title(title, fontdict={"fontsize": 11.5})
         
         plt.plot(
-            nm.tau_array, 
-            nm.nu_array,  
+            numerical_model.τ_array, 
+            numerical_model.ν_array,  
             color="k", 
             lw=1, 
-            label=r"${\mathcal{W}}=$"+f"{nm.W}",
+            label=r"${\mathcal{W}}=$"+f"{numerical_model.W}",
         )
         plt.legend(loc="center right")
         plt.xlabel(r"Time  $\tau$  [-]")
@@ -67,9 +67,11 @@ class VizSimulations(VizBase):
             self, 
             name: str,
             title: str|None=None,
-            nm: NumericalModel|None=None, 
+            numerical_model: NumericalModel|None=None, 
             tc: float=40, 
             nd: int=2,
+            do_moving_frame: bool=False,
+            do_zoom: bool=False,
             text_label: Sequence|None=None,
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
@@ -87,8 +89,10 @@ class VizSimulations(VizBase):
             name: key for figure dictionary
             title: optional title for figure
             nm: instance of 1d weathering-mediated erosion NumericalModel class
-            tc (int): $\\tau^j$  slicing "rate"
-            nd (int): number of decimal places in $\\tau$ legend label
+            tc: $\\tau^j$  slicing "rate"
+            nd: number of decimal places in $\\tau$ legend label
+            do_moving_frame: shift curves into frame of moving front
+            do_zoom: reduce y axis range
             text_label: 
                 text annotation as tuple of form 
                 (x-y coordinate, string, font size)
@@ -98,62 +102,78 @@ class VizSimulations(VizBase):
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        chi_ = nm.chi_array
-        tau_ = nm.tau_array
-        eta_ = nm.eta_array
-        j_ = nm.j
+        χ: NDArray = numerical_model.χ_array
+        τ: NDArray = numerical_model.τ_array
+        ω: NDArray = numerical_model.ω_array
+        j: int = numerical_model.j
 
-        tau_slices1 = np.linspace(
+        τ_slices1: NDArray = np.linspace(
             0, 
-            (nm.tau_n_steps-1)//tc,
+            (numerical_model.τ_n_steps-1)//tc,
             num=5,
             endpoint=True,
             dtype=np.int64,
         )
-        tau_slices2 = np.linspace(
-            (nm.tau_n_steps-1)//tc*2,
-            j_+1,
+        τ_slices2: NDArray = np.linspace(
+            (numerical_model.τ_n_steps-1)//tc*2,
+            j+1,
             num=5,
             endpoint=True,
             dtype=np.int64,
         )
-        tau_slices = np.concatenate((tau_slices1, tau_slices2,))
-        cmap = plt.cm.brg.reversed()
-        label=r"$\tau$={0:3."+str(nd)+"f}"
-        for idx,tau_slice in enumerate(tau_slices):
-            eta_slice = eta_[tau_slice]
-            chi_front = chi_[eta_slice==0]
-            chi_front = 0 if chi_front.shape[0]==0 else chi_front[-1]
+        τ_slices: NDArray = np.concatenate((τ_slices1, τ_slices2,))
+        cmap: Any = plt.cm.brg.reversed()
+        label: str = r"$\tau$={0:3."+str(nd)+"f}"
+        for (idx, τ_slice,) in enumerate(τ_slices):
+            ω_slice: NDArray = ω[τ_slice]
+            i_front: int = (ω_slice>0).argmax()
+            i_front = i_front if i_front==0 else i_front-1
+            χ_front: NDArray = (
+                χ - χ[i_front] if do_moving_frame
+                else χ
+            )
             plt.plot(
-                chi_[chi_>=chi_front],
-                eta_slice[chi_>=chi_front],
-                color=cmap(idx/tau_slices.size),
-                label=label.format(tau_[tau_slice]),
+                χ_front[i_front:],
+                ω_slice[i_front:],
+                # χ[χ>=χ_front],
+                # ω_slice[χ>=χ_front],
+                color=cmap(idx/τ_slices.size),
+                label=label.format(τ[τ_slice]),
             )
             
         axes = plt.gca()
-        plt.xlim(chi_[0],chi_[-1])
-        plt.xlim(-(chi_[-1]-chi_[0])/30,chi_[-1]*1.08)
+        if do_moving_frame:
+            plt.xlim(
+                -(χ[-1]-χ[0])/45 if do_zoom else -(χ[-1]-χ[0])/30, 
+                χ[-1]*1.08/6 if do_zoom else χ[-1]*1.08/4,
+            )
+        else:
+            plt.xlim(-(χ[-1]-χ[0])/30, χ[-1]*1.08,)
         x_limits = plt.xlim()
         y_limits = plt.ylim()
-        plt.ylim(y_limits[0]/3,y_limits[1])
-        bbox_props = dict(
-            boxstyle="rarrow,pad=0.3", 
-            lw=1.5, 
-            fc="white", 
-            ec="k",
+        plt.ylim(
+            0.99 if do_moving_frame and do_zoom else y_limits[0]/3, 
+            1.027 if do_moving_frame and do_zoom else y_limits[1],
         )
-        t = axes.text(
-            (x_limits[1]-x_limits[0])*0.45, 
-            (y_limits[1]-y_limits[0])*0.5, 
-            "erosion", 
-            ha="right", 
-            va="center", 
-            rotation=0, 
-            color="k",
-            size=12, 
-            bbox=bbox_props,
-        )
+
+        if not do_moving_frame:
+            bbox_props = dict(
+                boxstyle="rarrow,pad=0.3", 
+                lw=1.5, 
+                fc="white", 
+                ec="k",
+            )
+            t = axes.text(
+                (x_limits[1]-x_limits[0])*0.45, 
+                (y_limits[1]-y_limits[0])*0.5, 
+                "erosion", 
+                ha="right", 
+                va="center", 
+                rotation=0, 
+                color="k",
+                size=12, 
+                bbox=bbox_props,
+            )
         
         if text_label is not None:
             plt.text(
@@ -166,17 +186,23 @@ class VizSimulations(VizBase):
                 transform=axes.transAxes,
             )
 
-        plt.legend(loc="upper right", fontsize=10,)
-        plt.xlabel(r"Distance  $\chi$  [-]")
-        plt.ylabel(r"Weakness  ${\omega}(\chi,\tau)$  [-]")
+        plt.legend(loc="upper right", fontsize=10, framealpha=1,)
+        if do_moving_frame:
+            x_label = r"Distance from moving surface  $\chi -{\phi}$  [-]"
+            y_label = r"Weakness  ${\omega}(\chi, \tau)$  [-]"
+        else:
+            x_label = r"Distance  $\chi$  [-]"
+            y_label = r"Weakness  ${\omega}(\chi,\tau)$  [-]"
+        plt.xlabel(x_label)
+        plt.ylabel(y_label)
         plt.grid(ls=":")
 
     def stability_check(
             self, 
             name: str,
             title: str|None=None,
-            tau: NDArray|None=None, 
-            nu: NDArray|None=None, 
+            τ: NDArray|None=None, 
+            ν: NDArray|None=None, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:  
         """
@@ -197,7 +223,7 @@ class VizSimulations(VizBase):
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
 
-        plt.plot(tau, nu, "o-",)
+        plt.plot(τ, ν, "o-",)
         plt.ylim(1.204, 1.21,);
         plt.xlim(4, 4.03,);
 
@@ -205,7 +231,7 @@ class VizSimulations(VizBase):
             self, 
             name: str,
             title: str|None=None,
-            nm: NumericalModel|None=None, 
+            numerical_model: NumericalModel|None=None, 
             fig_size: tuple[float,float]=(6,4,),
         ) -> None:
         """
@@ -226,15 +252,18 @@ class VizSimulations(VizBase):
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        j_ = (nm.j*3)//4
-        i_offset = nm.n_chi_domain//7
-        phi_  = nm.phi_array[j_]
-        phi0_ = int(phi_/nm.Delta_chi)-i_offset
-        chi_s_= nm.chi_array[phi0_:]-nm.chi_array[phi0_+i_offset]
-        tau_  = nm.tau_array[-1]
+        j_ = (numerical_model.j*3)//4
+        i_offset = numerical_model.n_χ_domain//7
+        phi_  = numerical_model.φ_array[j_]
+        phi0_ = int(phi_/numerical_model.Δχ)-i_offset
+        chi_s_= (
+            numerical_model.χ_array[phi0_:]
+            - numerical_model.χ_array[phi0_+i_offset]
+        )
+        tau_  = numerical_model.τ_array[-1]
 
-        eta_s_numerical  = nm.eta_array[j_, phi0_:]
-        eta_s_analytical = weakness_chi_tau(chi_s_, tau_, nm.W)
+        eta_s_numerical  = numerical_model.ω_array[j_, phi0_:]
+        eta_s_analytical = weakness_chi_tau(chi_s_, tau_, numerical_model.W)
         
         chi_front = chi_s_[eta_s_numerical==0][-1]
         plt.plot(
@@ -252,7 +281,7 @@ class VizSimulations(VizBase):
             label="analytical", 
             ls=(0, (4, 5),),
         )
-        plt.xlim(nm.tau_array[0], nm.tau_array[-1],)
+        plt.xlim(numerical_model.τ_array[0], numerical_model.τ_array[-1],)
         
         axes = plt.gca()
         plt.xlim((chi_s_[0],chi_s_[-1]))
@@ -276,7 +305,9 @@ class VizSimulations(VizBase):
             bbox=bbox_props,
         )
         plt.legend()
-        plt.xlabel(r"Distance relative to erosion surface  $\chi_s=\chi-\phi_s$  [-]")
+        plt.xlabel(
+            r"Distance relative to erosion surface  $\chi_s=\chi-\phi_s$  [-]"
+        )
         plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
         plt.grid(ls=":")
 
@@ -314,14 +345,14 @@ class VizSimulations(VizBase):
         chi_min = 0
         for (idx, (nm, label,),) in enumerate(numerical_models):
             j_ = (nm.j*3)//4
-            i_offset = nm.n_chi_domain//15
-            phi_  = nm.phi_array[j_]
-            phi0_ = int(phi_/nm.Delta_chi)-i_offset
-            chi_s_= nm.chi_array[phi0_:]-nm.chi_array[phi0_+i_offset]
-            # tau_  = nm.tau_array[-1]
+            i_offset = nm.n_χ_domain//15
+            phi_  = nm.φ_array[j_]
+            phi0_ = int(phi_/nm.Δχ)-i_offset
+            chi_s_= nm.χ_array[phi0_:]-nm.χ_array[phi0_+i_offset]
+            # tau_  = nm.τ_array[-1]
             chi_min = min(chi_min, np.min(chi_s_))
             color=cmap(idx/len(numerical_models))
-            eta_s_numerical  = nm.eta_array[j_,phi0_:]
+            eta_s_numerical  = nm.ω_array[j_, phi0_:]
             chi_front = chi_s_[eta_s_numerical==0][-1]
             plt.plot(
                 chi_s_[chi_s_>=chi_front],
@@ -355,7 +386,7 @@ class VizSimulations(VizBase):
         plt.text(
             chi_min/3,0.5, 
             "air", 
-            color="k", 
+            color="dimgrey", 
             alpha=0.7, 
             size=14, 
             verticalalignment="center", 
@@ -364,7 +395,7 @@ class VizSimulations(VizBase):
         plt.text(
             -chi_min/3,0.5, 
             "rock", 
-            color="k", 
+            color="dimgrey", 
             alpha=0.7, 
             size=14,
             verticalalignment="center", 
@@ -373,7 +404,9 @@ class VizSimulations(VizBase):
             
         plt.xlim(chi_min, chi_max,)
         plt.legend(fontsize=11,)
-        plt.xlabel(r"Distance relative to erosion surface  $\chi_s=\chi-\phi_s$  [-]")
+        plt.xlabel(
+            r"Distance relative to erosion surface  $\chi_s=\chi-\phi_s$  [-]"
+        )
         plt.ylabel(r"Weakness  ${\omega}_s(\chi_s)$  [-]")
         plt.grid(ls=":")
 
@@ -416,15 +449,17 @@ class VizSimulations(VizBase):
         if title is None:
             plt.title(title, fontdict={"fontsize": 11.5})
         
-        n_W_pts = 200
-        W_array = np.exp(np.linspace(np.log(0.01), np.log(50), n_W_pts,))
-        nus_array = np.array([
+        n_W_pts: int = 200
+        W_array: NDArray = np.exp(
+            np.linspace(np.log(0.01), np.log(50), n_W_pts,)
+        )
+        ν_s_array: NDArray = np.array([
             eqns.nus_eqn_W.rhs.subs({W: W_}) 
             for W_ in W_array
         ])
-        y_limits = (nus_array[0]*0.95, nus_array[-1],)
+        y_limits: tuple[float,float] = (ν_s_array[0]*0.95, ν_s_array[-1],)
     
-        plt.plot(W_array, nus_array, color="k", lw=1.5, label="analytical",)
+        plt.plot(W_array, ν_s_array, color="k", lw=1.5, label="analytical",)
         axes = plt.gca()
         axes.autoscale(enable=True, tight=True)
         if do_loglog:
@@ -528,7 +563,7 @@ class VizSimulations(VizBase):
             for (idx, nus_soln,) in enumerate(numerical_models):
                 plt.plot(
                     nus_soln.W,
-                    nus_soln.nu_s,
+                    nus_soln.ν_s,
                     "o",
                     c="k",
                     label=("numerical" if idx==0 else None),
@@ -562,7 +597,9 @@ class VizSimulations(VizBase):
         axes.set_ylim(0.98, 7.5,)
         plt.legend(loc="upper left", fontsize=10,)
         plt.xlabel(r"Weathering number  ${\mathcal{W}}$  [-]")
-        axes.set_ylabel(r"Dimensionless erosion rate  ${\nu}_\mathsf{{s}}$  [-]")
+        axes.set_ylabel(
+            r"Dimensionless erosion rate  ${\nu}_\mathsf{{s}}$  [-]"
+        )
         plt.grid(which="major", lw=1, ls="-", alpha=0.3,)
         plt.grid(which="minor", lw=1, ls="-", alpha=0.3,)
 
@@ -573,7 +610,6 @@ class VizSimulations(VizBase):
             alt_axes.yaxis.set_major_formatter(ticker.FormatStrFormatter(""))
             alt_axes.yaxis.set_minor_formatter(ticker.FormatStrFormatter(""))
             alt_axes.set_ylim(0.98, 7.5,)
-
 
     def erosion_rate_steadystate_W_transition(
             self, 

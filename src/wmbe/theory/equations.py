@@ -59,18 +59,18 @@ class Equations:
                 $w_0 =  w_r H_s[z,z_\\mathrm{wc},\\kappa_w]$
             
         """
-        self.W_eqn           = Eq(W,w_0/(k*v_0))
-        self.nus_eqn_W       = Eq(nu_s,(1+sqrt(1+4*W))/2)
+        self.W_eqn           = Eq(W,w_0/(k*u_0))
+        self.nus_eqn_W       = Eq(ν_s,(1+sqrt(1+4*W))/2)
         self.nus_eqn_w0_v0   = self.nus_eqn_W.subs(W,self.W_eqn.rhs)
         self.etas0_eqn_W     = Eq(eta_s0, self.nus_eqn_W.rhs)
         self.etas0_eqn_w0_v0 = self.etas0_eqn_W.subs(W,self.W_eqn.rhs)
-        self.nus_eqn_etas0   = Eq(nu_s, eta_s0)
-        self.vs_eqn_etas0_v0 = Eq(v_s, self.nus_eqn_etas0.rhs*v_0)
-        self.v0_eqn_etas0_vs = Eq(v_0, solve(self.vs_eqn_etas0_v0,v_0)[0])
-        self.vs_eqn_w0_v0    = Eq(v_s, self.nus_eqn_w0_v0.rhs*v_0)
-        self.v0_eqn_vs_w0    = Eq(v_0, solve(self.vs_eqn_w0_v0,v_0)[0])
+        self.nus_eqn_etas0   = Eq(ν_s, eta_s0)
+        self.vs_eqn_etas0_v0 = Eq(u_s, self.nus_eqn_etas0.rhs*u_0)
+        self.v0_eqn_etas0_vs = Eq(u_0, solve(self.vs_eqn_etas0_v0,u_0)[0])
+        self.vs_eqn_w0_v0    = Eq(u_s, self.nus_eqn_w0_v0.rhs*u_0)
+        self.v0_eqn_vs_w0    = Eq(u_0, solve(self.vs_eqn_w0_v0,u_0)[0])
         self.v0_eqn_vr_h_z   = Eq(
-            v_0, 
+            u_0, 
             v_r*( (h-self.step(z,z_vc,kappa_v))*(1-v_b)+v_b ) 
         )
         self.w0_eqn_wr_z     = Eq(w_0, w_r*self.step(z,z_wc,kappa_w))

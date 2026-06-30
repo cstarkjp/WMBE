@@ -26,20 +26,20 @@ Attributes:
     z_vc (Symbol): x
     z_wc (Symbol): x
     nu_s_bar (Symbol): x
-    Delta_chi (Symbol): x
-    Delta_tau (Symbol): x
-    chi_domain_size (Symbol): x
-    tau_domain_size (Symbol): x
+    Δχ (Symbol): x
+    Δτ (Symbol): x
+    x_domain_size (Symbol): x
+    τ_domain_size (Symbol): x
 """
 
 from sympy import Symbol, symbols
 
 W: Symbol = Symbol("W", positive=True)
 w_0: Symbol = Symbol("w_0", positive=True)
-v_0: Symbol = Symbol("v_0", positive=True)
+u_0: Symbol = Symbol("v_0", positive=True)
 k: Symbol = Symbol("k", positive=True)
-nu_s: Symbol = Symbol("\\nu_s", positive=True)
-v_s: Symbol = Symbol("v_s", positive=True)
+ν_s: Symbol = Symbol("\\nu_s", positive=True)
+u_s: Symbol = Symbol("u_s", positive=True)
 
 eta: Symbol = Symbol("\\eta", positive=True)
 eta_s: Symbol = Symbol("\\eta_{s0}", positive=True)
@@ -56,7 +56,7 @@ kappa_w: Symbol = Symbol("\\kappa_w", positive=True)
 z_vc: Symbol = Symbol("z_\\mathrm{vc}", positive=True)
 z_wc: Symbol = Symbol("z_\\mathrm{wc}", positive=True)
 nu_s_bar: Symbol = Symbol("\\overline{\\nu}_s", positive=True)
-Delta_chi: Symbol = Symbol("\\Delta\\chi", positive=True)
-Delta_tau: Symbol = Symbol("\\Delta\\tau", positive=True)
-chi_domain_size: Symbol = Symbol("\\chi_\\mathrm{domain}", positive=True)
-tau_domain_size: Symbol = Symbol("\\tau_\\mathrm{domain}", positive=True)
+Δχ: Symbol = Symbol("\\Delta\\chi", positive=True)
+Δτ: Symbol = Symbol("\\Delta\\tau", positive=True)
+x_domain_size: Symbol = Symbol("\\chi_\\mathrm{domain}", positive=True)
+τ_domain_size: Symbol = Symbol("\\tau_\\mathrm{domain}", positive=True)

@@ -65,7 +65,7 @@ class ChannelWall:
         self.W_eqn_z_calibrated \
             = eqns.W_eqn.subs(self.physical_parameters)
         self.vs_eqn \
-            = eqns.vs_eqn_w0_v0.subs({v_0:eqns.v0_eqn_vr_h_z.rhs})
+            = eqns.vs_eqn_w0_v0.subs({u_0:eqns.v0_eqn_vr_h_z.rhs})
         self.vs_eqn_z_calibrated = (
             self.vs_eqn
                 .subs({w_0:self.w0_eqn_z_calibrated.rhs})
@@ -117,7 +117,7 @@ class ChannelWall:
         self.eta0_array = self.vs_array / self.v0_array
         self.W_array = np.array([
             np.float64(  (self.W_eqn_z_calibrated.rhs.subs(z,z__))
-                            .subs({v_0:self.v0_array[idx]})
+                            .subs({u_0:self.v0_array[idx]})
                             .subs({w_0:self.w0_array[idx]})  )
             for idx,z__ in enumerate(self.z_array)
         ])

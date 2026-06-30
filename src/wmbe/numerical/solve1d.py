@@ -86,27 +86,27 @@ class NumericalModel:
             model_parameters (dict): 
                 numerical method parameters dictionary
             
-            chi_domain_size (float):  
+            χ_domain_size (float):  
                 length of chi solution domain (extracted from model_parameters)
-            Delta_chi (float):        
+            Δχ (float):        
                 spacing between discrete chi solution points (extracted from model_parameters)
-            n_chi_domain (int):       
+            n_χ_domain (int):       
                 number of solution points in distance chi (extracted from model_parameters)
-            tau_domain_size (float):  
+            τ_domain_size (float):  
                 maximum duration of solution (truncated if/when front 
                 exits chi domain) (extracted from model_parameters)
-            tau_n_steps (int):        
+            τ_n_steps (int):        
                 number of solution points in time $\\tau$
-            Delta_tau (float):        
+            Δτ (float):        
                 spacing between discrete tau solution points
     
-            chi_array (NDArray): 
+            χ_array (NDArray): 
                 discrete distances $\\chi_i$ 
-            tau_array (NDArray): 
+            τ_array (NDArray): 
                 discrete times $\\tau^j$
-            eta_array (NDArray): 
+            ω_array (NDArray): 
                 discretized weakness profile $\\omega_i^j$
-            phi_array (NDArray): 
+            φ_array (NDArray): 
                 discrete (in time) series of erosion front 
                 positions $\\phi^j$ (smoothly resolved as floats)
             nu_array (NDArray):  
@@ -121,35 +121,56 @@ class NumericalModel:
             nu_s (float): 
                 predicted (by analytical solution) dimensionless 
                 steady-state erosion rate $\\nu_s$
-            v_s (float): 
+            u_s (float): 
                 predicted (by analytical solution) steady-state erosion rate $v_s$    
         """
-        self.physical_parameters = physical_parameters
-        self.W = (
+        self.physical_parameters: dict = physical_parameters
+        self.W: float = (
             physical_parameters[w_0]
                 /
-            (physical_parameters[k]*physical_parameters[v_0])
+            (physical_parameters[k]*physical_parameters[u_0])
         )
-        self.nu_s  = erosionrate_steadystate_W(self.W)
-        self.v_s = self.nu_s*physical_parameters[v_0]
-        self.physical_parameters.update({W:self.W, nu_s:self.nu_s, v_s:self.v_s})
+        self.ν_s: float  = erosionrate_steadystate_W(self.W)
+        self.u_s: float = self.ν_s*physical_parameters[u_0]
+        self.physical_parameters.update({
+            W: self.W, 
+            ν_s: self.ν_s, 
+            u_s: self.u_s,
+        })
         
-        self.model_parameters = model_parameters
-        self.chi_domain_size = model_parameters[chi_domain_size]
-        self.tau_domain_size = model_parameters[tau_domain_size]
-        self.Delta_chi = model_parameters[Delta_chi]
-        self.Delta_tau = model_parameters[Delta_tau]
-        self.n_chi_domain = np.int64(self.chi_domain_size/self.Delta_chi)+1
-        self.tau_n_steps  = np.int64(self.tau_domain_size/self.Delta_tau)+1
+        self.model_parameters: dict = model_parameters
+        self.χ_domain_size: float = model_parameters[x_domain_size]
+        self.τ_domain_size: float = model_parameters[τ_domain_size]
+        self.Δχ: float = model_parameters[Δχ]
+        self.Δτ: float = model_parameters[Δτ]
+        self.n_χ_domain: int = np.int64(self.χ_domain_size/self.Δχ)+1
+        self.τ_n_steps: int  = np.int64(self.τ_domain_size/self.Δτ)+1
 
-        self.eta_array = np.zeros((self.tau_n_steps,self.n_chi_domain),dtype=np.float64)
-        self.eta_array[0] = np.ones(self.n_chi_domain,dtype=np.float64)
-        self.phi_array = np.zeros((self.tau_n_steps),dtype=np.float64)
-        self.chi_array = np.linspace(0,self.chi_domain_size,self.n_chi_domain,
-                                     dtype=np.float64)
-        self.tau_array = np.linspace(0,self.tau_domain_size,self.tau_n_steps,
-                                     dtype=np.float64)
-        self.nu_array  = np.zeros((self.tau_n_steps),dtype=np.float64)
+        self.ω_array: NDArray = np.zeros(
+            (self.τ_n_steps, self.n_χ_domain,),
+            dtype=np.float64,
+        )
+        self.ω_array[0] = np.ones(self.n_χ_domain,dtype=np.float64)
+        self.φ_array: NDArray = np.zeros(
+            self.τ_n_steps, 
+            dtype=np.float64,
+        )
+        self.χ_array: NDArray = np.linspace(
+            0,
+            self.χ_domain_size,
+            self.n_χ_domain,
+            dtype=np.float64,
+        )
+        self.τ_array: NDArray = np.linspace(
+            0,
+            self.τ_domain_size,
+            self.τ_n_steps,
+            dtype=np.float64,
+        )
+        self.ν_array: NDArray  = np.zeros(
+            self.τ_n_steps,
+            dtype=np.float64,
+        )
         self.j = 0
         
     def solve(self) -> None:
@@ -170,61 +191,65 @@ class NumericalModel:
         #                        dimensionless steady-state erosion rate 
         #                        $\\overline{\\nu}_s`
         W   = self.W
-        eta = self.eta_array
-        phi = self.phi_array
-        chi = self.chi_array
-        tau = self.tau_array
-        Delta_chi = self.Delta_chi
-        Delta_tau = self.Delta_tau
-        for j,tau_step in enumerate(tau[:-1]):
+        ω = self.ω_array
+        φ = self.φ_array
+        χ = self.χ_array
+        τ = self.τ_array
+        Δχ = self.Δχ
+        Δτ = self.Δτ
+        j: int
+        τ_step: float
+        for (j, τ_step,) in enumerate(τ[:-1]):
             self.j = j
-            f = np.int64(phi[j]/Delta_chi)
-            f_right = phi[j]/Delta_chi-f
+            f = np.int64(φ[j]/Δχ)
+            f_right = φ[j]/Δχ-f
             f_left = 1.0-f_right
             fp1 = f+1
             fp2 = f+2
-            if fp2>=self.n_chi_domain:
+            if fp2>=self.n_χ_domain:
                 break
-            self.nu_array[j] = (f_left*eta[j,f]+f_right*eta[j,fp1])
-            Delta_phi_j = (self.nu_array[j]*Delta_tau)/(W*2)
-            phi[j+1] = phi[j]+Delta_phi_j
-            eta[j+1,f:-1] = (
-                  eta[j,f:-1] 
-                + (Delta_phi_j*(eta[j,fp1:]-eta[j,f:-1]))/(Delta_chi)
-                +  Delta_tau*self.neg_exp_Heaviside(chi[f:-1]-phi[j],Delta_chi)
+            self.ν_array[j] = (f_left*ω[j,f]+f_right*ω[j,fp1])
+            Delta_phi_j = (self.ν_array[j]*Δτ)/(W*2)
+            φ[j+1] = φ[j]+Delta_phi_j
+            ω[j+1,f:-1] = (
+                  ω[j,f:-1] 
+                + (Delta_phi_j*(ω[j,fp1:]-ω[j,f:-1]))/(Δχ)
+                +  Δτ*self.neg_exp_Heaviside(χ[f:-1]-φ[j], Δχ,)
                 )
-            eta[j+1,-1] = (
-                  eta[j,-1] 
-                + (Delta_phi_j*(eta[j,-1]-eta[j,-2]))/(Delta_chi)
-                +  Delta_tau*self.neg_exp_Heaviside(chi[-1]-phi[j],Delta_chi)
+            ω[j+1,-1] = (
+                  ω[j,-1] 
+                + (Delta_phi_j*(ω[j,-1]-ω[j,-2]))/(Δχ)
+                +  Δτ*self.neg_exp_Heaviside(χ[-1]-φ[j], Δχ,)
             )
-        self.nu_array[j+1] = (f_left*eta[j,f]+f_right*eta[j,fp1])
-        di = self.nu_array.shape[0]//10
-        self.nu_s_bar = np.mean(self.nu_array[4*di:6*di])
+        self.ν_array[j+1] = (f_left*ω[j,f]+f_right*ω[j,fp1])
+        di = self.ν_array.shape[0]//10
+        self.nu_s_bar = np.mean(self.ν_array[4*di:6*di])
         self.physical_parameters.update({nu_s_bar:self.nu_s_bar})
 
     @staticmethod
     def neg_exp_Heaviside(
-        chi: float|NDArray , dchi: float|NDArray,
-    ) -> float|NDArray:
+            χ: float|NDArray , 
+            Δχ: float|NDArray,
+        ) -> float|NDArray:
         """
         Negate, exponentiate and Heaviside clip.
         
-        Assumes the argument chi= $\\chi$ is the dimensionless distance from the 
-        erosion front, and dchi= $\\Delta\\chi$  is the discrete spatial step size.
+        Assumes the argument χ = $\\chi$ is the dimensionless distance from the 
+        erosion front, and Δχ = $\\Delta\\chi$  is the discrete spatial step size.
         Exponentiates $-\\chi H(\\chi+\\Delta\\chi)$ where H=Heaviside function.
-        When invoked in computing $d{\\omega}/d{\\chi}$,  adding ${\\Delta}{\\chi}$ means
+        When invoked in computing $d{\\omega}/d{\\chi}$,  
+        adding ${\\Delta}{\\chi}$ means
         a non-clipped value is returned for the sample point just to the left 
         (-ve $\\chi$). Thus the ${\\omega}$ gradient is estimated across the erosion 
         front, where sample points span the moving origin, as well as for all points
         $\\chi\\geq 0$.
-        """
-        # Args:
-        #     chi (float): distance $\chi$ from the erosion front
-        #     dchi (float): discrete spacing $\Delta\chi$
-        #         between sample points along $\chi$
+
+        Args:
+            χ: distance $\\chi$ from the erosion front
+            Δχ: discrete spacing $\\Delta\\chi$
+                between sample points along $\\chi$
         
-        # Returns:
-        #     float:
-        #         $\exp(-\chi)$ if $\chi+\Delta\chi \geq 0$, 1 otherwise
-        return np.exp(-chi*np.heaviside(chi+dchi,0))
+        Returns:
+            $\\exp(-\\chi)$ if $\\chi+\\Delta\\chi \\geq 0$, 1 otherwise
+        """
+        return np.exp(-χ*np.heaviside(χ+Δχ,0))
